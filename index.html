@@ -133,7 +133,7 @@ footer { background:#00A3E0; text-align:center; padding:20px; color:#fff; border
 const serverDataList = document.getElementById("server-data");
 
 function fetchServerData() {
-  fetch("https://api.mcsrvstat.us/2winter.mcproxy.net")
+  fetch("https://api.mcsrvstat.us/2/mcabyss.xyz")
     .then(res => res.json())
     .then(data => {
       serverDataList.innerHTML = ""; // 清空
@@ -143,7 +143,7 @@ function fetchServerData() {
       const playersMax = data.players?.max || 0;
       const version = data.version || "--";
       const motd = data.motd?.clean?.join(" ") || "--";
-      const ip = data.ip || "winter.mcproxy.net";
+      const ip = data.ip || "mcabyss.xyz";
       const port = data.port || "默认";
 
       const items = [
