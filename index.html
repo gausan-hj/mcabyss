@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minecraft 服务器官网</title>
-<!-- Google 字体像素风格 -->
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
   /* ===== 全局 ===== */
@@ -43,31 +42,18 @@
 
   /* ===== 服务器信息 ===== */
   .server-info { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
-  .info-card { background:#7FDBFF; padding:20px; border:2px solid #00A3E0; border-radius:6px; width:300px; text-align:center; transition:0.3s; }
+  .info-card { background:#7FDBFF; padding:20px; border:2px solid #00A3E0; border-radius:6px; width:320px; transition:0.3s; }
   .info-card:hover { background:#00A3E0; cursor:pointer; }
-  .info-card h3 { margin-bottom:10px; font-size:1rem; }
-  .info-card p { font-size:0.85rem; color:#fff; margin-bottom:5px; }
+  .info-card h3 { margin-bottom:10px; font-size:1rem; text-align:center; }
+  .info-item { display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.85rem; color:#fff; }
 
   /* ===== 信号格 ===== */
-  .signal {
-    display:flex; justify-content:center; align-items:flex-end; gap:2px; margin-top:10px;
-    height:20px;
-  }
-  .signal div {
-    width:6px; background:#fff; opacity:0.2; transition:0.3s;
-  }
+  .signal { display:flex; justify-content:center; align-items:flex-end; gap:4px; margin-top:10px; height:20px; }
+  .signal div { width:8px; background:#555; opacity:0.3; transition:0.3s; border-radius:2px; }
   .signal .bar1 { height:4px; }
   .signal .bar2 { height:8px; }
   .signal .bar3 { height:12px; }
   .signal .bar4 { height:16px; }
-
-  /* ===== 下载区 ===== */
-  .downloads { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
-  .download-btn {
-    background:#00A3E0; padding:15px 25px; border-radius:4px; border:2px solid #fff;
-    color:#fff; transition:0.3s; font-size:0.85rem; text-align:center;
-  }
-  .download-btn:hover { background:#fff; color:#00A3E0; }
 
   /* ===== 规则区 ===== */
   .rules { max-width:800px; margin:0 auto; }
@@ -80,7 +66,6 @@
     border-top:4px solid #7FDBFF;
   }
 
-  /* ===== 响应式 ===== */
   @media(max-width:768px){
     .server-info, .downloads { flex-direction:column; align-items:center; }
     .hero h1 { font-size:1.5rem; }
@@ -90,7 +75,6 @@
 </head>
 <body>
 
-<!-- 顶部导航 -->
 <nav>
   <div class="logo">MC Server</div>
   <ul>
@@ -102,7 +86,6 @@
   </ul>
 </nav>
 
-<!-- Banner / Hero -->
 <section class="hero">
   <div class="hero-content">
     <h1>欢迎来到 MC 服务器</h1>
@@ -111,16 +94,15 @@
   </div>
 </section>
 
-<!-- 服务器信息 -->
 <div class="server-info">
   <div class="info-card">
-    <h3>服务器状态</h3>
-    <p id="bedrock-status">加载中...</p>
-    <p id="bedrock-players">-- / --</p>
-    <p id="bedrock-version">版本: --</p>
-    <p id="bedrock-motd">MOTD: --</p>
-    <p id="bedrock-ip">IP: mcabyss.xyz</p>
-    <p id="bedrock-port">端口: 10138</p>
+    <h3>基岩版服务器信息</h3>
+    <div class="info-item"><span>状态:</span> <span id="bedrock-status">加载中...</span></div>
+    <div class="info-item"><span>玩家:</span> <span id="bedrock-players">-- / --</span></div>
+    <div class="info-item"><span>版本:</span> <span id="bedrock-version">--</span></div>
+    <div class="info-item"><span>MOTD:</span> <span id="bedrock-motd">--</span></div>
+    <div class="info-item"><span>IP:</span> <span id="bedrock-ip">mcabyss.xyz</span></div>
+    <div class="info-item"><span>端口:</span> <span id="bedrock-port">10138</span></div>
     <div class="signal">
       <div class="bar1"></div>
       <div class="bar2"></div>
@@ -130,7 +112,6 @@
   </div>
 </div>
 
-<!-- 规则区 -->
 <section id="rules">
   <div class="container">
     <h2 style="text-align:center; margin-bottom:40px; color:#00A3E0;">服务器规则</h2>
@@ -144,7 +125,6 @@
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
   &copy; 2026 MC 服务器 | 联系我们: support@examplemc.com | Discord: discord.gg/example
 </footer>
@@ -162,34 +142,31 @@ function updateBedrockStatus() {
 
       document.getElementById("bedrock-status").innerText = online ? "🟢 在线" : "🔴 离线";
       document.getElementById("bedrock-players").innerText = `${playersOnline} / ${playersMax}`;
-      document.getElementById("bedrock-version").innerText = `版本: ${version}`;
-      document.getElementById("bedrock-motd").innerText = `MOTD: ${motd}`;
+      document.getElementById("bedrock-version").innerText = version;
+      document.getElementById("bedrock-motd").innerText = motd;
 
-      // 信号格显示
+      // 信号格亮起绿色
       const bars = document.querySelectorAll(".signal div");
       let ratio = playersMax > 0 ? playersOnline / playersMax : 0;
       if(!online) ratio = 0;
       bars.forEach((bar, i) => {
-        if(ratio >= (i+1)/4) {
-          bar.style.opacity = 1;
-        } else {
-          bar.style.opacity = 0.2;
-        }
+        if(ratio >= (i+1)/4) bar.style.background = "#00FF00";
+        else bar.style.background = "#555";
       });
     })
     .catch(() => {
       document.getElementById("bedrock-status").innerText = "❌ 无法获取";
       document.getElementById("bedrock-players").innerText = "-- / --";
-      document.getElementById("bedrock-version").innerText = "版本: --";
-      document.getElementById("bedrock-motd").innerText = "MOTD: --";
-      document.querySelectorAll(".signal div").forEach(bar=>bar.style.opacity=0.2);
+      document.getElementById("bedrock-version").innerText = "--";
+      document.getElementById("bedrock-motd").innerText = "--";
+      document.querySelectorAll(".signal div").forEach(bar=>bar.style.background="#555");
     });
 }
 
 // 初次加载
 updateBedrockStatus();
-// 每 20 秒刷新一次
-setInterval(updateBedrockStatus, 20000);
+// 每 15 秒刷新一次
+setInterval(updateBedrockStatus, 15000);
 </script>
 
 </body>
