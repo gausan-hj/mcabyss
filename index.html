@@ -90,15 +90,13 @@
 
 <!-- 导航 -->
 <nav>
-<!-- 导航 -->
-<nav>
   <div class="logo">滄淵啟示錄</div>
   <ul>
-    <li data-page="index.html" data-lang="nav-home">主页</li>
-    <li data-page="server.html" data-lang="nav-server">服务器信息</li>
-    <li data-page="download.html" data-lang="nav-download">下载</li>
-    <li data-page="rules.html" data-lang="nav-rules">规则</li>
-    <li data-page="contact.html" data-lang="nav-contact">联系我们</li>
+    <li data-lang="nav-home">主页</li>
+    <li data-lang="nav-server">服务器信息</li>
+    <li data-lang="nav-download">下载</li>
+    <li data-lang="nav-rules">规则</li>
+    <li data-lang="nav-contact">联系我们</li>
   </ul>
   <div class="lang-switch">
     <button onclick="setLang('zh-CN')">简体</button>
@@ -238,7 +236,6 @@ function updateSignal(id, online){
 // 每 30 秒刷新一次
 updateServerStatus();
 setInterval(updateServerStatus, 30000);
- 
 </script>
 
 </body>
