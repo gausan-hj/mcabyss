@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft 服务器官网</title>
+<!-- Google 字体像素风格 -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  /* ===== 全局 ===== */
+  * { margin:0; padding:0; box-sizing:border-box; font-family: 'Press Start 2P', cursive; }
+  body { background: #e0f7ff; color:#fff; line-height:1.6; }
+  a { text-decoration:none; color:inherit; }
+
+  /* ===== 顶部导航 ===== */
+  nav {
+    display:flex; justify-content:space-between; align-items:center;
+    background:#7FDBFF; padding:10px 20px;
+    border-bottom:4px solid #00A3E0;
+  }
+  nav .logo { font-size:1.2rem; color:#fff; }
+  nav ul { display:flex; gap:15px; list-style:none; }
+  nav ul li { padding:5px 10px; transition:0.3s; }
+  nav ul li:hover { background:#00A3E0; border-radius:4px; cursor:pointer; }
+
+  /* ===== Banner ===== */
+  .hero {
+    background: url('https://i.imgur.com/OaHqPjB.jpg') center/cover no-repeat; 
+    text-align:center; padding:100px 20px; position:relative;
+  }
+  .hero::after {
+    content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3);
+  }
+  .hero-content { position:relative; z-index:1; }
+  .hero h1 { font-size:2rem; margin-bottom:20px; color:#fff; text-shadow:2px 2px #00A3E0; }
+  .hero p { font-size:1rem; margin-bottom:30px; color:#fff; }
+  .hero .btn { background:#00A3E0; color:#fff; padding:10px 20px; border:2px solid #fff; border-radius:4px; transition:0.3s; }
+  .hero .btn:hover { background:#fff; color:#00A3E0; }
+
+  /* ===== 区块通用 ===== */
+  section { padding:60px 20px; }
+  .container { max-width:1200px; margin:0 auto; }
+
+  /* ===== 服务器信息 ===== */
+  .server-info { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+  .info-card { background:#7FDBFF; padding:20px; border:2px solid #00A3E0; border-radius:6px; width:250px; text-align:center; transition:0.3s; }
+  .info-card:hover { background:#00A3E0; cursor:pointer; }
+  .info-card h3 { margin-bottom:10px; font-size:1rem; }
+  .info-card p { font-size:0.85rem; color:#fff; }
+
+  /* ===== 下载区 ===== */
+  .downloads { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+  .download-btn {
+    background:#00A3E0; padding:15px 25px; border-radius:4px; border:2px solid #fff;
+    color:#fff; transition:0.3s; font-size:0.85rem; text-align:center;
+  }
+  .download-btn:hover { background:#fff; color:#00A3E0; }
+
+  /* ===== 规则区 ===== */
+  .rules { max-width:800px; margin:0 auto; }
+  .rules ul { list-style: none; }
+  .rules li { background:#7FDBFF; margin-bottom:10px; padding:10px; border-left:5px solid #00A3E0; }
+
+  /* ===== Footer ===== */
+  footer {
+    background:#00A3E0; text-align:center; padding:20px; color:#fff;
+    border-top:4px solid #7FDBFF;
+  }
+
+  /* ===== 响应式 ===== */
+  @media(max-width:768px){
+    .server-info, .downloads { flex-direction:column; align-items:center; }
+    .hero h1 { font-size:1.5rem; }
+    .hero p { font-size:0.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<nav>
+  <div class="logo">MC Server</div>
+  <ul>
+    <li>主页</li>
+    <li>服务器信息</li>
+    <li>下载</li>
+    <li>规则</li>
+    <li>联系我们</li>
+  </ul>
+</nav>
+
+<!-- Banner / Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>欢迎来到 MC 服务器</h1>
+    <p>探索无限的像素世界，与朋友一起冒险！</p>
+    <a href="#downloads" class="btn">立即加入</a>
+  </div>
+</section>
+
+<!-- 服务器信息 -->
+<section id="server-info">
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom:40px; color:#00A3E0;">服务器信息</h2>
+    <div class="server-info">
+      <div class="info-card">
+        <h3>服务器类型</h3>
+        <p>Java & Bedrock</p>
+      </div>
+      <div class="info-card">
+        <h3>服务器 IP</h3>
+        <p>play.examplemc.com</p>
+      </div>
+      <div class="info-card">
+        <h3>在线人数</h3>
+        <p>当前 123 / 最大 500</p>
+      </div>
+      <div class="info-card">
+        <h3>特色玩法</h3>
+        <p>生存、PVP、冒险地图</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 下载区 -->
+<section id="downloads">
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom:40px; color:#00A3E0;">客户端下载</h2>
+    <div class="downloads">
+      <a href="#" class="download-btn">客户端下载 (Java)</a>
+      <a href="#" class="download-btn">客户端下载 (Bedrock)</a>
+      <a href="#" class="download-btn">材质包下载</a>
+    </div>
+  </div>
+</section>
+
+<!-- 规则区 -->
+<section id="rules">
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom:40px; color:#00A3E0;">服务器规则</h2>
+    <ul>
+      <li>禁止作弊、使用外挂</li>
+      <li>禁止语言攻击他人</li>
+      <li>尊重每位玩家</li>
+      <li>禁止破坏公共建筑</li>
+      <li>遵守管理员指示</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  &copy; 2026 MC 服务器 | 联系我们: support@examplemc.com | Discord: discord.gg/example
+</footer>
+
+</body>
+</html>
