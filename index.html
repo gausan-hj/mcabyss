@@ -4,77 +4,88 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minecraft 服务器官网</title>
-<!-- Google 像素风字体 -->
+<!-- Google 字体像素风格 -->
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-/* ===== 全局 ===== */
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Press Start 2P', cursive; }
-body { background:#e0f7ff; color:#fff; line-height:1.6; }
-a { text-decoration:none; color:inherit; }
+  /* ===== 全局 ===== */
+  * { margin:0; padding:0; box-sizing:border-box; font-family: 'Press Start 2P', cursive; }
+  body { background: #e0f7ff; color:#fff; line-height:1.6; }
+  a { text-decoration:none; color:inherit; }
 
-/* ===== 顶部导航 ===== */
-nav {
-  display:flex; justify-content:space-between; align-items:center;
-  background:#7FDBFF; padding:10px 20px; border-bottom:4px solid #00A3E0;
-}
-nav .logo { font-size:1.2rem; color:#fff; }
-nav ul { display:flex; gap:15px; list-style:none; }
-nav ul li { padding:5px 10px; transition:0.3s; }
-nav ul li:hover { background:#00A3E0; border-radius:4px; cursor:pointer; }
+  /* ===== 顶部导航 ===== */
+  nav {
+    display:flex; justify-content:space-between; align-items:center;
+    background:#7FDBFF; padding:10px 20px;
+    border-bottom:4px solid #00A3E0;
+  }
+  nav .logo { font-size:1.2rem; color:#fff; }
+  nav ul { display:flex; gap:15px; list-style:none; }
+  nav ul li { padding:5px 10px; transition:0.3s; }
+  nav ul li:hover { background:#00A3E0; border-radius:4px; cursor:pointer; }
 
-/* ===== Banner ===== */
-.hero {
-  background:url('https://i.imgur.com/OaHqPjB.jpg') center/cover no-repeat; 
-  text-align:center; padding:100px 20px; position:relative;
-}
-.hero::after {
-  content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3);
-}
-.hero-content { position:relative; z-index:1; }
-.hero h1 { font-size:2rem; margin-bottom:20px; color:#fff; text-shadow:2px 2px #00A3E0; }
-.hero p { font-size:1rem; margin-bottom:30px; color:#fff; }
-.hero .btn { background:#00A3E0; color:#fff; padding:10px 20px; border:2px solid #fff; border-radius:4px; transition:0.3s; }
-.hero .btn:hover { background:#fff; color:#00A3E0; }
+  /* ===== Banner ===== */
+  .hero {
+    background: url('https://i.imgur.com/OaHqPjB.jpg') center/cover no-repeat; 
+    text-align:center; padding:100px 20px; position:relative;
+  }
+  .hero::after {
+    content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3);
+  }
+  .hero-content { position:relative; z-index:1; }
+  .hero h1 { font-size:2rem; margin-bottom:20px; color:#fff; text-shadow:2px 2px #00A3E0; }
+  .hero p { font-size:1rem; margin-bottom:30px; color:#fff; }
+  .hero .btn { background:#00A3E0; color:#fff; padding:10px 20px; border:2px solid #fff; border-radius:4px; transition:0.3s; }
+  .hero .btn:hover { background:#fff; color:#00A3E0; }
 
-/* ===== 信息卡 ===== */
-.server-info-section { padding:60px 20px; }
-.info-card { 
-  background:#7FDBFF; padding:20px; border:2px solid #00A3E0; border-radius:6px; 
-  max-width:400px; margin:0 auto; text-align:center;
-}
-.info-card h3 { margin-bottom:15px; font-size:1rem; color:#fff; }
-.info-card ul { list-style:none; padding:0; }
-.info-card ul li { 
-  background:rgba(0,163,224,0.3); margin:5px 0; padding:8px; 
-  border-radius:4px; font-size:0.85rem; color:#fff;
-  display:flex; justify-content:space-between; align-items:center;
-}
+  /* ===== 区块通用 ===== */
+  section { padding:60px 20px; }
+  .container { max-width:1200px; margin:0 auto; }
 
-/* ===== 信号格 ===== */
-.signal {
-  display:flex; align-items:flex-end; gap:2px; height:20px; width:50px; margin-left:10px;
-}
-.bar { width:10px; background:#aaa; transition:0.3s; }
-.bar1 { height:25%; }
-.bar2 { height:50%; }
-.bar3 { height:75%; }
-.bar4 { height:100%; }
-.online .bar { background:#0f0; }
-.offline .bar { background:#f00; }
+  /* ===== 服务器信息 ===== */
+  .server-info { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+  .info-card { background:#7FDBFF; padding:20px; border:2px solid #00A3E0; border-radius:6px; width:300px; text-align:center; transition:0.3s; }
+  .info-card:hover { background:#00A3E0; cursor:pointer; }
+  .info-card h3 { margin-bottom:10px; font-size:1rem; }
+  .info-card p { font-size:0.85rem; color:#fff; margin-bottom:5px; }
 
-/* ===== 规则区 ===== */
-.rules { max-width:800px; margin:0 auto; }
-.rules ul { list-style:none; }
-.rules li { background:#7FDBFF; margin-bottom:10px; padding:10px; border-left:5px solid #00A3E0; }
+  /* ===== 信号格 ===== */
+  .signal {
+    display:flex; justify-content:center; align-items:flex-end; gap:2px; margin-top:10px;
+    height:20px;
+  }
+  .signal div {
+    width:6px; background:#fff; opacity:0.2; transition:0.3s;
+  }
+  .signal .bar1 { height:4px; }
+  .signal .bar2 { height:8px; }
+  .signal .bar3 { height:12px; }
+  .signal .bar4 { height:16px; }
 
-/* ===== Footer ===== */
-footer { background:#00A3E0; text-align:center; padding:20px; color:#fff; border-top:4px solid #7FDBFF; }
+  /* ===== 下载区 ===== */
+  .downloads { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+  .download-btn {
+    background:#00A3E0; padding:15px 25px; border-radius:4px; border:2px solid #fff;
+    color:#fff; transition:0.3s; font-size:0.85rem; text-align:center;
+  }
+  .download-btn:hover { background:#fff; color:#00A3E0; }
 
-/* ===== 响应式 ===== */
-@media(max-width:768px){
-  .hero h1 { font-size:1.5rem; }
-  .hero p { font-size:0.9rem; }
-}
+  /* ===== 规则区 ===== */
+  .rules { max-width:800px; margin:0 auto; }
+  .rules ul { list-style: none; }
+  .rules li { background:#7FDBFF; margin-bottom:10px; padding:10px; border-left:5px solid #00A3E0; }
+
+  /* ===== Footer ===== */
+  footer {
+    background:#00A3E0; text-align:center; padding:20px; color:#fff;
+    border-top:4px solid #7FDBFF;
+  }
+
+  /* ===== 响应式 ===== */
+  @media(max-width:768px){
+    .server-info, .downloads { flex-direction:column; align-items:center; }
+    .hero h1 { font-size:1.5rem; }
+    .hero p { font-size:0.9rem; }
+  }
 </style>
 </head>
 <body>
@@ -96,19 +107,28 @@ footer { background:#00A3E0; text-align:center; padding:20px; color:#fff; border
   <div class="hero-content">
     <h1>欢迎来到 MC 服务器</h1>
     <p>探索无限的像素世界，与朋友一起冒险！</p>
-    <a href="#server-info" class="btn">立即加入</a>
+    <a href="#downloads" class="btn">立即加入</a>
   </div>
 </section>
 
 <!-- 服务器信息 -->
-<section class="server-info-section" id="server-info">
+<div class="server-info">
   <div class="info-card">
-    <h3>服务器信息</h3>
-    <ul id="server-data">
-      <li>加载中...</li>
-    </ul>
+    <h3>服务器状态</h3>
+    <p id="bedrock-status">加载中...</p>
+    <p id="bedrock-players">-- / --</p>
+    <p id="bedrock-version">版本: --</p>
+    <p id="bedrock-motd">MOTD: --</p>
+    <p id="bedrock-ip">IP: mcabyss.xyz</p>
+    <p id="bedrock-port">端口: 10138</p>
+    <div class="signal">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+      <div class="bar4"></div>
+    </div>
   </div>
-</section>
+</div>
 
 <!-- 规则区 -->
 <section id="rules">
@@ -130,64 +150,46 @@ footer { background:#00A3E0; text-align:center; padding:20px; color:#fff; border
 </footer>
 
 <script>
-const serverDataList = document.getElementById("server-data");
-
-function fetchServerData() {
-  fetch("https://api.mcsrvstat.us/2/mcabyss.xyz:10138")
+function updateBedrockStatus() {
+  fetch("https://api.mcsrvstat.us/bedrock/2/mcabyss.xyz:10138")
     .then(res => res.json())
     .then(data => {
-      serverDataList.innerHTML = ""; // 清空
-
       const online = data.online;
       const playersOnline = data.players?.online || 0;
       const playersMax = data.players?.max || 0;
-      const version = data.version || "--";
       const motd = data.motd?.clean?.join(" ") || "--";
-      const ip = data.ip || "mcabyss.xyz";
-      const port = data.port || "默认";
+      const version = data.version || "--";
 
-      const items = [
-        { label:"状态", value: online ? "🟢 在线" : "🔴 离线" },
-        { label:"版本", value: version },
-        { label:"MOTD", value: motd },
-        { label:"玩家在线", value: `${playersOnline} / ${playersMax}` },
-        { label:"IP", value: ip },
-        { label:"端口", value: port }
-      ];
+      document.getElementById("bedrock-status").innerText = online ? "🟢 在线" : "🔴 离线";
+      document.getElementById("bedrock-players").innerText = `${playersOnline} / ${playersMax}`;
+      document.getElementById("bedrock-version").innerText = `版本: ${version}`;
+      document.getElementById("bedrock-motd").innerText = `MOTD: ${motd}`;
 
-      items.forEach(i=>{
-        const li = document.createElement("li");
-        li.innerHTML = `<span>${i.label}</span> <span>${i.value}</span>`;
-        if(i.label === "状态"){
-          // 添加信号格
-          const signalDiv = document.createElement("div");
-          signalDiv.classList.add("signal");
-          for(let b=1;b<=4;b++){
-            const bar = document.createElement("div");
-            bar.classList.add(`bar`,`bar${b}`);
-            signalDiv.appendChild(bar);
-          }
-          if(online){
-            signalDiv.classList.add("online");
-          } else {
-            signalDiv.classList.add("offline");
-          }
-          li.appendChild(signalDiv);
+      // 信号格显示
+      const bars = document.querySelectorAll(".signal div");
+      let ratio = playersMax > 0 ? playersOnline / playersMax : 0;
+      if(!online) ratio = 0;
+      bars.forEach((bar, i) => {
+        if(ratio >= (i+1)/4) {
+          bar.style.opacity = 1;
+        } else {
+          bar.style.opacity = 0.2;
         }
-        serverDataList.appendChild(li);
       });
-
     })
-    .catch(()=>{
-      serverDataList.innerHTML = "<li>❌ 无法获取服务器数据</li>";
+    .catch(() => {
+      document.getElementById("bedrock-status").innerText = "❌ 无法获取";
+      document.getElementById("bedrock-players").innerText = "-- / --";
+      document.getElementById("bedrock-version").innerText = "版本: --";
+      document.getElementById("bedrock-motd").innerText = "MOTD: --";
+      document.querySelectorAll(".signal div").forEach(bar=>bar.style.opacity=0.2);
     });
 }
 
-// 首次加载
-fetchServerData();
-
-// 自动刷新，每 10 秒
-setInterval(fetchServerData, 10000);
+// 初次加载
+updateBedrockStatus();
+// 每 20 秒刷新一次
+setInterval(updateBedrockStatus, 20000);
 </script>
 
 </body>
