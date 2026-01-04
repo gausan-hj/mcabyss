@@ -194,7 +194,7 @@ function setLang(lang){
 /* ===== Java / Bedrock 状态刷新 ===== */
 function updateServerStatus(){
   // Java
-  fetch("https://api.minetools.eu/ping/mcabyss.xyz/25565")
+  fetch("https://api.mcsrvstat.us/2/mcabyss.xyz/25565")
     .then(res => res.json())
     .then(data => {
       document.getElementById("java-status").innerText = data.online ? "🟢 在线" : "🔴 离线";
