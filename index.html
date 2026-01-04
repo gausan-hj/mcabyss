@@ -90,13 +90,15 @@
 
 <!-- 导航 -->
 <nav>
+<!-- 导航 -->
+<nav>
   <div class="logo">滄淵啟示錄</div>
   <ul>
-    <li data-lang="nav-home">主页</li>
-    <li data-lang="nav-server">服务器信息</li>
-    <li data-lang="nav-download">下载</li>
-    <li data-lang="nav-rules">规则</li>
-    <li data-lang="nav-contact">联系我们</li>
+    <li data-page="index.html" data-lang="nav-home">主页</li>
+    <li data-page="server.html" data-lang="nav-server">服务器信息</li>
+    <li data-page="download.html" data-lang="nav-download">下载</li>
+    <li data-page="rules.html" data-lang="nav-rules">规则</li>
+    <li data-page="contact.html" data-lang="nav-contact">联系我们</li>
   </ul>
   <div class="lang-switch">
     <button onclick="setLang('zh-CN')">简体</button>
@@ -236,6 +238,43 @@ function updateSignal(id, online){
 // 每 30 秒刷新一次
 updateServerStatus();
 setInterval(updateServerStatus, 30000);
+
+/* ===== 获取 URL 参数 ===== */
+function getUrlLang(){
+  const params = new URLSearchParams(window.location.search);
+  return params.get('lang') || 'zh-CN';
+}
+
+/* ===== 页面加载时应用语言 ===== */
+const currentLang = getUrlLang();
+setLang(currentLang);
+
+/* ===== 导航栏跳转功能 ===== */
+document.querySelectorAll("nav ul li").forEach(li => {
+  li.addEventListener("click", () => {
+    const page = li.dataset.page;
+    if(page){
+      // 跳转时带上当前语言参数
+      window.location.href = page + '?lang=' + currentLang;
+    }
+  });
+});
+
+/* ===== 更新 setLang 函数，切换语言同时更新 URL 参数 ===== */
+function setLang(lang){
+  document.querySelectorAll('[data-lang]').forEach(el=>{
+    const key = el.getAttribute('data-lang');
+    if(translations[lang][key]) el.innerText = translations[lang][key];
+  });
+  // 更新当前语言变量
+  window.currentLang = lang;
+
+  // 改变 URL 参数而不刷新页面
+  const url = new URL(window.location);
+  url.searchParams.set('lang', lang);
+  window.history.replaceState({}, '', url);
+}
+ 
 </script>
 
 </body>
