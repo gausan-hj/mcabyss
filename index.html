@@ -99,29 +99,23 @@
 </section>
 
 <!-- 服务器信息 -->
-<section id="server-info">
-  <div class="container">
-    <h2 style="text-align:center; margin-bottom:40px; color:#00A3E0;">服务器信息</h2>
-    <div class="server-info">
-      <div class="info-card">
-        <h3>服务器类型</h3>
-        <p>Java & Bedrock</p>
-      </div>
-      <div class="info-card">
-        <h3>服务器 IP</h3>
-        <p>play.examplemc.com</p>
-      </div>
-      <div class="info-card">
-        <h3>在线人数</h3>
-        <p>当前 123 / 最大 500</p>
-      </div>
-      <div class="info-card">
-        <h3>特色玩法</h3>
-        <p>生存、PVP、冒险地图</p>
-      </div>
-    </div>
+<div class="server-info">
+
+  <div class="info-card">
+    <h3>Java 服务器状态</h3>
+    <p id="java-status">加载中...</p>
+    <p id="java-players">-- / --</p>
+    <p>版本：1.21.4</p>
   </div>
-</section>
+
+  <div class="info-card">
+    <h3>Bedrock 服务器状态</h3>
+    <p id="bedrock-status">加载中...</p>
+    <p id="bedrock-players">-- / --</p>
+    <p>端口：10138</p>
+  </div>
+
+</div>
 
 <!-- 规则区 -->
 <section id="rules">
@@ -142,5 +136,39 @@
   &copy; 2026 MC 服务器 | 联系我们: support@examplemc.com | Discord: discord.gg/example
 </footer>
 
+<script>
+/* ===== Java 版 ===== */
+fetch("https://api.mcsrvstat.us/2/mcabyss.xyz")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("java-status").innerText =
+      data.online ? "🟢 在线" : "🔴 离线";
+
+    if (data.players) {
+      document.getElementById("java-players").innerText =
+        `${data.players.online} / ${data.players.max}`;
+    }
+  })
+  .catch(() => {
+    document.getElementById("java-status").innerText = "❌ 无法获取";
+  });
+
+/* ===== Bedrock 版 ===== */
+fetch("https://api.mcsrvstat.us/bedrock/2/mcabyss.xyz:10138")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("bedrock-status").innerText =
+      data.online ? "🟢 在线" : "🔴 离线";
+
+    if (data.players) {
+      document.getElementById("bedrock-players").innerText =
+        `${data.players.online} / ${data.players.max}`;
+    }
+  })
+  .catch(() => {
+    document.getElementById("bedrock-status").innerText = "❌ 无法获取";
+  });
+</script>
+  
 </body>
 </html>
