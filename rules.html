@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>滄淵啟示錄 - 服务器规则</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family: 'Press Start 2P', cursive; }
+  body { background:#e0f7ff; color:#fff; line-height:1.6; overflow-x:hidden; }
+  a { text-decoration:none; color:inherit; }
+
+  /* ===== 导航 ===== */
+  nav {
+    display:flex; justify-content:space-between; align-items:center;
+    background:#7FDBFF; padding:10px 20px;
+    border-bottom:4px solid #00A3E0;
+    flex-wrap: wrap;
+  }
+  nav .logo { font-size:1.2rem; color:#fff; font-weight:bold; }
+  nav ul { display:flex; gap:15px; list-style:none; flex-wrap: wrap; }
+  nav ul li { padding:5px 10px; transition:0.3s; cursor:pointer; }
+  nav ul li:hover { background:#00A3E0; border-radius:4px; }
+
+  /* ===== 语言切换 ===== */
+  .lang-switch { display:flex; gap:8px; margin-top:5px; }
+  .lang-switch button {
+    padding:3px 6px; border:none; border-radius:4px;
+    background:#00A3E0; color:#fff; cursor:pointer;
+    transition:0.3s;
+  }
+  .lang-switch button:hover { background:#fff; color:#00A3E0; }
+
+  /* ===== 页面内容 ===== */
+  .content { max-width:800px; margin:40px auto 80px auto; padding:0 20px; }
+  h1 { text-align:center; font-size:2rem; color:#00A3E0; margin-bottom:30px; }
+  ul.rules-list { list-style:none; }
+  ul.rules-list li { background:#7FDBFF; margin-bottom:15px; padding:15px 20px; border-left:5px solid #00A3E0; border-radius:4px; }
+
+  footer {
+    background:#00A3E0; text-align:center; padding:20px; color:#fff;
+    border-top:4px solid #7FDBFF;
+  }
+
+  @media(max-width:768px){
+    nav { flex-direction: column; gap:8px; }
+    ul.rules-list li { padding:12px 15px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 导航 -->
+<nav>
+  <div class="logo">滄淵啟示錄</div>
+  <ul>
+    <li><a href="index.html" data-lang="nav-home">主页</a></li>
+    <li><a href="projects.html" data-lang="nav-server">服务器资讯</a></li>
+    <li><a href="rules.html" data-lang="nav-rules">规则</a></li>
+    <li><a href="contact.html" data-lang="nav-contact">联系</a></li>
+  </ul>
+  <div class="lang-switch">
+    <button onclick="setLang('zh-CN')">简体</button>
+    <button onclick="setLang('zh-TW')">繁體</button>
+    <button onclick="setLang('en')">English</button>
+  </div>
+</nav>
+
+<!-- 页面内容 -->
+<div class="content">
+  <h1 data-lang="rules-title">服务器规则</h1>
+  <ul class="rules-list">
+    <li data-lang="rule1">禁止作弊、使用外挂</li>
+    <li data-lang="rule2">禁止语言攻击他人</li>
+    <li data-lang="rule3">尊重每位玩家</li>
+    <li data-lang="rule4">禁止破坏公共建筑</li>
+    <li data-lang="rule5">遵守管理员指示</li>
+  </ul>
+</div>
+
+<footer>
+  &copy; 2026 滄淵啟示錄 | <span data-lang="contact">联系我们</span>: support@examplemc.com | Discord: discord.gg/example
+</footer>
+
+<script>
+/* ===== 语言切换 ===== */
+const translations = {
+  'zh-CN': {
+    "nav-home":"主页","nav-server":"服务器信息","nav-download":"下载","nav-rules":"规则","nav-contact":"联系我们",
+    "rules-title":"服务器规则",
+    "rule1":"禁止作弊、使用外挂",
+    "rule2":"禁止语言攻击他人",
+    "rule3":"尊重每位玩家",
+    "rule4":"禁止破坏公共建筑",
+    "rule5":"遵守管理员指示",
+    "contact":"联系我们"
+  },
+  'zh-TW': {
+    "nav-home":"首頁","nav-server":"伺服器資訊","nav-download":"下載","nav-rules":"規則","nav-contact":"聯繫我們",
+    "rules-title":"伺服器規則",
+    "rule1":"禁止作弊、使用外掛",
+    "rule2":"禁止語言攻擊他人",
+    "rule3":"尊重每位玩家",
+    "rule4":"禁止破壞公共建築",
+    "rule5":"遵守管理員指示",
+    "contact":"聯繫我們"
+  },
+  'en': {
+    "nav-home":"Home","nav-server":"Server Info","nav-download":"Download","nav-rules":"Rules","nav-contact":"Contact",
+    "rules-title":"Server Rules",
+    "rule1":"No cheating or using hacks",
+    "rule2":"No verbal abuse",
+    "rule3":"Respect all players",
+    "rule4":"Do not destroy public buildings",
+    "rule5":"Follow admin instructions",
+    "contact":"Contact Us"
+  }
+};
+
+function setLang(lang){
+  localStorage.setItem('lang', lang); // 保存到本地
+  document.querySelectorAll('[data-lang]').forEach(el=>{
+    const key = el.getAttribute('data-lang');
+    if(translations[lang][key]) el.innerText = translations[lang][key];
+  });
+}
+
+// 页面加载时读取语言
+window.addEventListener('DOMContentLoaded', ()=>{
+  const lang = localStorage.getItem('lang') || 'zh-CN';
+  setLang(lang);
+});
+</script>
+
+</body>
+</html>
