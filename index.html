@@ -6,12 +6,10 @@
 <title>Minecraft 服务器官网</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-  /* ===== 全局 ===== */
   * { margin:0; padding:0; box-sizing:border-box; font-family: 'Press Start 2P', cursive; }
   body { background: #e0f7ff; color:#fff; line-height:1.6; }
   a { text-decoration:none; color:inherit; }
 
-  /* ===== 顶部导航 ===== */
   nav {
     display:flex; justify-content:space-between; align-items:center;
     background:#7FDBFF; padding:10px 20px;
@@ -22,7 +20,6 @@
   nav ul li { padding:5px 10px; transition:0.3s; }
   nav ul li:hover { background:#00A3E0; border-radius:4px; cursor:pointer; }
 
-  /* ===== Banner ===== */
   .hero {
     background: url('https://i.imgur.com/OaHqPjB.jpg') center/cover no-repeat; 
     text-align:center; padding:100px 20px; position:relative;
@@ -36,18 +33,15 @@
   .hero .btn { background:#00A3E0; color:#fff; padding:10px 20px; border:2px solid #fff; border-radius:4px; transition:0.3s; }
   .hero .btn:hover { background:#fff; color:#00A3E0; }
 
-  /* ===== 区块通用 ===== */
   section { padding:60px 20px; }
   .container { max-width:1200px; margin:0 auto; }
 
-  /* ===== 服务器信息 ===== */
   .server-info { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
   .info-card { background:#7FDBFF; padding:20px; border:2px solid #00A3E0; border-radius:6px; width:320px; transition:0.3s; }
   .info-card:hover { background:#00A3E0; cursor:pointer; }
   .info-card h3 { margin-bottom:10px; font-size:1rem; text-align:center; }
   .info-item { display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.85rem; color:#fff; }
 
-  /* ===== 信号格 ===== */
   .signal { display:flex; justify-content:center; align-items:flex-end; gap:4px; margin-top:10px; height:20px; }
   .signal div { width:8px; background:#555; opacity:0.3; transition:0.3s; border-radius:2px; }
   .signal .bar1 { height:4px; }
@@ -55,19 +49,17 @@
   .signal .bar3 { height:12px; }
   .signal .bar4 { height:16px; }
 
-  /* ===== 规则区 ===== */
   .rules { max-width:800px; margin:0 auto; }
   .rules ul { list-style: none; }
   .rules li { background:#7FDBFF; margin-bottom:10px; padding:10px; border-left:5px solid #00A3E0; }
 
-  /* ===== Footer ===== */
   footer {
     background:#00A3E0; text-align:center; padding:20px; color:#fff;
     border-top:4px solid #7FDBFF;
   }
 
   @media(max-width:768px){
-    .server-info, .downloads { flex-direction:column; align-items:center; }
+    .server-info { flex-direction:column; align-items:center; }
     .hero h1 { font-size:1.5rem; }
     .hero p { font-size:0.9rem; }
   }
@@ -95,6 +87,24 @@
 </section>
 
 <div class="server-info">
+
+  <!-- Java 版 -->
+  <div class="info-card">
+    <h3>Java 版服务器信息</h3>
+    <div class="info-item"><span>状态:</span> <span id="java-status">加载中...</span></div>
+    <div class="info-item"><span>玩家:</span> <span id="java-players">-- / --</span></div>
+    <div class="info-item"><span>版本:</span> <span id="java-version">--</span></div>
+    <div class="info-item"><span>MOTD:</span> <span id="java-motd">--</span></div>
+    <div class="info-item"><span>IP:</span> <span id="java-ip">mcabyss.xyz</span></div>
+    <div class="signal" id="java-signal">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+      <div class="bar4"></div>
+    </div>
+  </div>
+
+  <!-- Bedrock 版 -->
   <div class="info-card">
     <h3>基岩版服务器信息</h3>
     <div class="info-item"><span>状态:</span> <span id="bedrock-status">加载中...</span></div>
@@ -103,13 +113,14 @@
     <div class="info-item"><span>MOTD:</span> <span id="bedrock-motd">--</span></div>
     <div class="info-item"><span>IP:</span> <span id="bedrock-ip">mcabyss.xyz</span></div>
     <div class="info-item"><span>端口:</span> <span id="bedrock-port">10138</span></div>
-    <div class="signal">
+    <div class="signal" id="bedrock-signal">
       <div class="bar1"></div>
       <div class="bar2"></div>
       <div class="bar3"></div>
       <div class="bar4"></div>
     </div>
   </div>
+
 </div>
 
 <section id="rules">
@@ -130,6 +141,37 @@
 </footer>
 
 <script>
+function updateJavaStatus() {
+  fetch("https://api.mcsrvstat.us/2/mcabyss.xyz")
+    .then(res => res.json())
+    .then(data => {
+      const online = data.online;
+      const playersOnline = data.players?.online || 0;
+      const playersMax = data.players?.max || 0;
+      const motd = data.motd?.clean?.join(" ") || "--";
+      const version = data.version || "--";
+
+      document.getElementById("java-status").innerText = online ? "🟢 在线" : "🔴 离线";
+      document.getElementById("java-players").innerText = `${playersOnline} / ${playersMax}`;
+      document.getElementById("java-version").innerText = version;
+      document.getElementById("java-motd").innerText = motd;
+
+      const bars = document.querySelectorAll("#java-signal div");
+      let ratio = playersMax > 0 ? playersOnline / playersMax : 0;
+      if(!online) ratio = 0;
+      bars.forEach((bar, i) => {
+        bar.style.background = (ratio >= (i+1)/4) ? "#00FF00" : "#555";
+      });
+    })
+    .catch(() => {
+      document.getElementById("java-status").innerText = "❌ 无法获取";
+      document.getElementById("java-players").innerText = "-- / --";
+      document.getElementById("java-version").innerText = "--";
+      document.getElementById("java-motd").innerText = "--";
+      document.querySelectorAll("#java-signal div").forEach(bar=>bar.style.background="#555");
+    });
+}
+
 function updateBedrockStatus() {
   fetch("https://api.mcsrvstat.us/bedrock/2/mcabyss.xyz:10138")
     .then(res => res.json())
@@ -145,13 +187,11 @@ function updateBedrockStatus() {
       document.getElementById("bedrock-version").innerText = version;
       document.getElementById("bedrock-motd").innerText = motd;
 
-      // 信号格亮起绿色
-      const bars = document.querySelectorAll(".signal div");
+      const bars = document.querySelectorAll("#bedrock-signal div");
       let ratio = playersMax > 0 ? playersOnline / playersMax : 0;
       if(!online) ratio = 0;
       bars.forEach((bar, i) => {
-        if(ratio >= (i+1)/4) bar.style.background = "#00FF00";
-        else bar.style.background = "#555";
+        bar.style.background = (ratio >= (i+1)/4) ? "#00FF00" : "#555";
       });
     })
     .catch(() => {
@@ -159,14 +199,16 @@ function updateBedrockStatus() {
       document.getElementById("bedrock-players").innerText = "-- / --";
       document.getElementById("bedrock-version").innerText = "--";
       document.getElementById("bedrock-motd").innerText = "--";
-      document.querySelectorAll(".signal div").forEach(bar=>bar.style.background="#555");
+      document.querySelectorAll("#bedrock-signal div").forEach(bar=>bar.style.background="#555");
     });
 }
 
 // 初次加载
+updateJavaStatus();
 updateBedrockStatus();
+
 // 每 15 秒刷新一次
-setInterval(updateBedrockStatus, 15000);
+setInterval(()=>{updateJavaStatus(); updateBedrockStatus();}, 15000);
 </script>
 
 </body>
