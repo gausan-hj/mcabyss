@@ -133,7 +133,7 @@ footer { background:#00A3E0; text-align:center; padding:20px; color:#fff; border
 const serverDataList = document.getElementById("server-data");
 
 function fetchServerData() {
-  fetch("https://api.mcsrvstat.us/2/mcabyss.xyz:10130")
+  fetch("https://api.mcsrvstat.us/2/mcabyss.xyz:10138")
     .then(res => res.json())
     .then(data => {
       serverDataList.innerHTML = ""; // 清空
