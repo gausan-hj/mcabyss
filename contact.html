@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>滄淵啟示錄 - 联系我们</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family: 'Press Start 2P', cursive; }
+  body {
+    background:#a0e0ff; /* 浅水蓝 */
+    color:#fff;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    position:relative;
+    cursor: crosshair;
+  }
+
+  /* ===== 像素字动画 ===== */
+  .logo-animation {
+    display:flex;
+    gap:6px;
+    z-index:1;
+  }
+  .logo-animation span {
+    display:inline-block;
+    width:48px; height:48px;
+    background:#00BFFF;
+    color:#fff;
+    text-align:center;
+    line-height:48px;
+    font-size:1.5rem;
+    opacity:0;
+    transform: translateY(-60px) rotate(-15deg);
+    animation:drop 1s forwards;
+    animation-iteration-count: infinite; /* 无限循环 */
+  }
+  .logo-animation span:nth-child(1){ animation-delay:0s; }
+  .logo-animation span:nth-child(2){ animation-delay:0.2s; }
+  .logo-animation span:nth-child(3){ animation-delay:0.4s; }
+  .logo-animation span:nth-child(4){ animation-delay:0.6s; }
+  .logo-animation span:nth-child(5){ animation-delay:0.8s; }
+
+  @keyframes drop {
+    0% { opacity:0; transform: translateY(-60px) rotate(-15deg); }
+    30% { opacity:1; transform: translateY(10px) rotate(10deg); background:#00D0FF; }
+    60% { transform: translateY(-5px) rotate(-5deg); background:#00BFFF; }
+    100% { opacity:1; transform: translateY(0) rotate(0deg); background:#00E0FF; }
+  }
+
+  /* ===== 漂浮方块背景 ===== */
+  .pixel {
+    position:absolute;
+    width:16px; height:16px;
+    background:#00CFFF;
+    animation:float 4s linear infinite;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity:0.8; }
+    50% { opacity:0.5; }
+    100% { transform: translateY(-100px) translateX(50vw) rotate(360deg); opacity:0; }
+  }
+
+  /* 提示文字 */
+  .subtitle {
+    margin-top:30px; text-align:center; font-size:0.8rem; color:#fff;
+    animation:fadeIn 2s forwards infinite;
+    opacity:0;
+    z-index:1;
+  }
+  @keyframes fadeIn { 0%{opacity:0;} 50% {opacity:1;} 100%{opacity:0;} }
+
+  canvas {
+    position: absolute; top:0; left:0;
+    width: 100%; height: 100%;
+    display: block;
+    z-index:0;
+  }
+</style>
+</head>
+<body>
+
+<!-- 漂浮像素方块 -->
+<div id="pixels"></div>
+
+<div style="text-align:center; z-index:1;">
+  <div class="logo-animation">
+    <span>滄</span>
+    <span>淵</span>
+    <span>啟</span>
+    <span>示</span>
+    <span>錄</span>
+  </div>
+  <div class="subtitle" data-lang="coming-soon">页面正在制作中……</div>
+</div>
+
+<canvas id="bg"></canvas>
+
+<script>
+/* ===== 漂浮方块生成 ===== */
+const pixelsContainer = document.getElementById('pixels');
+for(let i=0;i<80;i++){
+  const div = document.createElement('div');
+  div.className='pixel';
+  div.style.left = Math.random()*100+'vw';
+  div.style.top = Math.random()*100+'vh';
+  div.style.width = div.style.height = (8+Math.random()*16)+'px';
+  div.style.animationDuration = (3+Math.random()*5)+'s';
+  pixelsContainer.appendChild(div);
+}
+
+/* ===== 多语言提示 ===== */
+const translations = {
+  'zh-CN': { "coming-soon":"页面正在制作中……" },
+  'zh-TW': { "coming-soon":"頁面正在製作中……" },
+  'en': { "coming-soon":"Page Under Construction..." }
+};
+
+function setLang(lang){
+  document.querySelectorAll('[data-lang]').forEach(el=>{
+    const key = el.getAttribute('data-lang');
+    if(translations[lang][key]) el.innerText = translations[lang][key];
+  });
+}
+
+// 默认语言
+const lang = localStorage.getItem('lang') || 'zh-CN';
+setLang(lang);
+
+/* ===== Canvas方块动画 ===== */
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+let W = canvas.width = window.innerWidth;
+let H = canvas.height = window.innerHeight;
+
+window.addEventListener('resize', ()=>{
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+});
+
+// 鼠标位置
+let mouse = {x: W/2, y: H/2};
+
+// 方块类
+class Block {
+  constructor(){
+    this.reset();
+  }
+  reset(){
+    this.x = Math.random()*100 - 100;
+    this.y = H + Math.random()*50;
+    this.size = 12 + Math.random()*6;
+    this.speedX = 0.5 + Math.random()*1;
+    this.speedY = 1 + Math.random()*1.5;
+    this.color = `rgba(0,${150+Math.random()*105},255,0.7)`;
+    this.state = "moving"; // moving -> attracted -> exclaim -> return
+    this.timer = 0;
+  }
+  update(){
+    let dx = mouse.x - this.x;
+    let dy = mouse.y - this.y;
+    let dist = Math.sqrt(dx*dx + dy*dy);
+
+    if(dist < 150 && this.state === "moving"){
+      this.state = "attracted";
+    }
+
+    if(this.state === "moving"){
+      this.x += this.speedX;
+      this.y -= this.speedY;
+    } else if(this.state === "attracted"){
+      this.x += dx*0.05;
+      this.y += dy*0.05;
+      this.timer += 0.016;
+      if(this.timer > 5){
+        this.state = "exclaim";
+        this.timer = 0;
+      }
+    } else if(this.state === "exclaim"){
+      this.timer += 0.016;
+      if(this.timer > 1){
+        this.state = "return";
+        this.timer = 0;
+      }
+    } else if(this.state === "return"){
+      let tx = Math.random()*W/2;
+      let ty = H + Math.random()*50;
+      let rdx = tx - this.x;
+      let rdy = ty - this.y;
+      this.x += rdx*0.05;
+      this.y += rdy*0.05;
+      if(Math.abs(rdx)<1 && Math.abs(rdy)<1){
+        this.reset();
+      }
+    }
+  }
+  draw(){
+    ctx.fillStyle = this.color;
+    if(this.state==="exclaim"){
+      ctx.font = `${this.size*2}px monospace`;
+      ctx.fillText('!', this.x, this.y);
+    } else {
+      ctx.fillRect(this.x, this.y, this.size, this.size);
+    }
+  }
+}
+
+let blocks = [];
+for(let i=0;i<60;i++){
+  blocks.push(new Block());
+}
+
+canvas.addEventListener('mousemove', (e)=>{
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+function animate(){
+  ctx.clearRect(0,0,W,H);
+  blocks.forEach(b=>{
+    b.update();
+    b.draw();
+  });
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
