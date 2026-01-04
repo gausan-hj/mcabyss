@@ -192,12 +192,12 @@ function setLang(lang){
 }
 
 /* ===== Java / Bedrock 状态刷新 ===== */
-// Java 版（使用 minetools.eu API）
-function updateJavaStatus() {
+function updateServerStatus(){
+  // Java 版 - 使用 minetools.eu API
   fetch("https://api.minetools.eu/ping/mcabyss.xyz/25565")
     .then(res => res.json())
     .then(data => {
-      const online = !!data.version;
+      const online = data.version ? true : false;
       document.getElementById("java-status").innerText = online ? "🟢 在线" : "🔴 离线";
       document.getElementById("java-players").innerText = data.players ? `${data.players.online} / ${data.players.max}` : "-- / --";
       document.getElementById("java-version").innerText = data.version || "--";
@@ -205,11 +205,11 @@ function updateJavaStatus() {
       document.getElementById("java-motd").innerText = motd;
       updateSignal('java-signal', online);
     })
-    .catch(()=>{ 
-      document.getElementById("java-status").innerText = "❌ 无法获取"; 
-      updateSignal('java-signal', false); 
+    .catch(()=>{
+      document.getElementById("java-status").innerText="❌ 无法获取";
+      updateSignal('java-signal', false);
     });
-}
+ 
   // Bedrock
   fetch("https://api.mcsrvstat.us/bedrock/2/mcabyss.xyz:10138")
     .then(res => res.json())
