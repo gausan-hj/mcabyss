@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>滄淵啟示錄 - 服务器资讯</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family: 'Press Start 2P', cursive; }
+  body { background:#e0f7ff; color:#fff; line-height:1.6; overflow-x:hidden; }
+  a { text-decoration:none; color:inherit; }
+
+  /* ===== 导航 ===== */
+  nav {
+    display:flex; justify-content:space-between; align-items:center;
+    background:#7FDBFF; padding:10px 20px; border-bottom:4px solid #00A3E0;
+    flex-wrap: wrap;
+  }
+  nav .logo { font-size:1.2rem; color:#fff; font-weight:bold; }
+  nav ul { display:flex; gap:15px; list-style:none; flex-wrap: wrap; }
+  nav ul li { padding:5px 10px; transition:0.3s; cursor:pointer; }
+  nav ul li:hover { background:#00A3E0; border-radius:4px; }
+
+  /* ===== 语言切换 ===== */
+  .lang-switch { display:flex; gap:8px; margin-top:5px; }
+  .lang-switch button {
+    padding:3px 6px; border:none; border-radius:4px;
+    background:#00A3E0; color:#fff; cursor:pointer;
+    transition:0.3s;
+  }
+  .lang-switch button:hover { background:#fff; color:#00A3E0; }
+
+  /* ===== 页面内容 ===== */
+  .content { max-width:1000px; margin:40px auto 80px auto; padding:0 20px; }
+  h1 { text-align:center; font-size:2rem; color:#00A3E0; margin-bottom:30px; }
+
+  .server-info { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:40px; }
+  .info-card {
+    background:#7FDBFF; padding:20px; border:2px solid #00A3E0; border-radius:6px;
+    width:320px; transition:transform 0.3s, background 0.3s;
+  }
+  .info-card:hover { transform:scale(1.05); background:#00A3E0; cursor:pointer; }
+  .info-card h3 { margin-bottom:10px; font-size:1rem; text-align:center; }
+  .info-item { display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.85rem; color:#fff; }
+
+  .signal { display:flex; justify-content:center; align-items:flex-end; gap:4px; margin-top:10px; height:20px; }
+  .signal div { width:8px; background:#555; opacity:0.5; border-radius:2px; transition:0.3s; }
+  .bar1 { height:4px; } .bar2 { height:8px; } .bar3 { height:12px; } .bar4 { height:16px; }
+
+  /* ===== 团队成员 ===== */
+  .team { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+  .member-card {
+    background:#7FDBFF; padding:20px; border:2px solid #00A3E0; border-radius:6px;
+    width:220px; text-align:center; transition:transform 0.3s, background 0.3s;
+  }
+  .member-card:hover { transform:scale(1.05); background:#00A3E0; cursor:pointer; }
+  .member-card h4 { margin-bottom:5px; color:#fff; }
+  .member-card p { font-size:0.85rem; color:#fff; }
+
+  footer {
+    background:#00A3E0; text-align:center; padding:20px; color:#fff;
+    border-top:4px solid #7FDBFF;
+  }
+
+  @media(max-width:768px){
+    nav { flex-direction: column; gap:8px; }
+    .info-card, .member-card { width:100%; max-width:340px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 导航 -->
+<nav>
+  <div class="logo">滄淵啟示錄</div>
+  <ul>
+    <li><a href="index.html" data-lang="nav-home">主页</a></li>
+    <li><a href="projects.html" data-lang="nav-server">服务器资讯</a></li>
+    <li><a href="rules.html" data-lang="nav-rules">规则</a></li>
+    <li><a href="contact.html" data-lang="nav-contact">联系</a></li>
+  </ul>
+  <div class="lang-switch">
+    <button onclick="setLang('zh-CN')">简体</button>
+    <button onclick="setLang('zh-TW')">繁體</button>
+    <button onclick="setLang('en')">English</button>
+  </div>
+</nav>
+
+<!-- 页面内容 -->
+<div class="content">
+  <h1 data-lang="page-title">服务器资讯</h1>
+
+  <!-- 服务器状态 -->
+  <div class="server-info">
+
+    <!-- Java -->
+    <div class="info-card">
+      <h3 data-lang="java-title">Java 版服务器信息</h3>
+      <div class="info-item"><span data-lang="status">状态:</span> <span id="java-status">加载中...</span></div>
+      <div class="info-item"><span data-lang="players">玩家:</span> <span id="java-players">-- / --</span></div>
+      <div class="info-item"><span data-lang="version">版本:</span> <span id="java-version">--</span></div>
+      <div class="info-item"><span data-lang="motd">MOTD:</span> <span id="java-motd">--</span></div>
+      <div class="info-item"><span data-lang="ip">IP:</span> <span id="java-ip">mcabyss.xyz</span></div>
+      <div class="signal" id="java-signal">
+        <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
+      </div>
+    </div>
+
+    <!-- Bedrock -->
+    <div class="info-card">
+      <h3 data-lang="bedrock-title">基岩版服务器信息</h3>
+      <div class="info-item"><span data-lang="status">状态:</span> <span id="bedrock-status">加载中...</span></div>
+      <div class="info-item"><span data-lang="players">玩家:</span> <span id="bedrock-players">-- / --</span></div>
+      <div class="info-item"><span data-lang="version">版本:</span> <span id="bedrock-version">--</span></div>
+      <div class="info-item"><span data-lang="motd">MOTD:</span> <span id="bedrock-motd">--</span></div>
+      <div class="info-item"><span data-lang="ip">IP:</span> <span id="bedrock-ip">mcabyss.xyz</span></div>
+      <div class="info-item"><span data-lang="port">端口:</span> <span id="bedrock-port">10138</span></div>
+      <div class="signal" id="bedrock-signal">
+        <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 服务器团队 -->
+  <h2 data-lang="team-title" style="text-align:center; color:#00A3E0; margin-bottom:20px;">服务器团队</h2>
+  <div class="team">
+    <div class="member-card">
+      <h4>测试测试测试</h4>
+      <p data-lang="role-admin">管理员</p>
+    </div>
+    <div class="member-card">
+      <h4>Alex</h4>
+      <p data-lang="role-mod">版主</p>
+    </div>
+    <div class="member-card">
+      <h4>测试测试测试</h4>
+      <p data-lang="role-dev">开发者</p>
+    </div>
+    <div class="member-card">
+      <h4>Bob</h4>
+      <p data-lang="role-builder">建筑师</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  &copy; 2026 滄淵啟示錄 | <span data-lang="contact">联系我们</span>: support@examplemc.com | Discord: discord.gg/example
+</footer>
+
+<script>
+/* ===== 语言切换 ===== */
+const translations = {
+  'zh-CN': {
+    "nav-home":"主页","nav-server":"服务器信息","nav-download":"下载","nav-rules":"规则","nav-contact":"联系我们",
+    "page-title":"服务器资讯","java-title":"Java 版服务器信息","bedrock-title":"基岩版服务器信息",
+    "status":"状态:","players":"玩家:","version":"版本:","motd":"MOTD:","ip":"IP:","port":"端口:",
+    "team-title":"服务器团队","role-admin":"管理员","role-mod":"版主","role-dev":"开发者","role-builder":"建筑师",
+    "contact":"联系我们"
+  },
+  'zh-TW': {
+    "nav-home":"首頁","nav-server":"伺服器資訊","nav-download":"下載","nav-rules":"規則","nav-contact":"聯繫我們",
+    "page-title":"伺服器資訊","java-title":"Java 版伺服器資訊","bedrock-title":"基岩版伺服器資訊",
+    "status":"狀態:","players":"玩家:","version":"版本:","motd":"MOTD:","ip":"IP:","port":"埠:",
+    "team-title":"伺服器團隊","role-admin":"管理員","role-mod":"版主","role-dev":"開發者","role-builder":"建築師",
+    "contact":"聯繫我們"
+  },
+  'en': {
+    "nav-home":"Home","nav-server":"Server Info","nav-download":"Download","nav-rules":"Rules","nav-contact":"Contact",
+    "page-title":"Server Info","java-title":"Java Server Info","bedrock-title":"Bedrock Server Info",
+    "status":"Status:","players":"Players:","version":"Version:","motd":"MOTD:","ip":"IP:","port":"Port:",
+    "team-title":"Server Team","role-admin":"Admin","role-mod":"Moderator","role-dev":"Developer","role-builder":"Builder",
+    "contact":"Contact Us"
+  }
+};
+
+function setLang(lang){
+  localStorage.setItem('lang', lang);
+  document.querySelectorAll('[data-lang]').forEach(el=>{
+    const key = el.getAttribute('data-lang');
+    if(translations[lang][key]) el.innerText = translations[lang][key];
+  });
+}
+
+// 页面加载时读取语言
+window.addEventListener('DOMContentLoaded', ()=>{
+  const lang = localStorage.getItem('lang') || 'zh-CN';
+  setLang(lang);
+});
+
+// ===== Java / Bedrock 状态刷新 =====
+function updateServerStatus(){
+  // Java 版
+  fetch("https://api.minetools.eu/ping/mcabyss.xyz/25565")
+    .then(res => res.json())
+    .then(data => {
+      const online = data.version ? true : false;
+      document.getElementById("java-status").innerText = online ? "🟢 在线" : "🔴 离线";
+      document.getElementById("java-players").innerText = data.players ? `${data.players.online} / ${data.players.max}` : "-- / --";
+      document.getElementById("java-version").innerText = data.version || "--";
+      let motd = data.motd ? data.motd.replace(/§[0-9a-fk-or]/gi,"") : "--";
+      document.getElementById("java-motd").innerText = motd;
+      updateSignal('java-signal', online);
+    })
+    .catch(()=>{
+      document.getElementById("java-status").innerText="❌ 无法获取";
+      updateSignal('java-signal', false);
+    });
+
+  // Bedrock 版
+  fetch("https://api.mcsrvstat.us/bedrock/2/mcabyss.xyz:10138")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("bedrock-status").innerText = data.online ? "🟢 在线" : "🔴 离线";
+      document.getElementById("bedrock-players").innerText = data.players ? `${data.players.online} / ${data.players.max}` : "-- / --";
+      document.getElementById("bedrock-version").innerText = data.version || "--";
+      document.getElementById("bedrock-motd").innerText = data.motd ? data.motd.clean[0] : "--";
+      updateSignal('bedrock-signal', data.online);
+    })
+    .catch(()=>{ document.getElementById("bedrock-status").innerText="❌ 无法获取"; updateSignal('bedrock-signal', false); });
+}
+
+// 信号格亮起函数
+function updateSignal(id, online){
+  const bars = document.getElementById(id).children;
+  for(let i=0;i<bars.length;i++){
+    if(online){
+      bars[i].style.background="#00FF00";
+      bars[i].style.opacity=1 - (bars.length-i-1)*0.2;
+    }else{
+      bars[i].style.background="#555";
+      bars[i].style.opacity=0.3;
+    }
+  }
+}
+
+updateServerStatus();
+setInterval(updateServerStatus, 30000);
+</script>
+
+</body>
+</html>
