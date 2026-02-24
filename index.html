@@ -88,23 +88,6 @@ body{
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
-/* ===== 首页画廊 ===== */
-.home-gallery{
-  width:320px;
-  height:180px;
-  margin-top:10px;
-  border-radius:10px;
-}
-
-.home-gallery .swiper-slide img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:10px;
-  box-shadow:0 0 15px rgba(0,0,0,0.6);
-  image-rendering: pixelated;
-}
-
 /* ===== 团队面板 ===== */
 .team-wrapper{
   display:flex;
@@ -143,18 +126,6 @@ body{
   border-radius:12px;
   font-size:10px;
 }
-
-/* ===== 服务器状态特效 ===== */
-.status-panel{
-  background:rgba(0,0,0,0.25);
-  border-radius:15px;
-  padding:15px 20px;
-  margin-top:10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
-  width:300px;
-  text-align:center;
-  font-size:14px;
-}
 </style>
 </head>
 <body>
@@ -172,21 +143,9 @@ body{
 <div class="swiper">
   <div class="swiper-wrapper">
 
-    <!-- 主页 -->
+    <!-- 主页（空白区域，方便重新设计） -->
     <div class="swiper-slide home-slide">
-      <h2>服务器状态</h2>
-      <div class="status-panel" id="statusBox">加载中...</div>
-
-      <h2>画廊</h2>
-      <div class="swiper home-gallery">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="图片1.jpg" alt="图片1"></div>
-          <div class="swiper-slide"><img src="图片2.jpg" alt="图片2"></div>
-          <div class="swiper-slide"><img src="图片3.jpg" alt="图片3"></div>
-          <div class="swiper-slide"><img src="图片4.jpg" alt="图片4"></div>
-        </div>
-        <div class="swiper-pagination"></div>
-      </div>
+      <!-- 空白，可添加自定义内容 -->
     </div>
 
     <!-- 资讯 -->
@@ -307,36 +266,6 @@ buttons.forEach((btn,index)=>{
 // 滑动页面时同步胶囊
 swiper.on("slideChange",()=>{moveIndicator(swiper.activeIndex);});
 window.onload = ()=>{ moveIndicator(0); };
-
-// 服务器状态
-const statusBox = document.getElementById("statusBox");
-statusBox.innerHTML = "加载中…";
-
-fetch("https://api.mcsrvstat.us/2/mcabyss.xyz")
-.then(res=>res.json())
-.then(data=>{
-    if(data && data.online){
-        const online = data.players && data.players.online ? data.players.online : 0;
-        const max = data.players && data.players.max ? data.players.max : 0;
-        const version = data.version || "未知";
-        statusBox.innerHTML = `在线 🟢<br>玩家: ${online}/${max}<br>版本: ${version}`;
-    } else {
-        statusBox.innerHTML = "服务器离线 🔴";
-    }
-})
-.catch(err => {
-    console.error("获取服务器状态失败:", err);
-    statusBox.innerHTML = "无法获取状态 🔴";
-});
-
-// 首页画廊轮播
-new Swiper(".home-gallery",{
-    slidesPerView:1,
-    spaceBetween:10,
-    loop:true,
-    pagination:{el:".swiper-pagination",clickable:true},
-    speed:500
-});
 </script>
 </body>
 </html>
