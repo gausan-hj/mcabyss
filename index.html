@@ -96,13 +96,13 @@ body{
   border-radius:10px;
 }
 
-.home-gallery img{
+.home-gallery .swiper-slide img{
   width:100%;
   height:100%;
   object-fit:cover;
   border-radius:10px;
   box-shadow:0 0 15px rgba(0,0,0,0.6);
-  image-rendering: pixelated; /* 像素风格 */
+  image-rendering: pixelated;
 }
 
 /* ===== 团队面板 ===== */
@@ -201,7 +201,6 @@ body{
 
       <h2>团队成员</h2>
       <div class="team-wrapper">
-        <!-- 魔法師 -->
         <div class="team-panel">
           <div class="team-title">魔法師</div>
           <div class="team-members">
@@ -209,7 +208,6 @@ body{
             <span>Inorichan0630</span>
           </div>
         </div>
-        <!-- 即涼即飲 -->
         <div class="team-panel">
           <div class="team-title">即涼即飲</div>
           <div class="team-members">
@@ -217,14 +215,12 @@ body{
             <span>cocowadaisuki</span>
           </div>
         </div>
-        <!-- DC管理員 -->
         <div class="team-panel">
           <div class="team-title">DC管理員</div>
           <div class="team-members">
             <span>@祈櫻</span>
           </div>
         </div>
-        <!-- 邪惡魔法 -->
         <div class="team-panel">
           <div class="team-title">邪惡魔法</div>
           <div class="team-members">
@@ -232,7 +228,6 @@ body{
             <span>YEE_Yizuo</span>
           </div>
         </div>
-        <!-- 建習生 -->
         <div class="team-panel">
           <div class="team-title">建習生</div>
           <div class="team-members">
@@ -240,7 +235,6 @@ body{
             <span>Shomi4067</span>
           </div>
         </div>
-        <!-- 舔狗 -->
         <div class="team-panel">
           <div class="team-title">舔狗</div>
           <div class="team-members">
@@ -248,7 +242,6 @@ body{
             <span>SeanYuan2021</span>
           </div>
         </div>
-        <!-- 网站 -->
         <div class="team-panel">
           <div class="team-title">网站</div>
           <div class="team-members">
@@ -288,48 +281,62 @@ body{
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-// Swiper 主控
+// 初始化 Swiper
 const swiper = new Swiper('.swiper',{direction:'horizontal',speed:600});
 
-// 菜单胶囊
+// 菜单和胶囊
 const buttons = document.querySelectorAll(".menu button");
 const indicator = document.getElementById("indicator");
 
 function moveIndicator(index){
-  const btn = buttons[index];
-  indicator.style.width = btn.offsetWidth + "px";
-  indicator.style.left = btn.offsetLeft + "px";
-  buttons.forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
+    const btn = buttons[index];
+    indicator.style.width = btn.offsetWidth + "px";
+    indicator.style.left = btn.offsetLeft + "px";
+    buttons.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
 }
 
-// 点击菜单切换
+// 点击菜单切换页面
 buttons.forEach((btn,index)=>{
-  btn.addEventListener("click",()=>{
-    swiper.slideTo(index);
-    moveIndicator(index);
-  });
+    btn.addEventListener("click",()=>{
+        swiper.slideTo(index);
+        moveIndicator(index);
+    });
 });
 
 // 滑动页面时同步胶囊
 swiper.on("slideChange",()=>{moveIndicator(swiper.activeIndex);});
-window.onload=()=>moveIndicator(0);
+window.onload = ()=>{ moveIndicator(0); };
 
 // 服务器状态
+const statusBox = document.getElementById("statusBox");
+statusBox.innerHTML = "加载中…";
+
 fetch("https://api.mcsrvstat.us/2/mcabyss.xyz")
 .then(res=>res.json())
 .then(data=>{
-  if(data && data.online){
-    document.getElementById("statusBox").innerHTML =
-    "在线 🟢<br>玩家: "+data.players.online+"/"+data.players.max+
-    "<br>版本: "+data.version;
-  }else{
-    document.getElementById("statusBox").innerHTML="服务器离线 🔴";
-  }
-}).catch(()=>{document.getElementById("statusBox").innerHTML="无法获取状态";});
+    if(data && data.online){
+        const online = data.players && data.players.online ? data.players.online : 0;
+        const max = data.players && data.players.max ? data.players.max : 0;
+        const version = data.version || "未知";
+        statusBox.innerHTML = `在线 🟢<br>玩家: ${online}/${max}<br>版本: ${version}`;
+    } else {
+        statusBox.innerHTML = "服务器离线 🔴";
+    }
+})
+.catch(err => {
+    console.error("获取服务器状态失败:", err);
+    statusBox.innerHTML = "无法获取状态 🔴";
+});
 
-// 首页轮播
-new Swiper(".home-gallery",{slidesPerView:1,spaceBetween:10,loop:true,pagination:{el:".swiper-pagination",clickable:true},speed:500});
+// 首页画廊轮播
+new Swiper(".home-gallery",{
+    slidesPerView:1,
+    spaceBetween:10,
+    loop:true,
+    pagination:{el:".swiper-pagination",clickable:true},
+    speed:500
+});
 </script>
 </body>
 </html>
