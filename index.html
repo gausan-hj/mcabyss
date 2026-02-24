@@ -132,22 +132,27 @@ body{
 /* 团队成员，多行横排显示 */
 .team-wrapper{
   display:flex;
-  flex-wrap:wrap; /* 自动换行 */
-  justify-content:center;
+  flex-direction:column;
   gap:10px;
   width:100%;
   padding:10px 0;
+  align-items:center;
+}
+
+.team-row{
+  display:flex;
+  gap:10px;
+  justify-content:center;
 }
 
 .team-member{
-  flex:0 1 120px; /* 最小 120px，可自动收缩，多行换行 */
   background:rgba(173,216,230,0.3);
   padding:10px;
   border-radius:10px;
   text-align:center;
   font-size:10px;
   box-shadow:0 0 5px rgba(0,0,0,0.3);
-  white-space:nowrap;
+  min-width:120px;
 }
 </style>
 </head>
@@ -194,25 +199,39 @@ body{
       </div>
       <h3>团队成员</h3>
       <div class="team-wrapper">
-        <div class="team-member">@魔法師</div>
-        <div class="team-member">@祈櫻</div>
-        <div class="team-member">Java - Inorichan0630</div>
-        <div class="team-member">@即涼即飲</div>
-        <div class="team-member">@神龍</div>
-        <div class="team-member">Java - cocowadaisuki</div>
-        <div class="team-member">@DC管理員</div>
-        <div class="team-member">@祈櫻</div>
-        <div class="team-member">@建築師</div>
-        <div class="team-member">@邪惡魔法</div>
-        <div class="team-member">@_yizuo_</div>
-        <div class="team-member">Java - YEE_Yizuo</div>
-        <div class="team-member">@建習生</div>
-        <div class="team-member">@雪咪只4路過</div>
-        <div class="team-member">BE - .Shomi4067</div>
-        <div class="team-member">@舔狗</div>
-        <div class="team-member">@Sean Yuan阿狗</div>
-        <div class="team-member">Java - SeanYuan2021</div>
-        <div class="team-member">网站 - @hi-_-
+        <div class="team-row">
+          <div class="team-member">@魔法師</div>
+          <div class="team-member">@祈櫻</div>
+          <div class="team-member">Java - Inorichan0630</div>
+        </div>
+        <div class="team-row">
+          <div class="team-member">@即涼即飲</div>
+          <div class="team-member">@神龍</div>
+          <div class="team-member">Java - cocowadaisuki</div>
+        </div>
+        <div class="team-row">
+          <div class="team-member">@DC管理員</div>
+          <div class="team-member">@祈櫻</div>
+        </div>
+        <div class="team-row">
+          <div class="team-member">@邪惡魔法</div>
+          <div class="team-member">@_yizuo_</div>
+          <div class="team-member">Java - YEE_Yizuo</div>
+        </div>
+        <div class="team-row">
+          <div class="team-member">@建習生</div>
+          <div class="team-member">@雪咪只4路過</div>
+          <div class="team-member">BE - Shomi4067</div>
+        </div>
+        <div class="team-row">
+          <div class="team-member">@舔狗</div>
+          <div class="team-member">@Sean Yuan阿狗</div>
+          <div class="team-member">Java - SeanYuan2021</div>
+        </div>
+        <div class="team-row">
+          <div class="team-member">网站</div>
+          <div class="team-member">@hi-_-
+          </div>
         </div>
       </div>
     </div>
