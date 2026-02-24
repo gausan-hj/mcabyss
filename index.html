@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>滄淵服務器官网</title>
+<title>滄淵服務器官網</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -160,6 +160,15 @@ body{
   margin:6px 0;
   font-size:14px;
 }
+.status-online {
+  color: #a3ff8f;
+}
+.status-offline {
+  color: #ff8f8f;
+}
+.status-loading {
+  color: #ffff8f;
+}
 
 /* ===== 画廊 ===== */
 .gallery-container {
@@ -208,6 +217,17 @@ body{
     padding:4px 8px;
   }
 }
+
+/* ===== 占位圖片樣式 ===== */
+.placeholder-img {
+  background: linear-gradient(145deg, #4a90e2, #9013fe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
 </style>
 </head>
 <body>
@@ -221,23 +241,25 @@ body{
   <button data-index="4">联系</button>
 </div>
 
-<div class="swiper">
+<div class="swiper main-swiper">
   <div class="swiper-wrapper">
 
     <!-- 主页 -->
     <div class="swiper-slide home-slide">
       <div class="home-banner">▶️ 歡迎來到 滄淵服務器</div>
       <div class="server-status" id="serverStatusBox">
-        <h3>載入伺服器狀態...</h3>
+        <h3 class="status-loading">⏳ 載入伺服器狀態中...</h3>
       </div>
-      <div class="gallery-container swiper home-gallery">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="圖片1.jpg" alt="圖片1"></div>
-          <div class="swiper-slide"><img src="圖片2.jpg" alt="圖片2"></div>
-          <div class="swiper-slide"><img src="圖片3.jpg" alt="圖片3"></div>
-          <div class="swiper-slide"><img src="圖片4.jpg" alt="圖片4"></div>
+      <div class="gallery-container">
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><div class="placeholder-img" style="width:100%;height:220px;">🏰 主城</div></div>
+            <div class="swiper-slide"><div class="placeholder-img" style="width:100%;height:220px;">⚔️ 副本</div></div>
+            <div class="swiper-slide"><div class="placeholder-img" style="width:100%;height:220px;">🌲 資源世界</div></div>
+            <div class="swiper-slide"><div class="placeholder-img" style="width:100%;height:220px;">🎮 小遊戲</div></div>
+          </div>
+          <div class="swiper-pagination"></div>
         </div>
-        <div class="swiper-pagination"></div>
       </div>
     </div>
 
@@ -245,10 +267,16 @@ body{
     <div class="swiper-slide">
       <h2>服务器信息</h2>
       <div class="panel">
-        <strong>Java版</strong><br>IP: mcabyss.xyz<br>备用: winter.mcproxy.net<br>版本: 1.21.4
+        <strong>Java版</strong><br>
+        IP: mcabyss.xyz<br>
+        备用: winter.mcproxy.net<br>
+        版本: 1.21.4
       </div>
       <div class="panel">
-        <strong>基岩版</strong><br>IP: mcabyss.xyz<br>端口: 10138<br>版本: 最新
+        <strong>基岩版</strong><br>
+        IP: mcabyss.xyz<br>
+        端口: 10138<br>
+        版本: 最新
       </div>
       <h2>团队成员</h2>
       <div class="team-wrapper">
@@ -278,8 +306,7 @@ body{
         </div>
         <div class="team-panel">
           <div class="team-title">网站</div>
-          <div class="team-members"><span>hi-_-
-          </span></div>
+          <div class="team-members"><span>hi-_-</span></div>
         </div>
       </div>
     </div>
@@ -288,7 +315,11 @@ body{
     <div class="swiper-slide">
       <h2>服务器规则</h2>
       <div class="panel">
-        禁止外挂<br>禁止破坏<br>尊重玩家
+        1. 禁止使用外掛、作弊模組<br><br>
+        2. 禁止惡意破壞他人建築<br><br>
+        3. 尊重每一位玩家<br><br>
+        4. 禁止洗頻、騷擾言論<br><br>
+        5. 遵守管理員指示
       </div>
     </div>
 
@@ -296,7 +327,22 @@ body{
     <div class="swiper-slide">
       <h2>如何游玩</h2>
       <div class="panel">
-        1. 打开 Minecraft<br>2. 点击多人游戏<br>3. 添加服务器<br>4. 输入服务器 IP<br>5. 点击加入
+        <strong>Java版：</strong><br>
+        1. 打開 Minecraft Java版<br>
+        2. 點擊「多人遊戲」<br>
+        3. 點擊「新增伺服器」<br>
+        4. 伺服器名稱：滄淵<br>
+        5. 伺服器位址：mcabyss.xyz<br>
+        6. 點擊「完成」並加入<br><br>
+        
+        <strong>基岩版：</strong><br>
+        1. 打開 Minecraft 基岩版<br>
+        2. 點擊「伺服器」<br>
+        3. 滑到最下方點「新增伺服器」<br>
+        4. 輸入名稱：滄淵<br>
+        5. 伺服器位址：mcabyss.xyz<br>
+        6. 連接埠：10138<br>
+        7. 點擊「儲存」並加入
       </div>
     </div>
 
@@ -304,7 +350,12 @@ body{
     <div class="swiper-slide">
       <h2>联系我们</h2>
       <div class="panel">
-        QQ群: 你的QQ群<br>Discord: 你的Discord
+        <strong>QQ群</strong><br>
+        123456789<br><br>
+        <strong>Discord</strong><br>
+        discord.gg/cangyuan<br><br>
+        <strong>管理員郵箱</strong><br>
+        admin@mcabyss.xyz
       </div>
     </div>
 
@@ -313,70 +364,139 @@ body{
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-const swiper = new Swiper('.swiper',{
-  direction:'horizontal',
-  speed:600
+// ===== 初始化所有 Swiper =====
+const mainSwiper = new Swiper('.main-swiper', {
+  direction: 'horizontal',
+  speed: 600
 });
 
-// 菜单与胶囊
+const gallerySwiper = new Swiper('.gallery-swiper', {
+  slidesPerView: 1,
+  spaceBetween: 10,
+  loop: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true
+  },
+  speed: 500
+});
+
+// ===== 選單與膠囊指示器 =====
 const buttons = document.querySelectorAll(".menu button");
 const indicator = document.getElementById("indicator");
 
-function moveIndicatorToButton(btn){
-    const parentRect = btn.parentElement.getBoundingClientRect();
-    const btnRect = btn.getBoundingClientRect();
-    indicator.style.width = btnRect.width + "px";
-    indicator.style.left = (btnRect.left - parentRect.left) + "px";
-    buttons.forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
+function moveIndicatorToButton(btn) {
+  if (!btn) return;
+  const parentRect = btn.parentElement.getBoundingClientRect();
+  const btnRect = btn.getBoundingClientRect();
+  indicator.style.width = btnRect.width + "px";
+  indicator.style.left = (btnRect.left - parentRect.left) + "px";
+  buttons.forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
 }
-window.addEventListener('load', ()=>{moveIndicatorToButton(buttons[0]);});
 
-// 点击菜单切换页面
-buttons.forEach(btn=>{
-    btn.addEventListener("click",()=>{
-        const index = parseInt(btn.dataset.index);
-        swiper.slideTo(index);
-        moveIndicatorToButton(btn);
-    });
+// 初始化選單位置
+window.addEventListener('load', () => {
+  moveIndicatorToButton(buttons[0]);
 });
 
-// swiper滑动同步胶囊
-swiper.on("slideChange",()=>{
-    const btn = Array.from(buttons).find(b=>parseInt(b.dataset.index)===swiper.activeIndex);
-    if(btn) moveIndicatorToButton(btn);
+// 點擊選單切換頁面
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const index = parseInt(btn.dataset.index);
+    mainSwiper.slideTo(index);
+    moveIndicatorToButton(btn);
+  });
 });
 
-// 团队面板滑出
-document.querySelectorAll('.team-title').forEach(title=>{
-  title.addEventListener('click',()=>{
+// 滑動同步選單
+mainSwiper.on("slideChange", () => {
+  const btn = Array.from(buttons).find(b => parseInt(b.dataset.index) === mainSwiper.activeIndex);
+  if (btn) moveIndicatorToButton(btn);
+});
+
+// ===== 團隊面板展開/收合 =====
+document.querySelectorAll('.team-title').forEach(title => {
+  title.addEventListener('click', () => {
     title.nextElementSibling.classList.toggle('show');
   });
 });
 
-// 主页画廊轮播
-new Swiper(".home-gallery", {
-  slidesPerView:1,
-  spaceBetween:10,
-  loop:true,
-  pagination:{el:".swiper-pagination",clickable:true},
-  speed:500
-});
-
-// 主页服务器状态
+// ===== 真實伺服器狀態查詢 =====
 const statusBox = document.getElementById("serverStatusBox");
-statusBox.innerHTML = "載入伺服器狀態...";
-// 用假数据模拟刷新，如果实际API可用可替换
-setTimeout(()=>{
-  statusBox.innerHTML =
-  `<h3>Java 版 🔹</h3>
-   玩家: 12/100<br>
-   版本: 1.21.4
-   <hr>
-   <h3>基岩版 🟩</h3>
-   玩家: 8/50<br>
-   版本: 最新`;
-},1000);
+
+async function fetchServerStatus() {
+  try {
+    // 使用 mcsrvstat.us API (穩定且免費)
+    const javaResponse = await fetch('https://api.mcsrvstat.us/2/mcabyss.xyz');
+    const javaData = await javaResponse.json();
+    
+    // 基岩版使用同一個 API 的不同端點
+    const bedrockResponse = await fetch('https://api.mcsrvstat.us/bedrock/2/mcabyss.xyz:10138');
+    const bedrockData = await bedrockResponse.json();
+    
+    let html = '';
+    
+    // Java 版狀態
+    if (javaData.online) {
+      html += `
+        <h3 class="status-online">✅ Java 版 - 在線</h3>
+        <div>玩家: ${javaData.players.online}/${javaData.players.max}</div>
+        <div>版本: ${javaData.version || '1.21.4'}</div>
+        <div>延遲: ${javaData.debug?.ping ? javaData.debug.ping + 'ms' : 'N/A'}</div>
+      `;
+    } else {
+      html += `
+        <h3 class="status-offline">❌ Java 版 - 離線</h3>
+        <div>無法連線至伺服器</div>
+      `;
+    }
+    
+    html += '<hr>';
+    
+    // 基岩版狀態
+    if (bedrockData.online) {
+      html += `
+        <h3 class="status-online">✅ 基岩版 - 在線</h3>
+        <div>玩家: ${bedrockData.players?.online || 0}/${bedrockData.players?.max || 50}</div>
+        <div>版本: ${bedrockData.version || '最新'}</div>
+        <div>延遲: ${bedrockData.debug?.ping ? bedrockData.debug.ping + 'ms' : 'N/A'}</div>
+      `;
+    } else {
+      html += `
+        <h3 class="status-offline">❌ 基岩版 - 離線</h3>
+        <div>無法連線至伺服器</div>
+      `;
+    }
+    
+    // 加入最後更新時間
+    html += `<div style="margin-top:10px;font-size:8px;opacity:0.7;">最後更新: ${new Date().toLocaleTimeString('zh-TW')}</div>`;
+    
+    statusBox.innerHTML = html;
+    
+  } catch (error) {
+    console.error('獲取伺服器狀態失敗:', error);
+    statusBox.innerHTML = `
+      <h3 class="status-offline">❌ 無法獲取伺服器狀態</h3>
+      <div>請稍後再試</div>
+      <div style="margin-top:10px;font-size:8px;opacity:0.7;">錯誤: ${error.message}</div>
+    `;
+  }
+}
+
+// 立即執行第一次查詢
+fetchServerStatus();
+
+// 每 30 秒自動更新一次
+setInterval(fetchServerStatus, 30000);
+
+// ===== 處理圖片載入錯誤 =====
+document.querySelectorAll('img').forEach(img => {
+  img.onerror = function() {
+    this.style.display = 'none';
+    this.parentElement.innerHTML = '<div class="placeholder-img" style="width:100%;height:220px;">🏞️ 圖片載入失敗</div>';
+  };
+});
 </script>
 </body>
 </html>
