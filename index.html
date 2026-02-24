@@ -18,8 +18,8 @@ body{
 
 /* ===== 菜单 ===== */
 .menu{
-  position:fixed;
-  top:20px;
+  position: fixed;
+  top:10px;
   left:50%;
   transform:translateX(-50%);
   display:flex;
@@ -27,7 +27,7 @@ body{
   border-radius:50px;
   padding:5px;
   backdrop-filter:blur(10px);
-  z-index:9999;
+  z-index:9999; /* 保证最高层 */
   flex-wrap: nowrap;
 }
 .menu button{
@@ -41,11 +41,6 @@ body{
   z-index:2;
   transition:0.3s;
 }
-.menu button.active{
-  color:#003366;
-  font-weight:bold;
-}
-/* 去掉点击时蓝色高亮 */
 .menu button:focus{
   outline:none;
 }
@@ -70,16 +65,18 @@ body{
 .swiper{
   width:100vw;
   height:100vh;
+  padding-top:80px; /* 整体往下移，给导航栏留空间 */
 }
 .swiper-slide{
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:flex-start; /* 从顶部开始 */
   align-items:center;
   text-align:center;
   padding:20px;
   box-sizing:border-box;
   min-height:100vh;
+  overflow:visible; /* 防止裁剪胶囊 */
 }
 .panel{
   background:rgba(255,255,255,0.15);
@@ -90,6 +87,7 @@ body{
   width:340px;
   max-width:90%;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index:0;
 }
 
 /* ===== 团队面板 ===== */
@@ -98,6 +96,7 @@ body{
   flex-wrap:wrap;
   justify-content:center;
   gap:15px;
+  z-index:0;
 }
 .team-panel{
   background: rgba(173,216,230,0.3);
@@ -107,6 +106,7 @@ body{
   max-width:300px;
   box-shadow:0 0 10px rgba(0,0,0,0.3);
   flex:1 1 auto;
+  z-index:0;
 }
 .team-title{
   font-size:12px;
@@ -146,6 +146,7 @@ body{
   text-shadow:0 0 8px #000;
   margin-bottom:15px;
   animation: fadeIn 1.6s ease-in-out infinite alternate;
+  z-index:0;
 }
 @keyframes fadeIn {
   from {opacity:0.6;}
@@ -163,6 +164,7 @@ body{
   margin:10px 0;
   box-shadow:0 0 15px rgba(0,0,0,0.5);
   font-size:12px;
+  z-index:0;
 }
 .server-status h3 {
   margin:6px 0;
@@ -174,6 +176,7 @@ body{
   width:90%;
   max-width:360px;
   margin-top:15px;
+  z-index:0;
 }
 .gallery-container .swiper-slide img {
   width:100%;
@@ -235,15 +238,10 @@ body{
 
     <!-- 主页 -->
     <div class="swiper-slide home-slide">
-
       <div class="home-banner">▶️ 歡迎來到 滄淵服務器</div>
-
-      <!-- 服务器状态 -->
       <div class="server-status" id="serverStatusBox">
         <h3>載入伺服器狀態...</h3>
       </div>
-
-      <!-- 画廊 -->
       <div class="gallery-container swiper home-gallery">
         <div class="swiper-wrapper">
           <div class="swiper-slide"><img src="gallery1.jpg" alt="畫廊1"></div>
@@ -264,7 +262,6 @@ body{
       <div class="panel">
         <strong>基岩版</strong><br>IP: mcabyss.xyz<br>端口: 10138<br>版本: 最新
       </div>
-
       <h2>团队成员</h2>
       <div class="team-wrapper">
         <div class="team-panel">
@@ -311,7 +308,7 @@ body{
     <div class="swiper-slide">
       <h2>如何游玩</h2>
       <div class="panel">
-        1. 打开 Minecraft<br>2. 点击多人游戏<br>3. 添加服务器<br>4. 输入服务器 IP<br>5. 点击加入，即可进入游戏
+        1. 打开 Minecraft<br>2. 点击多人游戏<br>3. 添加服务器<br>4. 输入服务器 IP<br>5. 点击加入
       </div>
     </div>
 
@@ -328,7 +325,7 @@ body{
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-// 动态 vh
+// 设置 swiper 高度
 function setVh(){document.documentElement.style.setProperty('--vh', window.innerHeight*0.01+'px');}
 window.addEventListener('resize', setVh);
 window.addEventListener('orientationchange', setVh);
@@ -349,6 +346,7 @@ function moveIndicatorToButton(btn){
     buttons.forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
 }
+window.addEventListener('load', ()=>{moveIndicatorToButton(buttons[0]);});
 
 // 点击菜单
 buttons.forEach(btn=>{
