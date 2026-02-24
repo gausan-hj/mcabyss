@@ -13,13 +13,12 @@
 body{
   margin:0;
   font-family:'Press Start 2P',cursive;
-  background:linear-gradient(135deg,#6dd5fa,#2980b9);
+  background: linear-gradient(135deg,#6dd5fa,#2980b9);
   color:white;
   overflow:hidden;
 }
 
 /* ===== 胶囊菜单 ===== */
-
 .menu{
   position:fixed;
   top:20px;
@@ -63,7 +62,6 @@ body{
 }
 
 /* ===== 页面 ===== */
-
 .swiper{
   width:100vw;
   height:100vh;
@@ -75,6 +73,7 @@ body{
   justify-content:center;
   align-items:center;
   text-align:center;
+  padding:20px;
 }
 
 .panel{
@@ -83,7 +82,54 @@ body{
   border-radius:15px;
   margin:10px;
   font-size:10px;
-  width:320px;
+  width:340px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+/* Minecraft 像素风输入框和按钮 */
+.minecraft-input{
+  padding:10px;
+  border:3px solid #00bfff;
+  border-radius:8px;
+  background:rgba(173,216,230,0.2);
+  color:white;
+  font-family:'Press Start 2P',cursive;
+  font-size:10px;
+  width:220px;
+  text-align:center;
+  transition:0.3s;
+}
+
+.minecraft-input:focus{
+  outline:none;
+  border-color:#1e90ff;
+  background:rgba(173,216,230,0.4);
+}
+
+.minecraft-btn{
+  margin-top:10px;
+  padding:8px 12px;
+  border:none;
+  border-radius:8px;
+  background:#00bfff;
+  color:white;
+  font-family:'Press Start 2P',cursive;
+  font-size:10px;
+  cursor:pointer;
+  box-shadow: 0 0 8px #00bfff;
+  transition:0.3s;
+}
+
+.minecraft-btn:hover{
+  background:#1e90ff;
+  box-shadow:0 0 15px #1e90ff;
+}
+
+/* 图片轮播 */
+.home-gallery img{
+  width:300px;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.5);
 }
 </style>
 </head>
@@ -97,7 +143,6 @@ body{
   <button>资讯</button>
   <button>规则</button>
   <button>如何游玩</button>
-  <button>UUID</button>
   <button>联系</button>
 </div>
 
@@ -108,6 +153,18 @@ body{
     <div class="swiper-slide">
       <h3>服务器状态</h3>
       <div class="panel" id="statusBox">加载中...</div>
+      
+      <h3>画廊</h3>
+      <div class="swiper home-gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="图片1.jpg" alt="图片1"></div>
+          <div class="swiper-slide"><img src="图片2.jpg" alt="图片2"></div>
+          <div class="swiper-slide"><img src="图片3.jpg" alt="图片3"></div>
+          <div class="swiper-slide"><img src="图片4.jpg" alt="图片4"></div>
+          <div class="swiper-slide"><img src="图片5.jpg" alt="图片5"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
     </div>
 
     <!-- 资讯 -->
@@ -142,19 +199,11 @@ body{
       <h3>如何游玩</h3>
       <div class="panel">
         1. 打开 Minecraft<br>
-        2. 进入多人游戏<br>
+        2. 点击多人游戏<br>
         3. 添加服务器<br>
-        4. 输入 IP<br>
-        5. 点击加入
+        4. 输入服务器 IP<br>
+        5. 点击加入，即可进入游戏
       </div>
-    </div>
-
-    <!-- UUID -->
-    <div class="swiper-slide">
-      <h3>查询 UUID</h3>
-      <input type="text" id="playerName" placeholder="输入玩家名">
-      <button onclick="getUUID()">查询</button>
-      <div class="panel" id="uuidResult"></div>
     </div>
 
     <!-- 联系 -->
@@ -172,11 +221,13 @@ body{
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
+// 主 Swiper
 const swiper = new Swiper('.swiper',{
   direction:'horizontal',
   speed:600
 });
 
+// 胶囊菜单
 const buttons = document.querySelectorAll(".menu button");
 const indicator = document.getElementById("indicator");
 
@@ -184,7 +235,6 @@ function moveIndicator(index){
   const btn = buttons[index];
   indicator.style.width = btn.offsetWidth + "px";
   indicator.style.left = btn.offsetLeft + "px";
-
   buttons.forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
 }
@@ -215,20 +265,14 @@ fetch("https://api.mcsrvstat.us/2/mcabyss.xyz")
   }
 });
 
-/* UUID 查询 */
-function getUUID(){
-  const name=document.getElementById("playerName").value;
-  fetch("https://corsproxy.io/?https://api.mojang.com/users/profiles/minecraft/"+name)
-  .then(res=>res.json())
-  .then(data=>{
-    if(data.id){
-      document.getElementById("uuidResult").innerHTML=
-      "玩家: "+data.name+"<br>UUID: "+data.id;
-    }else{
-      document.getElementById("uuidResult").innerHTML="找不到玩家";
-    }
-  });
-}
+// 首页图片轮播
+new Swiper(".home-gallery",{
+  slidesPerView:1,
+  spaceBetween:10,
+  loop:true,
+  pagination:{el:".swiper-pagination",clickable:true},
+  speed:500
+});
 </script>
 
 </body>
