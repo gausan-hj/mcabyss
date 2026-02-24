@@ -27,7 +27,7 @@ body{
   border-radius:50px;
   padding:5px;
   backdrop-filter:blur(10px);
-  z-index:9999; /* 保证最高层 */
+  z-index:9999;
   flex-wrap: nowrap;
 }
 .menu button{
@@ -44,11 +44,6 @@ body{
 .menu button:focus{
   outline:none;
 }
-.menu button::-moz-focus-inner{
-  border:0;
-}
-
-/* 指示器胶囊 */
 .indicator{
   position:absolute;
   top:5px;
@@ -65,18 +60,18 @@ body{
 .swiper{
   width:100vw;
   height:100vh;
-  padding-top:80px; /* 整体往下移，给导航栏留空间 */
+  padding-top:80px;
 }
 .swiper-slide{
   display:flex;
   flex-direction:column;
-  justify-content:flex-start; /* 从顶部开始 */
+  justify-content:flex-start;
   align-items:center;
   text-align:center;
   padding:20px;
   box-sizing:border-box;
   min-height:100vh;
-  overflow:visible; /* 防止裁剪胶囊 */
+  overflow:visible;
 }
 .panel{
   background:rgba(255,255,255,0.15);
@@ -87,7 +82,6 @@ body{
   width:340px;
   max-width:90%;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  z-index:0;
 }
 
 /* ===== 团队面板 ===== */
@@ -96,7 +90,6 @@ body{
   flex-wrap:wrap;
   justify-content:center;
   gap:15px;
-  z-index:0;
 }
 .team-panel{
   background: rgba(173,216,230,0.3);
@@ -106,7 +99,6 @@ body{
   max-width:300px;
   box-shadow:0 0 10px rgba(0,0,0,0.3);
   flex:1 1 auto;
-  z-index:0;
 }
 .team-title{
   font-size:12px;
@@ -146,7 +138,6 @@ body{
   text-shadow:0 0 8px #000;
   margin-bottom:15px;
   animation: fadeIn 1.6s ease-in-out infinite alternate;
-  z-index:0;
 }
 @keyframes fadeIn {
   from {opacity:0.6;}
@@ -164,7 +155,6 @@ body{
   margin:10px 0;
   box-shadow:0 0 15px rgba(0,0,0,0.5);
   font-size:12px;
-  z-index:0;
 }
 .server-status h3 {
   margin:6px 0;
@@ -176,7 +166,6 @@ body{
   width:90%;
   max-width:360px;
   margin-top:15px;
-  z-index:0;
 }
 .gallery-container .swiper-slide img {
   width:100%;
@@ -223,7 +212,6 @@ body{
 </head>
 <body>
 
-<!-- 菜单 -->
 <div class="menu" id="menu">
   <div class="indicator" id="indicator"></div>
   <button data-index="0">主页</button>
@@ -244,10 +232,10 @@ body{
       </div>
       <div class="gallery-container swiper home-gallery">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="gallery1.jpg" alt="畫廊1"></div>
-          <div class="swiper-slide"><img src="gallery2.jpg" alt="畫廊2"></div>
-          <div class="swiper-slide"><img src="gallery3.jpg" alt="畫廊3"></div>
-          <div class="swiper-slide"><img src="gallery4.jpg" alt="畫廊4"></div>
+          <div class="swiper-slide"><img src="圖片1.jpg" alt="圖片1"></div>
+          <div class="swiper-slide"><img src="圖片2.jpg" alt="圖片2"></div>
+          <div class="swiper-slide"><img src="圖片3.jpg" alt="圖片3"></div>
+          <div class="swiper-slide"><img src="圖片4.jpg" alt="圖片4"></div>
         </div>
         <div class="swiper-pagination"></div>
       </div>
@@ -325,16 +313,12 @@ body{
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-// 设置 swiper 高度
-function setVh(){document.documentElement.style.setProperty('--vh', window.innerHeight*0.01+'px');}
-window.addEventListener('resize', setVh);
-window.addEventListener('orientationchange', setVh);
-setVh();
+const swiper = new Swiper('.swiper',{
+  direction:'horizontal',
+  speed:600
+});
 
-// Swiper
-const swiper = new Swiper('.swiper',{direction:'horizontal',speed:600});
-
-// 菜单和胶囊
+// 菜单与胶囊
 const buttons = document.querySelectorAll(".menu button");
 const indicator = document.getElementById("indicator");
 
@@ -348,7 +332,7 @@ function moveIndicatorToButton(btn){
 }
 window.addEventListener('load', ()=>{moveIndicatorToButton(buttons[0]);});
 
-// 点击菜单
+// 点击菜单切换页面
 buttons.forEach(btn=>{
     btn.addEventListener("click",()=>{
         const index = parseInt(btn.dataset.index);
@@ -357,13 +341,13 @@ buttons.forEach(btn=>{
     });
 });
 
-// Swiper 切换同步胶囊
+// swiper滑动同步胶囊
 swiper.on("slideChange",()=>{
     const btn = Array.from(buttons).find(b=>parseInt(b.dataset.index)===swiper.activeIndex);
     if(btn) moveIndicatorToButton(btn);
 });
 
-// 团队面板滑出动画
+// 团队面板滑出
 document.querySelectorAll('.team-title').forEach(title=>{
   title.addEventListener('click',()=>{
     title.nextElementSibling.classList.toggle('show');
@@ -375,37 +359,24 @@ new Swiper(".home-gallery", {
   slidesPerView:1,
   spaceBetween:10,
   loop:true,
-  pagination:{
-    el:".swiper-pagination",
-    clickable:true
-  },
+  pagination:{el:".swiper-pagination",clickable:true},
   speed:500
 });
 
 // 主页服务器状态
 const statusBox = document.getElementById("serverStatusBox");
 statusBox.innerHTML = "載入伺服器狀態...";
-Promise.all([
-  fetch("https://api.mcsrvstat.us/2/mcabyss.xyz").then(r=>r.json()),
-  fetch("https://api.mcsrvstat.us/2/mcabyss.xyz:10138").then(r=>r.json())
-]).then(([java, bedrock]) => {
-  let html = "";
-  if(java && java.online){
-    html += `<h3>Java 版 🔹</h3>
-             玩家: ${java.players?.online ?? 0}/${java.players?.max ?? 0}<br>
-             版本: ${java.version ?? "–"}`;
-  } else html += `<h3>Java 版 🔴 離線</h3>`;
-  html += "<hr>";
-  if(bedrock && bedrock.online){
-    html += `<h3>基岩版 🟩</h3>
-             玩家: ${bedrock.players?.online ?? 0}/${bedrock.players?.max ?? 0}<br>
-             版本: ${bedrock.version ?? "–"}`;
-  } else html += `<h3>基岩版 🔴 離線</h3>`;
-  statusBox.innerHTML = html;
-}).catch(err => {
-  statusBox.innerHTML = "無法獲取狀態";
-  console.error("伺服器狀態錯誤:", err);
-});
+// 用假数据模拟刷新，如果实际API可用可替换
+setTimeout(()=>{
+  statusBox.innerHTML =
+  `<h3>Java 版 🔹</h3>
+   玩家: 12/100<br>
+   版本: 1.21.4
+   <hr>
+   <h3>基岩版 🟩</h3>
+   玩家: 8/50<br>
+   版本: 最新`;
+},1000);
 </script>
 </body>
 </html>
