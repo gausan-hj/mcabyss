@@ -114,10 +114,10 @@ body{
   gap:10px;
   max-height:0;
   overflow:hidden;
-  transition: max-height 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* 弹跳效果 */
+  transition: max-height 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 .team-members.show{
-  max-height:200px; /* 根据成员数量可调整 */
+  max-height:200px;
 }
 .team-members span{
   background: rgba(0,191,255,0.5);
@@ -185,7 +185,7 @@ body{
     padding:10px 15px;
   }
   .team-members{
-    display:none; /* 默认折叠 */
+    display:none;
   }
   .team-members.show{
     display:flex;
@@ -202,11 +202,11 @@ body{
 <!-- 菜单 -->
 <div class="menu" id="menu">
   <div class="indicator" id="indicator"></div>
-  <button>主页</button>
-  <button>资讯</button>
-  <button>规则</button>
-  <button>如何游玩</button>
-  <button>联系</button>
+  <button data-index="0">主页</button>
+  <button data-index="1">资讯</button>
+  <button data-index="2">规则</button>
+  <button data-index="3">如何游玩</button>
+  <button data-index="4">联系</button>
 </div>
 
 <div class="swiper">
@@ -310,9 +310,7 @@ body{
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 // 设置动态 vh 单位，解决手机端100vh偏差
-function setVh(){
-  document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
-}
+function setVh(){document.documentElement.style.setProperty('--vh', window.innerHeight*0.01+'px');}
 window.addEventListener('resize', setVh);
 window.addEventListener('orientationchange', setVh);
 setVh();
@@ -324,25 +322,29 @@ const swiper = new Swiper('.swiper',{direction:'horizontal',speed:600});
 const buttons = document.querySelectorAll(".menu button");
 const indicator = document.getElementById("indicator");
 
-function moveIndicator(index){
-    const btn = buttons[index];
-    indicator.style.width = btn.offsetWidth + "px";
-    indicator.style.left = btn.offsetLeft + "px";
+function moveIndicatorToButton(btn){
+    const parentRect = btn.parentElement.getBoundingClientRect();
+    const btnRect = btn.getBoundingClientRect();
+    indicator.style.width = btnRect.width + "px";
+    indicator.style.left = (btnRect.left - parentRect.left) + "px";
     buttons.forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
 }
 
 // 点击菜单切换页面
-buttons.forEach((btn,index)=>{
+buttons.forEach(btn=>{
     btn.addEventListener("click",()=>{
+        const index = parseInt(btn.dataset.index);
         swiper.slideTo(index);
-        moveIndicator(index);
+        moveIndicatorToButton(btn);
     });
 });
 
-// 滑动页面时同步胶囊
-swiper.on("slideChange",()=>{moveIndicator(swiper.activeIndex);});
-window.onload = ()=>{ moveIndicator(0); };
+// Swiper 切换时同步胶囊
+swiper.on("slideChange",()=>{
+    const btn = Array.from(buttons).find(b=>parseInt(b.dataset.index)===swiper.activeIndex);
+    if(btn) moveIndicatorToButton(btn);
+});
 
 // 团队成员折叠展开动画
 document.querySelectorAll('.team-title').forEach(title=>{
