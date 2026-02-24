@@ -13,7 +13,7 @@ body{
   font-family:'Press Start 2P',cursive;
   background: linear-gradient(135deg,#6dd5fa,#2980b9);
   color:white;
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
 /* ===== 胶囊菜单 ===== */
@@ -83,43 +83,8 @@ body{
   margin:10px;
   font-size:10px;
   width:340px;
+  max-width:90%;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
-
-/* Minecraft 风格输入框和按钮 */
-.minecraft-input{
-  padding:10px;
-  border:3px solid #00bfff;
-  border-radius:8px;
-  background:rgba(173,216,230,0.2);
-  color:white;
-  font-family:'Press Start 2P',cursive;
-  font-size:10px;
-  width:220px;
-  text-align:center;
-  transition:0.3s;
-}
-.minecraft-input:focus{
-  outline:none;
-  border-color:#1e90ff;
-  background:rgba(173,216,230,0.4);
-}
-.minecraft-btn{
-  margin-top:10px;
-  padding:8px 12px;
-  border:none;
-  border-radius:8px;
-  background:#00bfff;
-  color:white;
-  font-family:'Press Start 2P',cursive;
-  font-size:10px;
-  cursor:pointer;
-  box-shadow: 0 0 8px #00bfff;
-  transition:0.3s;
-}
-.minecraft-btn:hover{
-  background:#1e90ff;
-  box-shadow:0 0 15px #1e90ff;
 }
 
 /* 首页图片轮播 */
@@ -221,31 +186,74 @@ body{
 
       <h3>团队成员</h3>
       <div class="team-wrapper">
+        <!-- Java 第1组 -->
         <div class="team-panel">
           <div class="team-title">Java</div>
           <div class="team-members">
-            <span>@魔法師</span><span>@祈櫻</span><span>Inorichan0630</span>
-            <span>@即涼即飲</span><span>@神龍</span><span>cocowadaisuki</span>
-            <span>@DC管理員</span><span>@祈櫻</span><span>@邪惡魔法</span>
-            <span>@_yizuo_</span><span>YEE_Yizuo</span><span>@舔狗</span>
-            <span>@Sean Yuan阿狗</span><span>SeanYizuo2021</span>
+            <span>@魔法師</span>
+            <span>@祈櫻</span>
+            <span>Inorichan0630</span>
           </div>
         </div>
 
+        <!-- Java 第2组 -->
+        <div class="team-panel">
+          <div class="team-title">Java</div>
+          <div class="team-members">
+            <span>@即涼即飲</span>
+            <span>@神龍</span>
+            <span>cocowadaisuki</span>
+          </div>
+        </div>
+
+        <!-- Java 第3组 -->
+        <div class="team-panel">
+          <div class="team-title">Java</div>
+          <div class="team-members">
+            <span>@DC管理員</span>
+            <span>@祈櫻</span>
+          </div>
+        </div>
+
+        <!-- Java 第4组 -->
+        <div class="team-panel">
+          <div class="team-title">Java</div>
+          <div class="team-members">
+            <span>@邪惡魔法</span>
+            <span>@_yizuo_</span>
+            <span>YEE_Yizuo</span>
+          </div>
+        </div>
+
+        <!-- BE -->
         <div class="team-panel">
           <div class="team-title">BE</div>
           <div class="team-members">
-            <span>@建習生</span><span>@雪咪只4路過</span><span>Shomi4067</span>
+            <span>@建習生</span>
+            <span>@雪咪只4路過</span>
+            <span>Shomi4067</span>
           </div>
         </div>
 
+        <!-- Java 第5组 -->
+        <div class="team-panel">
+          <div class="team-title">Java</div>
+          <div class="team-members">
+            <span>@舔狗</span>
+            <span>@Sean Yuan阿狗</span>
+            <span>SeanYuan2021</span>
+          </div>
+        </div>
+
+        <!-- 网站 -->
         <div class="team-panel">
           <div class="team-title">网站</div>
           <div class="team-members">
-            <span>@hi-_-
+            <span>hi-_-
             </span>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -305,7 +313,7 @@ buttons.forEach((btn,index)=>{
 swiper.on("slideChange",()=>{moveIndicator(swiper.activeIndex);});
 window.onload=()=>moveIndicator(0);
 
-// 服务器状态示例（可替换为你自己的可跨域接口）
+// 服务器状态
 fetch("https://api.mcsrvstat.us/2/mcabyss.xyz")
 .then(res=>res.json())
 .then(data=>{
