@@ -69,12 +69,12 @@ body{
 .swiper-slide{
   display:flex;
   flex-direction:column;
-  justify-content:flex-start;
-  align-items:center;
+  justify-content:center; /* 垂直居中 */
+  align-items:center;    /* 水平居中 */
   text-align:center;
-  padding-top:100px;
-  padding-left:20px;
-  padding-right:20px;
+  padding:20px;
+  box-sizing:border-box;
+  min-height:100vh;
 }
 
 .panel{
@@ -126,6 +126,41 @@ body{
   border-radius:12px;
   font-size:10px;
 }
+
+/* ===== 响应式优化 ===== */
+@media(max-width:768px){
+  .menu{
+    top:10px;
+    padding:3px;
+  }
+  .menu button{
+    padding:6px 10px;
+    font-size:10px;
+  }
+  .indicator{
+    height:28px;
+    top:3px;
+  }
+  .panel{
+    width:90%;
+    padding:15px;
+    font-size:11px;
+  }
+  .team-panel{
+    min-width:140px;
+    max-width:calc(50% - 15px);
+    padding:10px 15px;
+  }
+  .team-members span{
+    font-size:9px;
+    padding:4px 8px;
+  }
+}
+@media(max-width:480px){
+  .team-panel{
+    max-width:100%;
+  }
+}
 </style>
 </head>
 <body>
@@ -143,9 +178,9 @@ body{
 <div class="swiper">
   <div class="swiper-wrapper">
 
-    <!-- 主页（空白区域，方便重新设计） -->
+    <!-- 主页（空白） -->
     <div class="swiper-slide home-slide">
-      <!-- 空白，可添加自定义内容 -->
+      <!-- 空白区域，方便重新设计 -->
     </div>
 
     <!-- 资讯 -->
