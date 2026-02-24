@@ -112,8 +112,13 @@ body{
   flex-wrap:wrap;
   justify-content:center;
   gap:10px;
+  max-height:0;
+  overflow:hidden;
+  transition: max-height 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* 弹跳效果 */
 }
-/* 默认小屏折叠 */
+.team-members.show{
+  max-height:200px; /* 根据成员数量可调整 */
+}
 .team-members span{
   background: rgba(0,191,255,0.5);
   padding:5px 10px;
@@ -156,10 +161,11 @@ body{
   .menu{
     flex-wrap:wrap;
     justify-content:center;
+    padding:5px 0;
   }
   .menu button{
-    flex:1 1 48%;
-    margin:2px 1%;
+    flex:1 1 45%;
+    margin:2px 2.5%;
     font-size:10px;
     padding:6px 0;
   }
@@ -224,48 +230,48 @@ body{
       <h2>团队成员</h2>
       <div class="team-wrapper">
         <div class="team-panel">
-          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">魔法師</div>
+          <div class="team-title">魔法師</div>
           <div class="team-members">
             <span>@祈櫻</span>
             <span>Inorichan0630</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">即涼即飲</div>
+          <div class="team-title">即涼即飲</div>
           <div class="team-members">
             <span>@神龍</span>
             <span>cocowadaisuki</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">DC管理員</div>
+          <div class="team-title">DC管理員</div>
           <div class="team-members">
             <span>@祈櫻</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">邪惡魔法</div>
+          <div class="team-title">邪惡魔法</div>
           <div class="team-members">
             <span>@_yizuo_</span>
             <span>YEE_Yizuo</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">建習生</div>
+          <div class="team-title">建習生</div>
           <div class="team-members">
             <span>@雪咪只4路過</span>
             <span>Shomi4067</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">舔狗</div>
+          <div class="team-title">舔狗</div>
           <div class="team-members">
             <span>@Sean Yuan阿狗</span>
             <span>SeanYuan2021</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">网站</div>
+          <div class="team-title">网站</div>
           <div class="team-members">
             <span>hi-_-
             </span>
@@ -337,6 +343,13 @@ buttons.forEach((btn,index)=>{
 // 滑动页面时同步胶囊
 swiper.on("slideChange",()=>{moveIndicator(swiper.activeIndex);});
 window.onload = ()=>{ moveIndicator(0); };
+
+// 团队成员折叠展开动画
+document.querySelectorAll('.team-title').forEach(title=>{
+  title.addEventListener('click',()=>{
+    title.nextElementSibling.classList.toggle('show');
+  });
+});
 </script>
 </body>
 </html>
