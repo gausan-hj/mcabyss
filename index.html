@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>服务器官网</title>
+<title>水蓝服务器官网</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-html, body {
+body {
   margin: 0;
-  padding: 0;
   font-family: 'Press Start 2P', cursive;
-  background: #87CEFA;
+  background: #6dd5fa;
 }
 
 .swiper {
@@ -44,40 +43,40 @@ html, body {
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
 }
 
-h1 {
-  font-size: 24px;
-  margin-bottom: 30px;
-}
-
-/* 信息面板 */
 .server-panel {
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(10px);
-  padding: 30px;
+  padding: 25px;
   border-radius: 15px;
-  width: 300px;
+  width: 320px;
   border: 3px solid white;
-  box-shadow: 0 0 20px rgba(255,255,255,0.5);
   font-size: 10px;
 }
 
-.status {
+.status-row {
+  margin-bottom: 12px;
+}
+
+.team {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  font-size: 10px;
+}
+
+.nav {
+  position: fixed;
+  bottom: 10px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
+  gap: 10px;
 }
 
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: lime;
-  box-shadow: 0 0 10px lime;
-}
-
-.info-text {
-  margin-bottom: 10px;
+.nav button {
+  padding: 10px;
+  font-size: 8px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
 </style>
 </head>
@@ -89,52 +88,51 @@ h1 {
 
     <!-- 主页 -->
     <div class="swiper-slide home">
-      <h1>服务器状态</h1>
-
+      <h3>服务器状态</h3>
       <div class="server-panel">
-        <div class="status">
-          <span>Java版</span>
-          <div class="dot"></div>
-        </div>
-
-        <div class="status">
-          <span>基岩版</span>
-          <div class="dot"></div>
-        </div>
-
-        <div class="info-text">在线玩家: 56 / 200</div>
-        <div class="info-text">版本: 1.20.x</div>
-        <div class="info-text">MOTD: 欢迎来到水蓝世界</div>
+        <div class="status-row" id="status">加载中...</div>
+        <div class="status-row" id="players"></div>
+        <div class="status-row" id="version"></div>
+        <div class="status-row" id="motd"></div>
       </div>
     </div>
 
     <!-- 信息 -->
     <div class="swiper-slide info">
-      <h1>服务器信息</h1>
+      <h3>服务器信息</h3>
 
       <div class="server-panel">
-        <div class="info-text">服务器IP:</div>
-        <div class="info-text">play.yourserver.com</div>
+        <div class="status-row">IP: play.yourserver.com</div>
+        <div class="status-row">基岩端口: 19132</div>
+        <div class="status-row">支持 Java × 基岩</div>
+      </div>
 
-        <div class="info-text">基岩端口: 19132</div>
-        <div class="info-text">支持 Java × 基岩</div>
+      <h3 style="margin-top:30px;">团队成员</h3>
+      <div class="team">
+        <div>成员1</div>
+        <div>成员2</div>
+        <div>成员3</div>
+        <div>成员4</div>
+        <div>成员5</div>
+        <div>成员6</div>
+        <div>成员7</div>
       </div>
     </div>
 
     <!-- 规则 -->
     <div class="swiper-slide rules">
-      <h1>服务器规则</h1>
-      <p style="font-size:12px">
+      <h3>服务器规则</h3>
+      <p style="font-size:10px">
         1. 禁止外挂<br>
-        2. 禁止破坏他人建筑<br>
+        2. 禁止破坏<br>
         3. 尊重玩家
       </p>
     </div>
 
     <!-- 联系 -->
     <div class="swiper-slide contact">
-      <h1>联系我们</h1>
-      <p style="font-size:12px">
+      <h3>联系我们</h3>
+      <p style="font-size:10px">
         QQ群: 123456<br>
         Discord: yourserver<br>
         Email: admin@server.com
@@ -144,6 +142,14 @@ h1 {
   </div>
 </div>
 
+<!-- 底部导航 -->
+<div class="nav">
+  <button onclick="swiper.slideTo(0)">主页</button>
+  <button onclick="swiper.slideTo(1)">信息</button>
+  <button onclick="swiper.slideTo(2)">规则</button>
+  <button onclick="swiper.slideTo(3)">联系</button>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
@@ -151,6 +157,24 @@ const swiper = new Swiper('.swiper', {
   direction: 'horizontal',
   mousewheel: true,
 });
+
+const serverIP = "play.yourserver.com"; // ← 改成你的IP
+
+fetch(`https://api.mcsrvstat.us/2/${serverIP}`)
+  .then(res => res.json())
+  .then(data => {
+    if(data.online){
+      document.getElementById("status").innerText = "状态: 在线 🟢";
+      document.getElementById("players").innerText =
+        "在线玩家: " + data.players.online + "/" + data.players.max;
+      document.getElementById("version").innerText =
+        "版本: " + data.version;
+      document.getElementById("motd").innerText =
+        "MOTD: " + (data.motd.clean ? data.motd.clean.join(" ") : "");
+    } else {
+      document.getElementById("status").innerText = "状态: 离线 🔴";
+    }
+  });
 </script>
 
 </body>
