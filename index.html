@@ -28,6 +28,7 @@ body{
   padding:5px;
   backdrop-filter:blur(10px);
   z-index:9999;
+  flex-wrap: nowrap;
 }
 
 .menu button{
@@ -127,7 +128,7 @@ body{
   font-size:10px;
 }
 
-/* ===== 响应式优化 ===== */
+/* ===== 手机端优化 ===== */
 @media(max-width:768px){
   .menu{
     top:10px;
@@ -156,9 +157,37 @@ body{
     padding:4px 8px;
   }
 }
+
+/* ===== 手机端小屏专属 ===== */
 @media(max-width:480px){
+  .menu{
+    flex-wrap:wrap; /* 自动换行 */
+    justify-content:center;
+  }
+  .menu button{
+    flex:1 1 48%; /* 每行最多两按钮 */
+    margin:2px 1%;
+    font-size:10px;
+    padding:6px 0;
+  }
+  .indicator{
+    height:28px;
+    top:3px;
+    border-radius:30px;
+  }
+  .panel{
+    width:95%;
+    font-size:11px;
+    padding:15px;
+  }
   .team-panel{
-    max-width:100%;
+    max-width:100%; /* 一行一块 */
+    min-width:auto;
+    padding:10px 15px;
+  }
+  .team-members span{
+    font-size:9px;
+    padding:4px 6px;
   }
 }
 </style>
@@ -180,7 +209,7 @@ body{
 
     <!-- 主页（空白） -->
     <div class="swiper-slide home-slide">
-      <!-- 空白区域，方便重新设计 -->
+      <!-- 空白区域 -->
     </div>
 
     <!-- 资讯 -->
