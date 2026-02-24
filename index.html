@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MC Abyss 官网</title>
+<title>滄淵服務器官网</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -138,10 +138,56 @@ body{
   font-size:10px;
 }
 
-/* ===== 手机端导航栏横条 ===== */
+/* ===== 主页 Banner ===== */
+.home-banner {
+  font-family:'Press Start 2P',cursive;
+  font-size:18px;
+  color:#ffffff;
+  text-shadow:0 0 8px #000;
+  margin-bottom:15px;
+  animation: fadeIn 1.6s ease-in-out infinite alternate;
+}
+@keyframes fadeIn {
+  from {opacity:0.6;}
+  to {opacity:1;}
+}
+
+/* ===== 服务器状态 ===== */
+.server-status {
+  background:rgba(0,0,0,0.25);
+  border-radius:15px;
+  padding:18px;
+  width:90%;
+  max-width:400px;
+  text-align:center;
+  margin:10px 0;
+  box-shadow:0 0 15px rgba(0,0,0,0.5);
+  font-size:12px;
+}
+.server-status h3 {
+  margin:6px 0;
+  font-size:14px;
+}
+
+/* ===== 画廊 ===== */
+.gallery-container {
+  width:90%;
+  max-width:360px;
+  margin-top:15px;
+}
+.gallery-container .swiper-slide img {
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:10px;
+  box-shadow:0 0 12px rgba(0,0,0,0.5);
+  image-rendering: pixelated;
+}
+
+/* ===== 手机端 ===== */
 @media(max-width:768px){
   .menu{
-    flex-wrap: nowrap; /* 一行显示 */
+    flex-wrap: nowrap;
     justify-content:center;
     padding:5px 0;
     border-radius:10px;
@@ -151,9 +197,9 @@ body{
     font-size:11px;
   }
   .indicator{
-    height:32px; /* 胶囊高度加大 */
+    height:32px;
     top:2px;
-    border-radius:12px; /* 横条圆角 */
+    border-radius:12px;
   }
   .panel{
     width:90%;
@@ -168,20 +214,6 @@ body{
   .team-members span{
     font-size:9px;
     padding:4px 8px;
-  }
-}
-
-/* ===== 小屏折叠式团队 ===== */
-@media(max-width:480px){
-  .team-members{
-    max-height:0;
-    opacity:0;
-    transform:translateY(-10px);
-  }
-  .team-members.show{
-    max-height:200px;
-    opacity:1;
-    transform:translateY(0);
   }
 }
 </style>
@@ -202,7 +234,26 @@ body{
   <div class="swiper-wrapper">
 
     <!-- 主页 -->
-    <div class="swiper-slide home-slide"></div>
+    <div class="swiper-slide home-slide">
+
+      <div class="home-banner">▶️ 歡迎來到 滄淵服務器</div>
+
+      <!-- 服务器状态 -->
+      <div class="server-status" id="serverStatusBox">
+        <h3>載入伺服器狀態...</h3>
+      </div>
+
+      <!-- 画廊 -->
+      <div class="gallery-container swiper home-gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="gallery1.jpg" alt="畫廊1"></div>
+          <div class="swiper-slide"><img src="gallery2.jpg" alt="畫廊2"></div>
+          <div class="swiper-slide"><img src="gallery3.jpg" alt="畫廊3"></div>
+          <div class="swiper-slide"><img src="gallery4.jpg" alt="畫廊4"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
 
     <!-- 资讯 -->
     <div class="swiper-slide">
@@ -218,51 +269,32 @@ body{
       <div class="team-wrapper">
         <div class="team-panel">
           <div class="team-title">魔法師</div>
-          <div class="team-members">
-            <span>@祈櫻</span>
-            <span>Inorichan0630</span>
-          </div>
+          <div class="team-members"><span>@祈櫻</span><span>Inorichan0630</span></div>
         </div>
         <div class="team-panel">
           <div class="team-title">即涼即飲</div>
-          <div class="team-members">
-            <span>@神龍</span>
-            <span>cocowadaisuki</span>
-          </div>
+          <div class="team-members"><span>@神龍</span><span>cocowadaisuki</span></div>
         </div>
         <div class="team-panel">
           <div class="team-title">DC管理員</div>
-          <div class="team-members">
-            <span>@祈櫻</span>
-          </div>
+          <div class="team-members"><span>@祈櫻</span></div>
         </div>
         <div class="team-panel">
           <div class="team-title">邪惡魔法</div>
-          <div class="team-members">
-            <span>@_yizuo_</span>
-            <span>YEE_Yizuo</span>
-          </div>
+          <div class="team-members"><span>@_yizuo_</span><span>YEE_Yizuo</span></div>
         </div>
         <div class="team-panel">
           <div class="team-title">建習生</div>
-          <div class="team-members">
-            <span>@雪咪只4路過</span>
-            <span>Shomi4067</span>
-          </div>
+          <div class="team-members"><span>@雪咪只4路過</span><span>Shomi4067</span></div>
         </div>
         <div class="team-panel">
           <div class="team-title">舔狗</div>
-          <div class="team-members">
-            <span>@Sean Yuan阿狗</span>
-            <span>SeanYuan2021</span>
-          </div>
+          <div class="team-members"><span>@Sean Yuan阿狗</span><span>SeanYuan2021</span></div>
         </div>
         <div class="team-panel">
           <div class="team-title">网站</div>
-          <div class="team-members">
-            <span>hi-_-
-            </span>
-          </div>
+          <div class="team-members"><span>hi-_-
+          </span></div>
         </div>
       </div>
     </div>
@@ -338,6 +370,43 @@ document.querySelectorAll('.team-title').forEach(title=>{
   title.addEventListener('click',()=>{
     title.nextElementSibling.classList.toggle('show');
   });
+});
+
+// 主页画廊轮播
+new Swiper(".home-gallery", {
+  slidesPerView:1,
+  spaceBetween:10,
+  loop:true,
+  pagination:{
+    el:".swiper-pagination",
+    clickable:true
+  },
+  speed:500
+});
+
+// 主页服务器状态
+const statusBox = document.getElementById("serverStatusBox");
+statusBox.innerHTML = "載入伺服器狀態...";
+Promise.all([
+  fetch("https://api.mcsrvstat.us/2/mcabyss.xyz").then(r=>r.json()),
+  fetch("https://api.mcsrvstat.us/2/mcabyss.xyz:10138").then(r=>r.json())
+]).then(([java, bedrock]) => {
+  let html = "";
+  if(java && java.online){
+    html += `<h3>Java 版 🔹</h3>
+             玩家: ${java.players?.online ?? 0}/${java.players?.max ?? 0}<br>
+             版本: ${java.version ?? "–"}`;
+  } else html += `<h3>Java 版 🔴 離線</h3>`;
+  html += "<hr>";
+  if(bedrock && bedrock.online){
+    html += `<h3>基岩版 🟩</h3>
+             玩家: ${bedrock.players?.online ?? 0}/${bedrock.players?.max ?? 0}<br>
+             版本: ${bedrock.version ?? "–"}`;
+  } else html += `<h3>基岩版 🔴 離線</h3>`;
+  statusBox.innerHTML = html;
+}).catch(err => {
+  statusBox.innerHTML = "無法獲取狀態";
+  console.error("伺服器狀態錯誤:", err);
 });
 </script>
 </body>
