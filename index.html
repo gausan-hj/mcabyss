@@ -123,36 +123,56 @@ body{
 }
 
 /* 首页图片轮播 */
-.home-gallery img{
+.home-gallery{
   width:300px;
+  height:180px;
+  margin-top:10px;
+}
+
+.home-gallery img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
   border-radius:10px;
   box-shadow:0 0 10px rgba(0,0,0,0.5);
 }
 
-/* 团队成员，多行横排显示 */
+/* 团队成员胶囊面板 */
 .team-wrapper{
   display:flex;
   flex-direction:column;
-  gap:10px;
-  width:100%;
-  padding:10px 0;
+  gap:15px;
   align-items:center;
 }
 
-.team-row{
-  display:flex;
-  gap:10px;
-  justify-content:center;
+.team-panel{
+  background: rgba(173,216,230,0.3);
+  border-radius:50px;
+  padding:15px 25px;
+  min-width:300px;
+  max-width:90%;
+  box-shadow:0 0 10px rgba(0,0,0,0.3);
 }
 
-.team-member{
-  background:rgba(173,216,230,0.3);
-  padding:10px;
-  border-radius:10px;
+.team-title{
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:8px;
   text-align:center;
+}
+
+.team-members{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+}
+
+.team-members span{
+  background: rgba(0,191,255,0.4);
+  padding:5px 10px;
+  border-radius:12px;
   font-size:10px;
-  box-shadow:0 0 5px rgba(0,0,0,0.3);
-  min-width:120px;
 }
 </style>
 </head>
@@ -175,6 +195,7 @@ body{
     <div class="swiper-slide home-slide">
       <h3>服务器状态</h3>
       <div class="panel" id="statusBox">加载中...</div>
+
       <h3>画廊</h3>
       <div class="swiper home-gallery">
         <div class="swiper-wrapper">
@@ -197,40 +218,32 @@ body{
       <div class="panel">
         IP: mcabyss.xyz<br>端口: 10138<br>版本: 最新
       </div>
+
       <h3>团队成员</h3>
       <div class="team-wrapper">
-        <div class="team-row">
-          <div class="team-member">@魔法師</div>
-          <div class="team-member">@祈櫻</div>
-          <div class="team-member">Java - Inorichan0630</div>
+        <div class="team-panel">
+          <div class="team-title">Java</div>
+          <div class="team-members">
+            <span>@魔法師</span><span>@祈櫻</span><span>Inorichan0630</span>
+            <span>@即涼即飲</span><span>@神龍</span><span>cocowadaisuki</span>
+            <span>@DC管理員</span><span>@祈櫻</span><span>@邪惡魔法</span>
+            <span>@_yizuo_</span><span>YEE_Yizuo</span><span>@舔狗</span>
+            <span>@Sean Yuan阿狗</span><span>SeanYizuo2021</span>
+          </div>
         </div>
-        <div class="team-row">
-          <div class="team-member">@即涼即飲</div>
-          <div class="team-member">@神龍</div>
-          <div class="team-member">Java - cocowadaisuki</div>
+
+        <div class="team-panel">
+          <div class="team-title">BE</div>
+          <div class="team-members">
+            <span>@建習生</span><span>@雪咪只4路過</span><span>Shomi4067</span>
+          </div>
         </div>
-        <div class="team-row">
-          <div class="team-member">@DC管理員</div>
-          <div class="team-member">@祈櫻</div>
-        </div>
-        <div class="team-row">
-          <div class="team-member">@邪惡魔法</div>
-          <div class="team-member">@_yizuo_</div>
-          <div class="team-member">Java - YEE_Yizuo</div>
-        </div>
-        <div class="team-row">
-          <div class="team-member">@建習生</div>
-          <div class="team-member">@雪咪只4路過</div>
-          <div class="team-member">BE - Shomi4067</div>
-        </div>
-        <div class="team-row">
-          <div class="team-member">@舔狗</div>
-          <div class="team-member">@Sean Yuan阿狗</div>
-          <div class="team-member">Java - SeanYuan2021</div>
-        </div>
-        <div class="team-row">
-          <div class="team-member">网站</div>
-          <div class="team-member">@hi-_-
+
+        <div class="team-panel">
+          <div class="team-title">网站</div>
+          <div class="team-members">
+            <span>@hi-_-
+            </span>
           </div>
         </div>
       </div>
@@ -292,18 +305,18 @@ buttons.forEach((btn,index)=>{
 swiper.on("slideChange",()=>{moveIndicator(swiper.activeIndex);});
 window.onload=()=>moveIndicator(0);
 
-/* 服务器状态 */
+// 服务器状态示例（可替换为你自己的可跨域接口）
 fetch("https://api.mcsrvstat.us/2/mcabyss.xyz")
 .then(res=>res.json())
 .then(data=>{
-  if(data.online){
+  if(data && data.online){
     document.getElementById("statusBox").innerHTML =
     "在线 🟢<br>玩家: "+data.players.online+"/"+data.players.max+
     "<br>版本: "+data.version;
   }else{
     document.getElementById("statusBox").innerHTML="服务器离线 🔴";
   }
-});
+}).catch(()=>{document.getElementById("statusBox").innerHTML="无法获取状态";});
 
 // 首页图片轮播
 new Swiper(".home-gallery",{slidesPerView:1,spaceBetween:10,loop:true,pagination:{el:".swiper-pagination",clickable:true},speed:500});
