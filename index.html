@@ -114,10 +114,14 @@ body{
   gap:10px;
   max-height:0;
   overflow:hidden;
-  transition: max-height 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  opacity:0;
+  transform:translateY(-10px);
+  transition:max-height 0.5s ease,opacity 0.5s ease,transform 0.5s ease;
 }
 .team-members.show{
   max-height:200px;
+  opacity:1;
+  transform:translateY(0);
 }
 .team-members span{
   background: rgba(0,191,255,0.5);
@@ -126,19 +130,22 @@ body{
   font-size:10px;
 }
 
-/* ===== 手机端优化 ===== */
+/* ===== 手机端导航栏横条 ===== */
 @media(max-width:768px){
   .menu{
-    top:10px;
-    padding:3px;
+    flex-wrap: nowrap; /* 不换行 */
+    justify-content:center;
+    padding:5px 0;
+    border-radius:10px;
   }
   .menu button{
-    padding:6px 10px;
-    font-size:10px;
+    padding:8px 12px;
+    font-size:11px;
   }
   .indicator{
     height:28px;
     top:3px;
+    border-radius:10px;
   }
   .panel{
     width:90%;
@@ -158,41 +165,15 @@ body{
 
 /* ===== 小屏折叠式团队 ===== */
 @media(max-width:480px){
-  .menu{
-    flex-wrap:wrap;
-    justify-content:center;
-    padding:5px 0;
-  }
-  .menu button{
-    flex:1 1 45%;
-    margin:2px 2.5%;
-    font-size:10px;
-    padding:6px 0;
-  }
-  .indicator{
-    height:28px;
-    top:3px;
-    border-radius:30px;
-  }
-  .panel{
-    width:95%;
-    font-size:11px;
-    padding:15px;
-  }
-  .team-panel{
-    max-width:100%;
-    min-width:auto;
-    padding:10px 15px;
-  }
   .team-members{
-    display:none;
+    max-height:0;
+    opacity:0;
+    transform:translateY(-10px);
   }
   .team-members.show{
-    display:flex;
-  }
-  .team-members span{
-    font-size:9px;
-    padding:4px 6px;
+    max-height:200px;
+    opacity:1;
+    transform:translateY(0);
   }
 }
 </style>
@@ -213,9 +194,7 @@ body{
   <div class="swiper-wrapper">
 
     <!-- 主页 -->
-    <div class="swiper-slide home-slide">
-      <!-- 空白区域 -->
-    </div>
+    <div class="swiper-slide home-slide"></div>
 
     <!-- 资讯 -->
     <div class="swiper-slide">
@@ -309,13 +288,13 @@ body{
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-// 设置动态 vh 单位，解决手机端100vh偏差
+// 动态 vh
 function setVh(){document.documentElement.style.setProperty('--vh', window.innerHeight*0.01+'px');}
 window.addEventListener('resize', setVh);
 window.addEventListener('orientationchange', setVh);
 setVh();
 
-// 初始化 Swiper
+// Swiper
 const swiper = new Swiper('.swiper',{direction:'horizontal',speed:600});
 
 // 菜单和胶囊
@@ -331,7 +310,7 @@ function moveIndicatorToButton(btn){
     btn.classList.add("active");
 }
 
-// 点击菜单切换页面
+// 点击菜单
 buttons.forEach(btn=>{
     btn.addEventListener("click",()=>{
         const index = parseInt(btn.dataset.index);
@@ -340,13 +319,13 @@ buttons.forEach(btn=>{
     });
 });
 
-// Swiper 切换时同步胶囊
+// Swiper 切换同步胶囊
 swiper.on("slideChange",()=>{
     const btn = Array.from(buttons).find(b=>parseInt(b.dataset.index)===swiper.activeIndex);
     if(btn) moveIndicatorToButton(btn);
 });
 
-// 团队成员折叠展开动画
+// 团队面板滑出动画
 document.querySelectorAll('.team-title').forEach(title=>{
   title.addEventListener('click',()=>{
     title.nextElementSibling.classList.toggle('show');
