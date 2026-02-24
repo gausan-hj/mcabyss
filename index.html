@@ -45,6 +45,14 @@ body{
   color:#003366;
   font-weight:bold;
 }
+/* 去掉点击时蓝色高亮 */
+.menu button:focus{
+  outline:none;
+}
+.menu button::-moz-focus-inner{
+  border:0;
+}
+
 /* 指示器胶囊 */
 .indicator{
   position:absolute;
@@ -133,7 +141,7 @@ body{
 /* ===== 手机端导航栏横条 ===== */
 @media(max-width:768px){
   .menu{
-    flex-wrap: nowrap; /* 不换行 */
+    flex-wrap: nowrap; /* 一行显示 */
     justify-content:center;
     padding:5px 0;
     border-radius:10px;
@@ -143,9 +151,9 @@ body{
     font-size:11px;
   }
   .indicator{
-    height:28px;
-    top:3px;
-    border-radius:10px;
+    height:32px; /* 胶囊高度加大 */
+    top:2px;
+    border-radius:12px; /* 横条圆角 */
   }
   .panel{
     width:90%;
