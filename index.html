@@ -56,7 +56,7 @@ body{
   height:35px;
   background:rgba(173,216,230,0.9);
   border-radius:50px;
-  transition:all 0.4s ease;
+  transition:left 0.4s ease, width 0.4s ease;
   z-index:1;
   box-shadow:0 0 15px rgba(0,0,0,0.2);
 }
@@ -70,10 +70,12 @@ body{
 .swiper-slide{
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:flex-start;
   align-items:center;
   text-align:center;
-  padding:20px;
+  padding-top:80px;
+  padding-left:20px;
+  padding-right:20px;
 }
 
 .panel{
@@ -131,6 +133,16 @@ body{
   border-radius:10px;
   box-shadow:0 0 10px rgba(0,0,0,0.5);
 }
+
+/* 团队列表样式 */
+.team-panel{
+  background:rgba(0,0,0,0.2);
+  padding:15px;
+  border-radius:10px;
+  margin:5px 0;
+  text-align:left;
+  width:300px;
+}
 </style>
 </head>
 
@@ -150,7 +162,7 @@ body{
   <div class="swiper-wrapper">
 
     <!-- 主页 -->
-    <div class="swiper-slide">
+    <div class="swiper-slide home-slide">
       <h3>服务器状态</h3>
       <div class="panel" id="statusBox">加载中...</div>
       
@@ -182,6 +194,27 @@ body{
         端口: 10138<br>
         版本: 最新
       </div>
+
+      <h3>团队成员</h3>
+
+      <!-- 团队列表 -->
+      <div class="team-panel">@魔法師</div>
+      <div class="team-panel">@祈櫻</div>
+      <div class="team-panel">Java - Inorichan0630</div>
+      <div class="team-panel">@即涼即飲</div>
+      <div class="team-panel">@神龍</div>
+      <div class="team-panel">Java - cocowadaisuki</div>
+      <div class="team-panel">@DC管理員</div>
+      <div class="team-panel">@祈櫻</div>
+      <div class="team-panel">@建築師</div>
+      <div class="team-panel">@邪惡魔法</div>
+      <div class="team-panel">@_yizuo_</div>
+      <div class="team-panel">Java - YEE_Yizuo</div>
+      <div class="team-panel">@建習生</div>
+      <div class="team-panel">BE - Shomi4067</div>
+      <div class="team-panel">@舔狗</div>
+      <div class="team-panel">Java - SeanYuan2021</div>
+      <div class="team-panel">网站 - @hi-_- / Java - gausan123</div>
     </div>
 
     <!-- 规则 -->
@@ -239,6 +272,7 @@ function moveIndicator(index){
   btn.classList.add("active");
 }
 
+// 点击菜单切换
 buttons.forEach((btn,index)=>{
   btn.addEventListener("click",()=>{
     swiper.slideTo(index);
@@ -246,6 +280,7 @@ buttons.forEach((btn,index)=>{
   });
 });
 
+// 滑动页面时同步胶囊
 swiper.on("slideChange",()=>{
   moveIndicator(swiper.activeIndex);
 });
