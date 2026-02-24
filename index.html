@@ -176,6 +176,10 @@ body{
   max-width:360px;
   margin-top:15px;
 }
+.gallery-container .swiper-slide {
+  width: 100%;
+  height: 220px;
+}
 .gallery-container .swiper-slide img {
   width:100%;
   height:220px;
@@ -183,6 +187,7 @@ body{
   border-radius:10px;
   box-shadow:0 0 12px rgba(0,0,0,0.5);
   image-rendering: pixelated;
+  display: block;
 }
 
 /* ===== 手机端 ===== */
@@ -225,11 +230,12 @@ body{
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 14px;
+  font-size: 18px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
   width: 100%;
   height: 220px;
   border-radius: 10px;
+  font-family: 'Press Start 2P', cursive;
 }
 </style>
 </head>
@@ -256,26 +262,28 @@ body{
       <div class="gallery-container">
         <div class="swiper gallery-swiper">
           <div class="swiper-wrapper">
-            <!-- 圖片1: 主城 -->
+            <!-- 圖片1: 主城 - 使用相對路徑 -->
             <div class="swiper-slide">
-              <img src="圖片1.jpg" alt="主城" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🏰 主城</div>'">
+              <img src="./圖片1.jpg" alt="主城" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🏰 主城</div>';">
             </div>
             <!-- 圖片2: 道具 -->
             <div class="swiper-slide">
-              <img src="圖片2.jpg" alt="道具" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚔️ 道具</div>'">
+              <img src="./圖片2.jpg" alt="道具" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚔️ 道具</div>';">
             </div>
             <!-- 圖片3: 傢俱 -->
             <div class="swiper-slide">
-              <img src="圖片3.jpg" alt="傢俱" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🪑 傢俱</div>'">
+              <img src="./圖片3.jpg" alt="傢俱" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🪑 傢俱</div>';">
             </div>
             <!-- 圖片4: 副本 -->
             <div class="swiper-slide">
-              <img src="圖片4.jpg" alt="副本" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚡ 副本</div>'">
+              <img src="./圖片4.jpg" alt="副本" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚡ 副本</div>';">
             </div>
           </div>
           <div class="swiper-pagination"></div>
         </div>
       </div>
+      <!-- 加入圖片路徑偵測訊息 -->
+      <div id="imageDebug" style="font-size:8px; margin-top:5px; color:#ffffaa; background:rgba(0,0,0,0.3); padding:5px; border-radius:5px; display:none;"></div>
     </div>
 
     <!-- 资讯 -->
@@ -437,17 +445,15 @@ document.querySelectorAll('.team-title').forEach(title => {
   });
 });
 
-// ===== 真實伺服器狀態查詢 (互通服版本) =====
+// ===== 真實伺服器狀態查詢 =====
 const statusBox = document.getElementById("serverStatusBox");
 
 async function fetchServerStatus() {
   try {
-    // 使用 mcsrvstat.us API 查詢 Java 版 (互通服主要查這個)
     const response = await fetch('https://api.mcsrvstat.us/2/mcabyss.xyz');
     const data = await response.json();
     
     if (data.online) {
-      // 伺服器在線
       statusBox.innerHTML = `
         <h3 class="status-online">✅ 伺服器在線 (互通服)</h3>
         <div style="font-size:24px; margin:10px 0; color:#ffd700;">${data.players.online}/${data.players.max}</div>
@@ -463,7 +469,6 @@ async function fetchServerStatus() {
         <div style="margin-top:10px;font-size:8px;opacity:0.7;">最後更新: ${new Date().toLocaleTimeString('zh-TW')}</div>
       `;
     } else {
-      // 伺服器離線
       statusBox.innerHTML = `
         <h3 class="status-offline">❌ 伺服器目前離線</h3>
         <div>請稍後再試</div>
@@ -482,14 +487,28 @@ async function fetchServerStatus() {
 
 // 立即執行第一次查詢
 fetchServerStatus();
-
-// 每 30 秒自動更新一次
 setInterval(fetchServerStatus, 30000);
 
-// ===== 圖片載入完成後的控制台提示 =====
-document.querySelectorAll('.gallery-swiper img').forEach(img => {
-  img.addEventListener('load', function() {
-    console.log('圖片載入成功:', this.alt);
+// ===== 圖片載入偵測 =====
+window.addEventListener('load', function() {
+  console.log('頁面完全載入');
+  
+  const images = document.querySelectorAll('.gallery-swiper img');
+  const debugDiv = document.getElementById('imageDebug');
+  
+  images.forEach((img, index) => {
+    const imgName = ['主城', '道具', '傢俱', '副本'][index];
+    
+    // 檢查圖片是否成功載入
+    if (img.complete && img.naturalHeight > 0) {
+      console.log(`✅ ${imgName} 圖片載入成功:`, img.src);
+    } else {
+      console.log(`❌ ${imgName} 圖片載入失敗:`, img.src);
+      
+      // 顯示除錯資訊
+      debugDiv.style.display = 'block';
+      debugDiv.innerHTML += `圖片 ${index+1} (${imgName}) 載入失敗，路徑: ${img.src}<br>`;
+    }
   });
 });
 </script>
