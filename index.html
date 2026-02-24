@@ -30,7 +30,6 @@ body{
   z-index:9999;
   flex-wrap: nowrap;
 }
-
 .menu button{
   background:none;
   border:none;
@@ -42,12 +41,10 @@ body{
   z-index:2;
   transition:0.3s;
 }
-
 .menu button.active{
   color:#003366;
   font-weight:bold;
 }
-
 /* 指示器胶囊 */
 .indicator{
   position:absolute;
@@ -66,23 +63,21 @@ body{
   width:100vw;
   height:100vh;
 }
-
 .swiper-slide{
   display:flex;
   flex-direction:column;
-  justify-content:center; /* 垂直居中 */
-  align-items:center;    /* 水平居中 */
+  justify-content:center;
+  align-items:center;
   text-align:center;
   padding:20px;
   box-sizing:border-box;
   min-height:100vh;
 }
-
 .panel{
   background:rgba(255,255,255,0.15);
   padding:20px;
   border-radius:15px;
-  margin:10px;
+  margin:10px 0;
   font-size:12px;
   width:340px;
   max-width:90%;
@@ -96,7 +91,6 @@ body{
   justify-content:center;
   gap:15px;
 }
-
 .team-panel{
   background: rgba(173,216,230,0.3);
   border-radius:50px;
@@ -106,21 +100,20 @@ body{
   box-shadow:0 0 10px rgba(0,0,0,0.3);
   flex:1 1 auto;
 }
-
 .team-title{
   font-size:12px;
   font-weight:bold;
   margin-bottom:8px;
   text-align:center;
+  cursor:pointer;
 }
-
 .team-members{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
   gap:10px;
 }
-
+/* 默认小屏折叠 */
 .team-members span{
   background: rgba(0,191,255,0.5);
   padding:5px 10px;
@@ -158,14 +151,14 @@ body{
   }
 }
 
-/* ===== 手机端小屏专属 ===== */
+/* ===== 小屏折叠式团队 ===== */
 @media(max-width:480px){
   .menu{
-    flex-wrap:wrap; /* 自动换行 */
+    flex-wrap:wrap;
     justify-content:center;
   }
   .menu button{
-    flex:1 1 48%; /* 每行最多两按钮 */
+    flex:1 1 48%;
     margin:2px 1%;
     font-size:10px;
     padding:6px 0;
@@ -181,9 +174,15 @@ body{
     padding:15px;
   }
   .team-panel{
-    max-width:100%; /* 一行一块 */
+    max-width:100%;
     min-width:auto;
     padding:10px 15px;
+  }
+  .team-members{
+    display:none; /* 默认折叠 */
+  }
+  .team-members.show{
+    display:flex;
   }
   .team-members span{
     font-size:9px;
@@ -207,7 +206,7 @@ body{
 <div class="swiper">
   <div class="swiper-wrapper">
 
-    <!-- 主页（空白） -->
+    <!-- 主页 -->
     <div class="swiper-slide home-slide">
       <!-- 空白区域 -->
     </div>
@@ -225,48 +224,48 @@ body{
       <h2>团队成员</h2>
       <div class="team-wrapper">
         <div class="team-panel">
-          <div class="team-title">魔法師</div>
+          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">魔法師</div>
           <div class="team-members">
             <span>@祈櫻</span>
             <span>Inorichan0630</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title">即涼即飲</div>
+          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">即涼即飲</div>
           <div class="team-members">
             <span>@神龍</span>
             <span>cocowadaisuki</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title">DC管理員</div>
+          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">DC管理員</div>
           <div class="team-members">
             <span>@祈櫻</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title">邪惡魔法</div>
+          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">邪惡魔法</div>
           <div class="team-members">
             <span>@_yizuo_</span>
             <span>YEE_Yizuo</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title">建習生</div>
+          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">建習生</div>
           <div class="team-members">
             <span>@雪咪只4路過</span>
             <span>Shomi4067</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title">舔狗</div>
+          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">舔狗</div>
           <div class="team-members">
             <span>@Sean Yuan阿狗</span>
             <span>SeanYuan2021</span>
           </div>
         </div>
         <div class="team-panel">
-          <div class="team-title">网站</div>
+          <div class="team-title" onclick="this.nextElementSibling.classList.toggle('show')">网站</div>
           <div class="team-members">
             <span>hi-_-
             </span>
@@ -304,6 +303,14 @@ body{
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
+// 设置动态 vh 单位，解决手机端100vh偏差
+function setVh(){
+  document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+}
+window.addEventListener('resize', setVh);
+window.addEventListener('orientationchange', setVh);
+setVh();
+
 // 初始化 Swiper
 const swiper = new Swiper('.swiper',{direction:'horizontal',speed:600});
 
