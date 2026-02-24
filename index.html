@@ -227,6 +227,9 @@ body{
   color: white;
   font-size: 14px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  width: 100%;
+  height: 220px;
+  border-radius: 10px;
 }
 </style>
 </head>
@@ -253,10 +256,22 @@ body{
       <div class="gallery-container">
         <div class="swiper gallery-swiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><div class="placeholder-img" style="width:100%;height:220px;">🏰 主城</div></div>
-            <div class="swiper-slide"><div class="placeholder-img" style="width:100%;height:220px;">⚔️ 副本</div></div>
-            <div class="swiper-slide"><div class="placeholder-img" style="width:100%;height:220px;">🌲 資源世界</div></div>
-            <div class="swiper-slide"><div class="placeholder-img" style="width:100%;height:220px;">🎮 小遊戲</div></div>
+            <!-- 圖片1: 主城 -->
+            <div class="swiper-slide">
+              <img src="圖片1.jpg" alt="主城" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🏰 主城</div>'">
+            </div>
+            <!-- 圖片2: 道具 -->
+            <div class="swiper-slide">
+              <img src="圖片2.jpg" alt="道具" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚔️ 道具</div>'">
+            </div>
+            <!-- 圖片3: 傢俱 -->
+            <div class="swiper-slide">
+              <img src="圖片3.jpg" alt="傢俱" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🪑 傢俱</div>'">
+            </div>
+            <!-- 圖片4: 副本 -->
+            <div class="swiper-slide">
+              <img src="圖片4.jpg" alt="副本" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚡ 副本</div>'">
+            </div>
           </div>
           <div class="swiper-pagination"></div>
         </div>
@@ -422,58 +437,39 @@ document.querySelectorAll('.team-title').forEach(title => {
   });
 });
 
-// ===== 真實伺服器狀態查詢 =====
+// ===== 真實伺服器狀態查詢 (互通服版本) =====
 const statusBox = document.getElementById("serverStatusBox");
 
 async function fetchServerStatus() {
   try {
-    // 使用 mcsrvstat.us API (穩定且免費)
-    const javaResponse = await fetch('https://api.mcsrvstat.us/2/mcabyss.xyz');
-    const javaData = await javaResponse.json();
+    // 使用 mcsrvstat.us API 查詢 Java 版 (互通服主要查這個)
+    const response = await fetch('https://api.mcsrvstat.us/2/mcabyss.xyz');
+    const data = await response.json();
     
-    // 基岩版使用同一個 API 的不同端點
-    const bedrockResponse = await fetch('https://api.mcsrvstat.us/bedrock/2/mcabyss.xyz:10138');
-    const bedrockData = await bedrockResponse.json();
-    
-    let html = '';
-    
-    // Java 版狀態
-    if (javaData.online) {
-      html += `
-        <h3 class="status-online">✅ Java 版 - 在線</h3>
-        <div>玩家: ${javaData.players.online}/${javaData.players.max}</div>
-        <div>版本: ${javaData.version || '1.21.4'}</div>
-        <div>延遲: ${javaData.debug?.ping ? javaData.debug.ping + 'ms' : 'N/A'}</div>
+    if (data.online) {
+      // 伺服器在線
+      statusBox.innerHTML = `
+        <h3 class="status-online">✅ 伺服器在線 (互通服)</h3>
+        <div style="font-size:24px; margin:10px 0; color:#ffd700;">${data.players.online}/${data.players.max}</div>
+        <div>目前玩家數量</div>
+        <div style="margin-top:15px; background:rgba(255,255,255,0.1); padding:10px; border-radius:10px;">
+          <div>版本: ${data.version || '1.21.4'}</div>
+          <div>延遲: ${data.debug?.ping ? data.debug.ping + 'ms' : 'N/A'}</div>
+          <div style="margin-top:8px; font-size:10px; color:#aaffaa;">
+            🎮 Java版 IP: mcabyss.xyz<br>
+            📱 基岩版 IP: mcabyss.xyz 端口: 10138
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:8px;opacity:0.7;">最後更新: ${new Date().toLocaleTimeString('zh-TW')}</div>
       `;
     } else {
-      html += `
-        <h3 class="status-offline">❌ Java 版 - 離線</h3>
-        <div>無法連線至伺服器</div>
+      // 伺服器離線
+      statusBox.innerHTML = `
+        <h3 class="status-offline">❌ 伺服器目前離線</h3>
+        <div>請稍後再試</div>
+        <div style="margin-top:10px;font-size:8px;opacity:0.7;">最後更新: ${new Date().toLocaleTimeString('zh-TW')}</div>
       `;
     }
-    
-    html += '<hr>';
-    
-    // 基岩版狀態
-    if (bedrockData.online) {
-      html += `
-        <h3 class="status-online">✅ 基岩版 - 在線</h3>
-        <div>玩家: ${bedrockData.players?.online || 0}/${bedrockData.players?.max || 50}</div>
-        <div>版本: ${bedrockData.version || '最新'}</div>
-        <div>延遲: ${bedrockData.debug?.ping ? bedrockData.debug.ping + 'ms' : 'N/A'}</div>
-      `;
-    } else {
-      html += `
-        <h3 class="status-offline">❌ 基岩版 - 離線</h3>
-        <div>無法連線至伺服器</div>
-      `;
-    }
-    
-    // 加入最後更新時間
-    html += `<div style="margin-top:10px;font-size:8px;opacity:0.7;">最後更新: ${new Date().toLocaleTimeString('zh-TW')}</div>`;
-    
-    statusBox.innerHTML = html;
-    
   } catch (error) {
     console.error('獲取伺服器狀態失敗:', error);
     statusBox.innerHTML = `
@@ -490,12 +486,11 @@ fetchServerStatus();
 // 每 30 秒自動更新一次
 setInterval(fetchServerStatus, 30000);
 
-// ===== 處理圖片載入錯誤 =====
-document.querySelectorAll('img').forEach(img => {
-  img.onerror = function() {
-    this.style.display = 'none';
-    this.parentElement.innerHTML = '<div class="placeholder-img" style="width:100%;height:220px;">🏞️ 圖片載入失敗</div>';
-  };
+// ===== 圖片載入完成後的控制台提示 =====
+document.querySelectorAll('.gallery-swiper img').forEach(img => {
+  img.addEventListener('load', function() {
+    console.log('圖片載入成功:', this.alt);
+  });
 });
 </script>
 </body>
