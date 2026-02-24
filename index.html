@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MC Abyss 官网</title>
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -48,7 +46,7 @@ body{
   color:#003366;
 }
 
-/* 指示器 */
+/* 指示器胶囊 */
 .indicator{
   position:absolute;
   top:5px;
@@ -101,13 +99,11 @@ body{
   text-align:center;
   transition:0.3s;
 }
-
 .minecraft-input:focus{
   outline:none;
   border-color:#1e90ff;
   background:rgba(173,216,230,0.4);
 }
-
 .minecraft-btn{
   margin-top:10px;
   padding:8px 12px;
@@ -121,7 +117,6 @@ body{
   box-shadow: 0 0 8px #00bfff;
   transition:0.3s;
 }
-
 .minecraft-btn:hover{
   background:#1e90ff;
   box-shadow:0 0 15px #1e90ff;
@@ -134,18 +129,38 @@ body{
   box-shadow:0 0 10px rgba(0,0,0,0.5);
 }
 
-/* 团队列表样式 */
-.team-panel{
-  background:rgba(0,0,0,0.2);
-  padding:15px;
+/* 团队横排滚动 */
+.team-wrapper{
+  display:flex;
+  overflow-x:auto;
+  padding:10px 0;
+  gap:10px;
+  width:100%;
+  scroll-behavior:smooth;
+}
+
+.team-wrapper::-webkit-scrollbar{
+  height:6px;
+}
+
+.team-wrapper::-webkit-scrollbar-thumb{
+  background:rgba(173,216,230,0.7);
+  border-radius:3px;
+}
+
+.team-member{
+  flex:0 0 auto;
+  background:rgba(173,216,230,0.3);
+  padding:10px;
   border-radius:10px;
-  margin:5px 0;
-  text-align:left;
-  width:300px;
+  min-width:120px;
+  text-align:center;
+  font-size:10px;
+  box-shadow:0 0 5px rgba(0,0,0,0.3);
+  white-space:nowrap;
 }
 </style>
 </head>
-
 <body>
 
 <!-- 胶囊菜单 -->
@@ -165,7 +180,6 @@ body{
     <div class="swiper-slide home-slide">
       <h3>服务器状态</h3>
       <div class="panel" id="statusBox">加载中...</div>
-      
       <h3>画廊</h3>
       <div class="swiper home-gallery">
         <div class="swiper-wrapper">
@@ -183,47 +197,39 @@ body{
     <div class="swiper-slide">
       <h3>Java 版</h3>
       <div class="panel">
-        IP: mcabyss.xyz<br>
-        备用: winter.mcproxy.net<br>
-        版本: 1.21.4
+        IP: mcabyss.xyz<br>备用: winter.mcproxy.net<br>版本: 1.21.4
       </div>
-
       <h3>基岩版</h3>
       <div class="panel">
-        IP: mcabyss.xyz<br>
-        端口: 10138<br>
-        版本: 最新
+        IP: mcabyss.xyz<br>端口: 10138<br>版本: 最新
       </div>
-
       <h3>团队成员</h3>
-
-      <!-- 团队列表 -->
-      <div class="team-panel">@魔法師</div>
-      <div class="team-panel">@祈櫻</div>
-      <div class="team-panel">Java - Inorichan0630</div>
-      <div class="team-panel">@即涼即飲</div>
-      <div class="team-panel">@神龍</div>
-      <div class="team-panel">Java - cocowadaisuki</div>
-      <div class="team-panel">@DC管理員</div>
-      <div class="team-panel">@祈櫻</div>
-      <div class="team-panel">@建築師</div>
-      <div class="team-panel">@邪惡魔法</div>
-      <div class="team-panel">@_yizuo_</div>
-      <div class="team-panel">Java - YEE_Yizuo</div>
-      <div class="team-panel">@建習生</div>
-      <div class="team-panel">BE - Shomi4067</div>
-      <div class="team-panel">@舔狗</div>
-      <div class="team-panel">Java - SeanYuan2021</div>
-      <div class="team-panel">网站 - @hi-_- / Java - gausan123</div>
+      <div class="team-wrapper">
+        <div class="team-member">@魔法師</div>
+        <div class="team-member">@祈櫻</div>
+        <div class="team-member">Java - Inorichan0630</div>
+        <div class="team-member">@即涼即飲</div>
+        <div class="team-member">@神龍</div>
+        <div class="team-member">Java - cocowadaisuki</div>
+        <div class="team-member">@DC管理員</div>
+        <div class="team-member">@祈櫻</div>
+        <div class="team-member">@建築師</div>
+        <div class="team-member">@邪惡魔法</div>
+        <div class="team-member">@_yizuo_</div>
+        <div class="team-member">Java - YEE_Yizuo</div>
+        <div class="team-member">@建習生</div>
+        <div class="team-member">BE - Shomi4067</div>
+        <div class="team-member">@舔狗</div>
+        <div class="team-member">Java - SeanYuan2021</div>
+        <div class="team-member">网站 - @hi-_- / Java - gausan123</div>
+      </div>
     </div>
 
     <!-- 规则 -->
     <div class="swiper-slide">
       <h3>服务器规则</h3>
       <div class="panel">
-        禁止外挂<br>
-        禁止破坏<br>
-        尊重玩家
+        禁止外挂<br>禁止破坏<br>尊重玩家
       </div>
     </div>
 
@@ -231,11 +237,7 @@ body{
     <div class="swiper-slide">
       <h3>如何游玩</h3>
       <div class="panel">
-        1. 打开 Minecraft<br>
-        2. 点击多人游戏<br>
-        3. 添加服务器<br>
-        4. 输入服务器 IP<br>
-        5. 点击加入，即可进入游戏
+        1. 打开 Minecraft<br>2. 点击多人游戏<br>3. 添加服务器<br>4. 输入服务器 IP<br>5. 点击加入，即可进入游戏
       </div>
     </div>
 
@@ -243,8 +245,7 @@ body{
     <div class="swiper-slide">
       <h3>联系我们</h3>
       <div class="panel">
-        QQ群: 你的QQ群<br>
-        Discord: 你的Discord
+        QQ群: 你的QQ群<br>Discord: 你的Discord
       </div>
     </div>
 
@@ -252,13 +253,9 @@ body{
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
 <script>
 // 主 Swiper
-const swiper = new Swiper('.swiper',{
-  direction:'horizontal',
-  speed:600
-});
+const swiper = new Swiper('.swiper',{direction:'horizontal',speed:600});
 
 // 胶囊菜单
 const buttons = document.querySelectorAll(".menu button");
@@ -281,10 +278,7 @@ buttons.forEach((btn,index)=>{
 });
 
 // 滑动页面时同步胶囊
-swiper.on("slideChange",()=>{
-  moveIndicator(swiper.activeIndex);
-});
-
+swiper.on("slideChange",()=>{moveIndicator(swiper.activeIndex);});
 window.onload=()=>moveIndicator(0);
 
 /* 服务器状态 */
@@ -301,14 +295,7 @@ fetch("https://api.mcsrvstat.us/2/mcabyss.xyz")
 });
 
 // 首页图片轮播
-new Swiper(".home-gallery",{
-  slidesPerView:1,
-  spaceBetween:10,
-  loop:true,
-  pagination:{el:".swiper-pagination",clickable:true},
-  speed:500
-});
+new Swiper(".home-gallery",{slidesPerView:1,spaceBetween:10,loop:true,pagination:{el:".swiper-pagination",clickable:true},speed:500});
 </script>
-
 </body>
 </html>
