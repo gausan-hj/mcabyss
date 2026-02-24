@@ -179,6 +179,9 @@ body{
 .gallery-container .swiper-slide {
   width: 100%;
   height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .gallery-container .swiper-slide img {
   width:100%;
@@ -188,6 +191,29 @@ body{
   box-shadow:0 0 12px rgba(0,0,0,0.5);
   image-rendering: pixelated;
   display: block;
+}
+
+/* ===== 占位圖片樣式 ===== */
+.placeholder-img {
+  background: linear-gradient(145deg, #4a90e2, #9013fe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  width: 100%;
+  height: 220px;
+  border-radius: 10px;
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* ===== Swiper 分页 ===== */
+.swiper-pagination-bullet {
+  background: rgba(255,255,255,0.8);
+}
+.swiper-button-next, .swiper-button-prev {
+  color: #fff;
 }
 
 /* ===== 手机端 ===== */
@@ -221,21 +247,9 @@ body{
     font-size:9px;
     padding:4px 8px;
   }
-}
-
-/* ===== 占位圖片樣式 ===== */
-.placeholder-img {
-  background: linear-gradient(145deg, #4a90e2, #9013fe);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 18px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  width: 100%;
-  height: 220px;
-  border-radius: 10px;
-  font-family: 'Press Start 2P', cursive;
+  .swiper-button-next, .swiper-button-prev {
+    display: none;
+  }
 }
 </style>
 </head>
@@ -259,30 +273,37 @@ body{
       <div class="server-status" id="serverStatusBox">
         <h3 class="status-loading">⏳ 載入伺服器狀態中...</h3>
       </div>
+      
+      <!-- 融合進來的畫廊 -->
       <div class="gallery-container">
         <div class="swiper gallery-swiper">
           <div class="swiper-wrapper">
-            <!-- 圖片1: 主城 - 使用相對路徑 -->
             <div class="swiper-slide">
-              <img src="./圖片1.jpg" alt="主城" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🏰 主城</div>';">
+              <img src="./圖片1.jpg" alt="主城" 
+                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🏰 主城</div>';">
             </div>
-            <!-- 圖片2: 道具 -->
             <div class="swiper-slide">
-              <img src="./圖片2.jpg" alt="道具" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚔️ 道具</div>';">
+              <img src="./圖片2.jpg" alt="道具" 
+                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚔️ 道具</div>';">
             </div>
-            <!-- 圖片3: 傢俱 -->
             <div class="swiper-slide">
-              <img src="./圖片3.jpg" alt="傢俱" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🪑 傢俱</div>';">
+              <img src="./圖片3.jpg" alt="傢俱" 
+                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🪑 傢俱</div>';">
             </div>
-            <!-- 圖片4: 副本 -->
             <div class="swiper-slide">
-              <img src="./圖片4.jpg" alt="副本" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚡ 副本</div>';">
+              <img src="./圖片4.jpg" alt="副本" 
+                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚡ 副本</div>';">
             </div>
           </div>
+          <!-- 分页 -->
           <div class="swiper-pagination"></div>
+          <!-- 导航箭头 -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
         </div>
       </div>
-      <!-- 加入圖片路徑偵測訊息 -->
+      
+      <!-- 图片加载 debug -->
       <div id="imageDebug" style="font-size:8px; margin-top:5px; color:#ffffaa; background:rgba(0,0,0,0.3); padding:5px; border-radius:5px; display:none;"></div>
     </div>
 
@@ -401,6 +422,10 @@ const gallerySwiper = new Swiper('.gallery-swiper', {
     el: ".swiper-pagination",
     clickable: true
   },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
   speed: 500
 });
 
@@ -489,28 +514,23 @@ async function fetchServerStatus() {
 fetchServerStatus();
 setInterval(fetchServerStatus, 30000);
 
-// ===== 圖片載入偵測 =====
-window.addEventListener('load', function() {
-  console.log('頁面完全載入');
-  
+// ===== 图片载入检测 =====
+window.addEventListener('load', () => {
   const images = document.querySelectorAll('.gallery-swiper img');
   const debugDiv = document.getElementById('imageDebug');
   
   images.forEach((img, index) => {
     const imgName = ['主城', '道具', '傢俱', '副本'][index];
-    
-    // 檢查圖片是否成功載入
     if (img.complete && img.naturalHeight > 0) {
-      console.log(`✅ ${imgName} 圖片載入成功:`, img.src);
+      console.log(`✅ ${imgName} 图片加载成功:`, img.src);
     } else {
-      console.log(`❌ ${imgName} 圖片載入失敗:`, img.src);
-      
-      // 顯示除錯資訊
+      console.log(`❌ ${imgName} 图片加载失败:`, img.src);
       debugDiv.style.display = 'block';
-      debugDiv.innerHTML += `圖片 ${index+1} (${imgName}) 載入失敗，路徑: ${img.src}<br>`;
+      debugDiv.innerHTML += `图片 ${index+1} (${imgName}) 加载失败，路径: ${img.src}<br>`;
     }
   });
 });
 </script>
+
 </body>
 </html>
