@@ -3,32 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>滄淵服務器官網</title>
+<title>滄淵啟示錄 官方網站</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
+/* ===== 全局樣式 ===== */
 body{
   margin:0;
   font-family:'Press Start 2P',cursive;
-  background: linear-gradient(135deg,#6dd5fa,#2980b9);
+  background: linear-gradient(135deg,#0f2027,#1b2a49,#2c5364);
   color:white;
   overflow-x:hidden;
 }
 
-/* ===== 菜单 ===== */
+/* ===== 選單 ===== */
 .menu{
   position: fixed;
   top:10px;
   left:50%;
   transform:translateX(-50%);
   display:flex;
-  background:rgba(0,0,0,0.25);
+  background:rgba(0,0,0,0.45);
   border-radius:50px;
   padding:5px;
   backdrop-filter:blur(10px);
   z-index:9999;
   flex-wrap: nowrap;
+  border:1px solid rgba(255,255,255,0.15);
 }
 .menu button{
   background:none;
@@ -40,6 +41,7 @@ body{
   position:relative;
   z-index:2;
   transition:0.3s;
+  font-family:'Press Start 2P',cursive;
 }
 .menu button:focus{
   outline:none;
@@ -49,20 +51,20 @@ body{
   top:5px;
   left:5px;
   height:35px;
-  background:rgba(173,216,230,0.9);
+  background:rgba(100,150,200,0.8);
   border-radius:50px;
   transition:left 0.4s ease, width 0.4s ease;
   z-index:1;
-  box-shadow:0 0 15px rgba(0,0,0,0.2);
+  box-shadow:0 0 15px rgba(0,200,255,0.3);
 }
 
-/* ===== 页面 ===== */
-.swiper{
+/* ===== 主輪播 ===== */
+.main-swiper{
   width:100vw;
   height:100vh;
   padding-top:80px;
 }
-.swiper-slide{
+.main-swiper .swiper-slide{
   display:flex;
   flex-direction:column;
   justify-content:flex-start;
@@ -71,34 +73,150 @@ body{
   padding:20px;
   box-sizing:border-box;
   min-height:100vh;
-  overflow:visible;
+  overflow-y:auto;
 }
+
+/* ===== 通用面板 ===== */
 .panel{
-  background:rgba(255,255,255,0.15);
+  background:rgba(0,0,0,0.65);
   padding:20px;
-  border-radius:15px;
+  border-radius:20px;
   margin:10px 0;
   font-size:12px;
   width:340px;
   max-width:90%;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  box-shadow:0 0 25px rgba(0,0,0,0.4);
+  line-height:1.8;
+  backdrop-filter:blur(5px);
+  border:1px solid rgba(255,255,255,0.1);
 }
 
-/* ===== 团队面板 ===== */
+/* ===== 規則面板 ===== */
+.rules-container {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.rule-section {
+  background: rgba(20,30,50,0.7);
+  border-radius: 15px;
+  margin-bottom: 15px;
+  padding: 15px;
+  backdrop-filter:blur(5px);
+  border:1px solid rgba(255,255,255,0.1);
+  transition:0.3s;
+}
+
+.rule-section:hover {
+  transform: translateY(-2px);
+  box-shadow:0 0 20px rgba(100,200,255,0.2);
+}
+
+.rule-title {
+  font-size: 14px;
+  color: #ffd700;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.rule-title::after {
+  content: '▼';
+  font-size: 12px;
+  color: #88ccff;
+  transition: transform 0.3s;
+}
+
+.rule-title.collapsed::after {
+  transform: rotate(-90deg);
+}
+
+.rule-content {
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  text-align: left;
+}
+
+.rule-content.collapsed {
+  max-height: 0;
+}
+
+.rule-item {
+  background: rgba(0,0,0,0.3);
+  border-left: 3px solid #88ccff;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 0 10px 10px 0;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.rule-item strong {
+  color: #88ccff;
+  font-size: 12px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.rule-item code {
+  background: rgba(0,0,0,0.5);
+  padding: 8px;
+  border-radius: 8px;
+  display: block;
+  color: #aaffaa;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 9px;
+  line-height: 1.5;
+  margin-top: 5px;
+  white-space: pre-wrap;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.rule-footer {
+  margin-top: 20px;
+  text-align: center;
+  color: #88ccff;
+  font-size: 10px;
+  padding: 10px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+}
+
+.rule-edit-time {
+  color: #aaa;
+  font-size: 8px;
+  margin-top: 5px;
+}
+
+/* ===== 團隊面板 ===== */
 .team-wrapper{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
   gap:15px;
+  margin-top:10px;
 }
 .team-panel{
-  background: rgba(173,216,230,0.3);
+  background: rgba(30,50,70,0.6);
   border-radius:50px;
   padding:15px 25px;
   min-width:200px;
   max-width:300px;
-  box-shadow:0 0 10px rgba(0,0,0,0.3);
+  box-shadow:0 0 15px rgba(0,0,0,0.4);
   flex:1 1 auto;
+  backdrop-filter:blur(5px);
+  border:1px solid rgba(255,255,255,0.1);
+  transition:0.3s;
+}
+.team-panel:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 20px rgba(100,200,255,0.3);
 }
 .team-title{
   font-size:12px;
@@ -106,6 +224,7 @@ body{
   margin-bottom:8px;
   text-align:center;
   cursor:pointer;
+  color:#aaddff;
 }
 .team-members{
   display:flex;
@@ -124,37 +243,39 @@ body{
   transform:translateY(0);
 }
 .team-members span{
-  background: rgba(0,191,255,0.5);
+  background: rgba(0,150,255,0.4);
   padding:5px 10px;
   border-radius:12px;
   font-size:10px;
+  border:1px solid rgba(255,255,255,0.2);
 }
 
-/* ===== 主页 Banner ===== */
+/* ===== 首頁標語 ===== */
 .home-banner {
-  font-family:'Press Start 2P',cursive;
   font-size:18px;
   color:#ffffff;
-  text-shadow:0 0 8px #000;
+  text-shadow:0 0 15px #00aaff;
   margin-bottom:15px;
-  animation: fadeIn 1.6s ease-in-out infinite alternate;
+  animation: glowPulse 2s ease-in-out infinite alternate;
 }
-@keyframes fadeIn {
-  from {opacity:0.6;}
-  to {opacity:1;}
+@keyframes glowPulse {
+  from {text-shadow:0 0 10px #00aaff, 0 0 20px #0066aa;}
+  to {text-shadow:0 0 20px #00ffff, 0 0 30px #0088ff;}
 }
 
-/* ===== 服务器状态 ===== */
+/* ===== 伺服器狀態 ===== */
 .server-status {
-  background:rgba(0,0,0,0.25);
+  background:rgba(0,0,0,0.5);
   border-radius:15px;
   padding:18px;
   width:90%;
   max-width:400px;
   text-align:center;
   margin:10px 0;
-  box-shadow:0 0 15px rgba(0,0,0,0.5);
+  box-shadow:0 0 20px rgba(0,100,200,0.3);
   font-size:12px;
+  backdrop-filter:blur(5px);
+  border:1px solid rgba(255,255,255,0.1);
 }
 .server-status h3 {
   margin:6px 0;
@@ -173,18 +294,18 @@ body{
   color: #ffaa00;
 }
 
-/* ===== 画廊 - 調整為更小尺寸 ===== */
+/* ===== 畫廊 ===== */
 .gallery-container {
   width: 100%;
-  max-width: 500px;  /* 電腦版最大寬度 */
+  max-width: 500px;
   margin: 15px auto;
   padding: 0 20px;
 }
 
 .gallery-swiper {
   width: 100%;
-  height: 200px;  /* 固定高度 */
-  border-radius: 10px;
+  height: 200px;
+  border-radius: 15px;
 }
 
 .gallery-swiper .swiper-slide {
@@ -193,20 +314,21 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.3);
+  border-radius: 15px;
 }
 
 .gallery-swiper .swiper-slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;  /* 確保圖片填滿不變形 */
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.5);
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,150,255,0.3);
 }
 
-/* ===== 占位圖片樣式 ===== */
+/* ===== 占位圖片 ===== */
 .placeholder-img {
-  background: linear-gradient(145deg, #4a90e2, #9013fe);
+  background: linear-gradient(145deg, #1a3a5a, #2a4a7a);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -215,17 +337,54 @@ body{
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
   width: 100%;
   height: 200px;
-  border-radius: 10px;
+  border-radius: 15px;
   font-family: 'Press Start 2P', cursive;
+  border:2px solid rgba(255,255,255,0.2);
 }
 
-/* ===== Swiper 分页 ===== */
+/* ===== Swiper 分頁 ===== */
 .swiper-pagination-bullet {
   background: rgba(255,255,255,0.8);
 }
 .swiper-button-next, .swiper-button-prev {
   color: #fff;
-  transform: scale(0.7);  /* 按鈕稍微縮小 */
+  transform: scale(0.7);
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+/* ===== Discord 按鈕 ===== */
+.discord-btn {
+  background: linear-gradient(45deg,#5865F2,#7289DA);
+  border:none;
+  padding:15px 25px;
+  border-radius:15px;
+  color:white;
+  font-family:'Press Start 2P',cursive;
+  font-size:12px;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(88,101,242,0.5);
+  transition:0.3s;
+  margin-top:15px;
+  border:1px solid rgba(255,255,255,0.2);
+}
+.discord-btn:hover {
+  transform:scale(1.05);
+  box-shadow:0 0 30px #5865F2;
+}
+
+/* ===== 滾動條 ===== */
+::-webkit-scrollbar{
+  width:6px;
+}
+::-webkit-scrollbar-thumb{
+  background:#4a6a8a;
+  border-radius:10px;
+}
+::-webkit-scrollbar-track{
+  background:rgba(0,0,0,0.2);
 }
 
 /* ===== 手機版優化 ===== */
@@ -237,8 +396,8 @@ body{
     border-radius:10px;
   }
   .menu button{
-    padding:8px 12px;
-    font-size:11px;
+    padding:8px 10px;
+    font-size:10px;
   }
   .indicator{
     height:32px;
@@ -253,79 +412,84 @@ body{
   .team-panel{
     min-width:140px;
     max-width:calc(50% - 15px);
-    padding:10px 15px;
+    padding:12px 15px;
   }
   .team-members span{
     font-size:9px;
     padding:4px 8px;
   }
-  
-  /* 手機版畫廊調整 */
   .gallery-container {
     max-width: 100%;
     padding: 0 10px;
   }
-  
   .gallery-swiper {
-    height: 180px;  /* 手機版稍微小一點 */
+    height: 180px;
   }
-  
   .gallery-swiper .swiper-slide {
     height: 180px;
   }
-  
   .placeholder-img {
     height: 180px;
     font-size: 14px;
   }
-  
   .swiper-button-next, .swiper-button-prev {
-    display: none;  /* 手機版隱藏箭頭，用手勢滑動 */
+    display: none;
+  }
+  .rule-item code {
+    font-size: 8px;
   }
 }
 
-/* ===== 電腦版額外優化 ===== */
+/* ===== 電腦版優化 ===== */
 @media(min-width:1024px){
   .gallery-container {
-    max-width: 400px;  /* 電腦版適中大小 */
+    max-width: 400px;
   }
-  
   .gallery-swiper {
     height: 220px;
   }
-  
   .gallery-swiper .swiper-slide {
     height: 220px;
   }
-  
   .placeholder-img {
     height: 220px;
   }
+}
+
+/* ===== 動畫 ===== */
+.fadeIn{
+  animation:fadeIn 1.5s ease forwards;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
 }
 </style>
 </head>
 <body>
 
+<!-- 頂部選單 -->
 <div class="menu" id="menu">
   <div class="indicator" id="indicator"></div>
   <button data-index="0">主页</button>
   <button data-index="1">资讯</button>
   <button data-index="2">规则</button>
-  <button data-index="3">如何游玩</button>
+  <button data-index="3">玩法</button>
   <button data-index="4">联系</button>
 </div>
 
+<!-- 主輪播 -->
 <div class="swiper main-swiper">
   <div class="swiper-wrapper">
 
-    <!-- 主页 -->
-    <div class="swiper-slide home-slide">
-      <div class="home-banner">▶️ 歡迎來到 滄淵服務器</div>
+    <!-- 頁面 0: 主頁 -->
+    <div class="swiper-slide">
+      <div class="home-banner">▶️ 滄淵啟示錄</div>
       <div class="server-status" id="serverStatusBox">
         <h3 class="status-loading">⏳ 載入伺服器狀態中...</h3>
       </div>
       
-      <!-- 調整後的畫廊 -->
+      <!-- 畫廊 -->
       <div class="gallery-container">
         <div class="swiper gallery-swiper">
           <div class="swiper-wrapper">
@@ -346,33 +510,209 @@ body{
                 onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚡ 副本</div>';">
             </div>
           </div>
-          <!-- 分页 -->
           <div class="swiper-pagination"></div>
-          <!-- 导航箭头（電腦版顯示） -->
           <div class="swiper-button-next"></div>
           <div class="swiper-button-prev"></div>
         </div>
       </div>
       
-      <!-- 图片加载 debug（隱藏，有錯誤才顯示） -->
+      <!-- 圖片除錯 -->
       <div id="imageDebug" style="font-size:8px; margin-top:5px; color:#ffffaa; background:rgba(0,0,0,0.3); padding:5px; border-radius:5px; display:none;"></div>
     </div>
 
-    <!-- 资讯 -->
+    <!-- 頁面 1: 資訊/核心玩法 -->
     <div class="swiper-slide">
-      <h2>服务器信息</h2>
+      <h2 class="fadeIn">核心玩法系統</h2>
+      <div class="panel fadeIn">
+        🏠 RES 领地系统<br><br>
+        ⚔ RPG 职业成长系统<br><br>
+        💰 完整经济交易体系<br><br>
+        🐉 BOSS 挑战副本<br><br>
+        🎁 每日任务与活动奖励<br><br>
+        🌌 世界观剧情推进
+      </div>
+      
+      <h2 style="margin-top:20px;">服务器資訊</h2>
       <div class="panel">
         <strong>Java版</strong><br>
-        IP:  winter.mcproxy.net<br>
+        IP: winter.mcproxy.net<br>
         版本: 1.21.4
       </div>
       <div class="panel">
         <strong>基岩版</strong><br>
         IP: mcabyss.xyz<br>
         端口: 10138<br>
-        版本: 26.1
+        版本: 1.21.4
       </div>
-      <h2>团队成员</h2>
+    </div>
+
+    <!-- 頁面 2: 規則 (詳細版) -->
+    <div class="swiper-slide">
+      <h2 class="fadeIn">❅ 滄淵啟示錄伺服規則 ❅</h2>
+      
+      <div class="rules-container">
+        <!-- 1. 發言 -->
+        <div class="rule-section">
+          <div class="rule-title" onclick="toggleRule(this)">__1. 發言__</div>
+          <div class="rule-content">
+            <div class="rule-item">
+              <strong>1-1. 對玩家</strong>
+              <code>與他人交流需有禮貌，若涉及人身攻擊、騷擾、惡意嚴重排擠、誹謗、噁心等行為，將予以禁言懲戒，屢犯視情節可以永久停權。</code>
+            </div>
+            <div class="rule-item">
+              <strong>1-2. 對管理員</strong>
+              <code>因伺服器規模不大，若有無法滿足大家之處請多擔待，但如果有聽到責罵或詆毀管理員之實，將比照1-1究責，管理員付出時間金錢製作伺服器，不是來聽你們抱怨甚至是責怪的。</code>
+            </div>
+            <div class="rule-item">
+              <strong>1-3. 洗版</strong>
+              <code>一切無意義的垃圾訊息、濫發訊息皆被視為洗版，將予以禁言~永久停權處分。</code>
+            </div>
+            <div class="rule-item">
+              <strong>1-4. 其他</strong>
+              <code>DC及遊戲內禁止討論政治、色情相關、貶低他人事物內容，禁止宣傳廣告、MC或是DC伺服器，若有犯者數次不聽勸誡，予以禁言~永久停權處分。</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 遊戲 -->
+        <div class="rule-section">
+          <div class="rule-title" onclick="toggleRule(this)">__2. 遊戲__</div>
+          <div class="rule-content">
+            <div class="rule-item">
+              <strong>2-1. 外掛程式</strong>
+              <code>任何會影響公平性的第三方外掛程式皆不可使用，藍圖模組等輔助模組不在此限，犯者永久停權。</code>
+            </div>
+            <div class="rule-item">
+              <strong>2-2. 遊戲漏洞</strong>
+              <code>任何透過遊戲漏洞進行的行為皆不被允許(複製物品、非正常途徑獲利的BUG)，若被發現未回報給管理員，將予以永久停權且會對參與的相關人員究責，不寬貸。</code>
+            </div>
+            <div class="rule-item">
+              <strong>2-3. 伺服器效能</strong>
+              <code>請避免消耗伺服器過多效能，如大量地獄門、大量漏斗、活塞、箱子、生物實體等等等，若經發現已經影響伺服器，將進行勸導或是直接處理(若找不到玩家)，不得有異議。</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 交易 -->
+        <div class="rule-section">
+          <div class="rule-title" onclick="toggleRule(this)">__3. 交易__</div>
+          <div class="rule-content">
+            <div class="rule-item">
+              <strong>3-1. 私下交易</strong>
+              <code>所有進行的交易皆為合意交易，管理員無責任協助調解交易導致的問題或衝突，若影響到伺服器將予以禁言。</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 領地 -->
+        <div class="rule-section">
+          <div class="rule-title" onclick="toggleRule(this)">__4. 領地__</div>
+          <div class="rule-content">
+            <div class="rule-item">
+              <strong>4-1. 偷竊</strong>
+              <code>所有私人物品皆應該放在自己的領地內，若有遭遇偷竊的情況，管理員將視情況給予受害者協助；偷竊者將予以停權~永久停權處分，敬請注意、禁止偷竊。</code>
+            </div>
+            <div class="rule-item">
+              <strong>4-2. 破壞</strong>
+              <code>若因未設置領地導致建築遭破壞，管理員將視情況決定是否給予幫助；破壞者將予以停權~永久停權處分，敬請注意、禁止破壞。</code>
+            </div>
+            <div class="rule-item">
+              <strong>4-3. 其他</strong>
+              <code>所有領地相關的處分皆由管理員決定，不得有異議，若想保護自己請設好領地。</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. 鑽漏洞 -->
+        <div class="rule-section">
+          <div class="rule-title" onclick="toggleRule(this)">__5. 鑽漏洞__</div>
+          <div class="rule-content">
+            <div class="rule-item">
+              <strong>5-1. 規則</strong>
+              <code>規則是拿來幫助伺服器變得更好的，如果有心人士利用規則的漏洞跟管理員爭論，原則上以不違反善良風俗為準，如果違反善良風俗一律送上禁言或停權懲處。</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. 權限 -->
+        <div class="rule-section">
+          <div class="rule-title" onclick="toggleRule(this)">__6. 權限__</div>
+          <div class="rule-content">
+            <div class="rule-item">
+              <strong>6-1. 濫權</strong>
+              <code>本服設有管理員、建築師、觀察員等職務，若有濫權之實，將給予相應處分，具體標準參照6-2。</code>
+            </div>
+            <div class="rule-item">
+              <strong>6-2. 準則</strong>
+              <code>濫權係指濫用權力進行違反善良風俗的行為，ex.觀察員利用tp抄家。</code>
+            </div>
+            <div class="rule-item">
+              <strong>6-3. 輿論</strong>
+              <code>關於權限，很多人都持有疑慮，並且嫉妒羨慕，請記得，那些是他們的福利、也是義務，如果讓我看到太超過的討論，一律禁言處理:D。</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. 副本規則 -->
+        <div class="rule-section">
+          <div class="rule-title" onclick="toggleRule(this)">__7. 副本規則__</div>
+          <div class="rule-content">
+            <div class="rule-item">
+              <strong>7-1. 搶怪</strong>
+              <code>禁止惡意且反複地搶怪、搶掉落物行為，如果遇到，可以先口頭提醒，如果未果，請錄影給管理員做判斷，如果要吵架也是去專用的頻道吵。</code>
+            </div>
+            <div class="rule-item">
+              <strong>7-2. 連點、第三方程式</strong>
+              <code>服主會盡可能地提高副本的收益，相對的，請不要使用連點器、自動打怪的程式、或是掛機取得獎勵的方式，若有發現屬實，將視程度停權、沒收等級跟獎勵，不得異議。</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- 規則頁尾 -->
+        <div class="rule-footer">
+          <strong>以上規章管理員皆擁有最終解釋權</strong>
+          <div class="rule-edit-time">編輯時間: 25/06/26</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 頁面 3: 玩法/如何游玩 -->
+    <div class="swiper-slide">
+      <h2 class="fadeIn">如何游玩</h2>
+      <div class="panel fadeIn">
+        <strong>Java版：</strong><br>
+        1. 打開 Minecraft Java版<br>
+        2. 點擊「多人遊戲」<br>
+        3. 點擊「新增伺服器」<br>
+        4. 伺服器名稱：滄淵啟示錄<br>
+        5. 伺服器位址：winter.mcproxy.net<br>
+        6. 點擊「完成」並加入<br><br>
+        
+        <strong>基岩版：</strong><br>
+        1. 打開 Minecraft 基岩版<br>
+        2. 點擊「伺服器」<br>
+        3. 滑到最下方點「新增伺服器」<br>
+        4. 輸入名稱：滄淵啟示錄<br>
+        5. 伺服器位址：mcabyss.xyz<br>
+        6. 連接埠：10138<br>
+        7. 點擊「儲存」並加入
+      </div>
+    </div>
+
+    <!-- 頁面 4: 聯繫/團隊 -->
+    <div class="swiper-slide">
+      <h2 class="fadeIn">联系我们</h2>
+      <div class="panel fadeIn">
+        <strong>官方 Discord</strong><br><br>
+        <button class="discord-btn" id="discordBtn">
+          ▶ 點擊加入 Discord
+        </button>
+        <div style="margin-top:15px;font-size:9px;opacity:0.8;">
+          https://discord.com/invite/zTsusUXcNS
+        </div>
+      </div>
+      
+      <h2 style="margin-top:20px;">团队成员</h2>
       <div class="team-wrapper">
         <div class="team-panel">
           <div class="team-title">魔法師</div>
@@ -405,60 +745,12 @@ body{
       </div>
     </div>
 
-    <!-- 规则 -->
-    <div class="swiper-slide">
-      <h2>服务器规则</h2>
-      <div class="panel">
-        1. 禁止使用外掛、作弊模組<br><br>
-        2. 禁止惡意破壞他人建築<br><br>
-        3. 尊重每一位玩家<br><br>
-        4. 禁止洗頻、騷擾言論<br><br>
-        5. 遵守管理員指示
-      </div>
-    </div>
-
-    <!-- 如何游玩 -->
-    <div class="swiper-slide">
-      <h2>如何游玩</h2>
-      <div class="panel">
-        <strong>Java版：</strong><br>
-        1. 打開 Minecraft Java版<br>
-        2. 點擊「多人遊戲」<br>
-        3. 點擊「新增伺服器」<br>
-        4. 伺服器名稱：滄淵<br>
-        5. 伺服器位址：mcabyss.xyz<br>
-        6. 點擊「完成」並加入<br><br>
-        
-        <strong>基岩版：</strong><br>
-        1. 打開 Minecraft 基岩版<br>
-        2. 點擊「伺服器」<br>
-        3. 滑到最下方點「新增伺服器」<br>
-        4. 輸入名稱：滄淵<br>
-        5. 伺服器位址：mcabyss.xyz<br>
-        6. 連接埠：10138<br>
-        7. 點擊「儲存」並加入
-      </div>
-    </div>
-
-    <!-- 联系 -->
-    <div class="swiper-slide">
-      <h2>联系我们</h2>
-      <div class="panel">
-        <strong>QQ群</strong><br>
-        123456789<br><br>
-        <strong>Discord</strong><br>
-        https://discord.com/invite/zTsusUXcNS<br><br>
-        <strong>管理員郵箱</strong><br>
-        admin@mcabyss.xyz
-      </div>
-    </div>
-
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-// ===== 初始化所有 Swiper =====
+// ===== 初始化 Swiper =====
 const mainSwiper = new Swiper('.main-swiper', {
   direction: 'horizontal',
   speed: 600
@@ -479,7 +771,7 @@ const gallerySwiper = new Swiper('.gallery-swiper', {
   speed: 500
 });
 
-// ===== 選單與膠囊指示器 =====
+// ===== 選單與膠囊 =====
 const buttons = document.querySelectorAll(".menu button");
 const indicator = document.getElementById("indicator");
 
@@ -493,12 +785,10 @@ function moveIndicatorToButton(btn) {
   btn.classList.add("active");
 }
 
-// 初始化選單位置
 window.addEventListener('load', () => {
   moveIndicatorToButton(buttons[0]);
 });
 
-// 點擊選單切換頁面
 buttons.forEach(btn => {
   btn.addEventListener("click", () => {
     const index = parseInt(btn.dataset.index);
@@ -507,11 +797,17 @@ buttons.forEach(btn => {
   });
 });
 
-// 滑動同步選單
 mainSwiper.on("slideChange", () => {
   const btn = Array.from(buttons).find(b => parseInt(b.dataset.index) === mainSwiper.activeIndex);
   if (btn) moveIndicatorToButton(btn);
 });
+
+// ===== 規則面板展開/收合 =====
+function toggleRule(element) {
+  element.classList.toggle('collapsed');
+  const content = element.nextElementSibling;
+  content.classList.toggle('collapsed');
+}
 
 // ===== 團隊面板展開/收合 =====
 document.querySelectorAll('.team-title').forEach(title => {
@@ -520,12 +816,11 @@ document.querySelectorAll('.team-title').forEach(title => {
   });
 });
 
-// ===== 修正版的伺服器狀態查詢 =====
+// ===== 伺服器狀態查詢 =====
 const statusBox = document.getElementById("serverStatusBox");
 
 async function fetchServerStatus() {
   try {
-    // 使用多個 API 備援
     const apis = [
       `https://api.mcsrvstat.us/2/mcabyss.xyz`,
       `https://mcapi.us/server/status?ip=mcabyss.xyz&port=25565`
@@ -536,7 +831,6 @@ async function fetchServerStatus() {
     let playersOnline = 0;
     let playersMax = 0;
     
-    // 依序嘗試每個 API
     for (const api of apis) {
       try {
         const response = await fetch(api);
@@ -576,14 +870,13 @@ async function fetchServerStatus() {
     }
     
     if (data && data.online) {
-      // 伺服器在線
       statusBox.innerHTML = `
         <h3 class="status-online">✅ 伺服器在線 (互通服)</h3>
         <div style="font-size:24px; margin:10px 0; color:#ffd700;">${data.players}/${data.max}</div>
         <div>目前玩家數量</div>
         <div style="margin-top:15px; background:rgba(255,255,255,0.1); padding:10px; border-radius:10px;">
           <div>版本: ${data.version}</div>
-          <div style="margin-top:5px; font-size:9px; color:#aaa;">資料來源: ${apiUsed}</div>
+          <div style="margin-top:5px; font-size:9px; color:#aaa;">來源: ${apiUsed}</div>
           <div style="margin-top:8px; font-size:10px; color:#aaffaa;">
             🎮 Java版: winter.mcproxy.net<br>
             📱 基岩版: mcabyss.xyz:10138
@@ -592,7 +885,6 @@ async function fetchServerStatus() {
         <div style="margin-top:10px;font-size:8px;opacity:0.7;">最後更新: ${new Date().toLocaleTimeString('zh-TW')}</div>
       `;
     } else {
-      // 伺服器可能離線
       statusBox.innerHTML = `
         <h3 class="status-warning">⚠️ 伺服器狀態查詢中</h3>
         <div>請嘗試直接連接：</div>
@@ -617,11 +909,17 @@ async function fetchServerStatus() {
   }
 }
 
-// 立即執行第一次查詢
 fetchServerStatus();
 setInterval(fetchServerStatus, 30000);
 
-// ===== 图片载入检测 =====
+// ===== Discord 按鈕 =====
+document.getElementById("discordBtn")?.addEventListener("click", () => {
+  if(confirm("即将前往 滄淵啟示錄 Discord 官方社群，是否继续？")){
+    window.open("https://discord.com/invite/zTsusUXcNS", "_blank");
+  }
+});
+
+// ===== 圖片載入檢測 =====
 window.addEventListener('load', () => {
   const images = document.querySelectorAll('.gallery-swiper img');
   const debugDiv = document.getElementById('imageDebug');
