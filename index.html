@@ -367,6 +367,8 @@ body{
   font-family: 'Press Start 2P', cursive;
   border:2px solid rgba(255,255,255,0.3);
   box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* ===== Swiper 分頁 ===== */
@@ -561,25 +563,25 @@ body{
         <h3 class="status-loading">⏳ 載入伺服器狀態中...</h3>
       </div>
       
-      <!-- 畫廊 -->
+      <!-- 畫廊 - 使用 pj1.jpg - pj4.jpg -->
       <div class="gallery-container">
         <div class="swiper gallery-swiper">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <img src="圖片1.jpg" alt="主城" 
-                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🏰 主城</div>';">
+              <img src="/pj1.jpg" alt="主城" 
+                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🏰 主城<br><span style=\'font-size:8px;\'>pj1.jpg</span></div>';">
             </div>
             <div class="swiper-slide">
-              <img src="圖片2.jpg" alt="道具" 
-                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚔️ 道具</div>';">
+              <img src="/pj2.jpg" alt="道具" 
+                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚔️ 道具<br><span style=\'font-size:8px;\'>pj2.jpg</span></div>';">
             </div>
             <div class="swiper-slide">
-              <img src="圖片3.jpg" alt="傢俱" 
-                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🪑 傢俱</div>';">
+              <img src="/pj3.jpg" alt="傢俱" 
+                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>🪑 傢俱<br><span style=\'font-size:8px;\'>pj3.jpg</span></div>';">
             </div>
             <div class="swiper-slide">
-              <img src="圖片4.jpg" alt="副本" 
-                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚡ 副本</div>';">
+              <img src="/pj4.jpg" alt="副本" 
+                onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'placeholder-img\'>⚡ 副本<br><span style=\'font-size:8px;\'>pj4.jpg</span></div>';">
             </div>
           </div>
           <div class="swiper-pagination"></div>
@@ -588,8 +590,8 @@ body{
         </div>
       </div>
       
-      <!-- 圖片除錯 -->
-      <div id="imageDebug" style="font-size:8px; margin-top:5px; color:#ffffaa; background:rgba(0,0,0,0.3); padding:5px; border-radius:5px; display:none;"></div>
+      <!-- 圖片除錯面板 -->
+      <div id="imageDebug" style="margin-top:15px; padding:15px; background:rgba(0,0,0,0.8); border-radius:10px; color:#ff0; font-size:10px; text-align:left; max-width:400px; display:none; border:2px solid #fff;"></div>
     </div>
 
     <!-- 頁面 1: 資訊 + 團隊成員 -->
@@ -1009,21 +1011,26 @@ window.addEventListener('load', () => {
   const images = document.querySelectorAll('.gallery-swiper img');
   const debugDiv = document.getElementById('imageDebug');
   let hasError = false;
+  let debugHtml = '<div style="color:#fff; margin-bottom:10px;">🔍 圖片載入狀態</div>';
   
   images.forEach((img, index) => {
     const imgName = ['主城', '道具', '傢俱', '副本'][index];
+    const imgSrc = img.src;
+    const fileName = imgSrc.split('/').pop();
+    
     if (!img.complete || img.naturalHeight === 0) {
-      console.log(`❌ ${imgName} 图片加载失败:`, img.src);
+      console.log(`❌ ${imgName} 載入失敗:`, imgSrc);
       hasError = true;
-      debugDiv.style.display = 'block';
-      debugDiv.innerHTML += `图片 ${index+1} (${imgName}) 加载失败<br>`;
+      debugHtml += `<div style="margin-bottom:5px; color:#f00;">❌ ${imgName} - ${fileName}</div>`;
     } else {
-      console.log(`✅ ${imgName} 图片加载成功`);
+      console.log(`✅ ${imgName} 載入成功`);
+      debugHtml += `<div style="margin-bottom:5px; color:#0f0;">✅ ${imgName} - ${fileName}</div>`;
     }
   });
   
-  if (!hasError) {
-    debugDiv.style.display = 'none';
+  if (hasError) {
+    debugDiv.style.display = 'block';
+    debugDiv.innerHTML = debugHtml;
   }
 });
 </script>
