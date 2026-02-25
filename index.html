@@ -16,13 +16,6 @@ body{
   overflow-x:hidden;
 }
 
-/* ===== Minecraft 風格像素漸變 ===== */
-.pixel-gradient {
-  background: linear-gradient(145deg, #4a9eff, #3a7bd5);
-  box-shadow: 0 4px 0 #1d4a8b;
-  border: 2px solid #8ccbff;
-}
-
 /* ===== 選單 ===== */
 .menu{
   position: fixed;
@@ -329,27 +322,30 @@ body{
 
 .gallery-swiper {
   width: 100%;
-  height: 200px;
+  height: 250px;  /* 調高高度 */
   border-radius: 15px;
 }
 
 .gallery-swiper .swiper-slide {
   width: 100%;
-  height: 200px;
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255,255,255,0.1);
+  background: rgba(0,0,0,0.3);  /* 深色背景 */
   border-radius: 15px;
 }
 
 .gallery-swiper .swiper-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;  /* 改為 contain，顯示完整圖片 */
   border-radius: 15px;
   box-shadow: 0 4px 0 rgba(0,0,0,0.2);
   border:2px solid rgba(255,255,255,0.3);
+  background: rgba(0,0,0,0.2);  /* 圖片背景 */
 }
 
 /* ===== 占位圖片 ===== */
@@ -362,7 +358,7 @@ body{
   font-size: 16px;
   text-shadow: 2px 2px 0 #00000080;
   width: 100%;
-  height: 200px;
+  height: 250px;
   border-radius: 15px;
   font-family: 'Press Start 2P', cursive;
   border:2px solid rgba(255,255,255,0.3);
@@ -371,20 +367,58 @@ body{
   gap: 10px;
 }
 
-/* ===== Swiper 分頁 ===== */
-.swiper-pagination-bullet {
-  background: rgba(255,255,255,0.8);
-  border:2px solid rgba(255,255,255,0.3);
+/* ===== Minecraft 風格導航箭頭 ===== */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(145deg, #7cb9ff, #3a7bd5);
+  border-radius: 15px;
+  border: 3px solid #8ccbff;
+  box-shadow: 0 6px 0 #1d4a8b;
+  transition: 0.1s;
 }
-.swiper-button-next, .swiper-button-prev {
-  color: #fff;
-  transform: scale(0.7);
-  background: rgba(255,255,255,0.2);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  border:2px solid rgba(255,255,255,0.3);
-  text-shadow: 2px 2px 0 #00000080;
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 #1d4a8b;
+}
+
+.swiper-button-next:active,
+.swiper-button-prev:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #1d4a8b;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 0 #1d4a8b;
+}
+
+.swiper-button-next::after {
+  content: '▶';
+}
+
+.swiper-button-prev::after {
+  content: '◀';
+}
+
+/* ===== 分頁指示器 ===== */
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: rgba(255,255,255,0.5);
+  border: 2px solid rgba(255,255,255,0.8);
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: #ffffff;
+  transform: scale(1.2);
 }
 
 /* ===== Minecraft 風格按鈕 ===== */
@@ -445,6 +479,40 @@ body{
   text-shadow: 1px 1px 0 #00000080;
 }
 
+/* ===== 聯繫卡片 ===== */
+.contact-card {
+  background: rgba(255,255,255,0.2);
+  padding: 20px;
+  border-radius: 20px;
+  margin: 10px 0;
+  width: 90%;
+  max-width: 400px;
+  box-shadow:0 4px 0 rgba(0,0,0,0.2);
+  backdrop-filter:blur(5px);
+  border:2px solid rgba(255,255,255,0.3);
+}
+
+.contact-item {
+  background: rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border-left: 4px solid #ffffff;
+  text-align: left;
+}
+
+.contact-item .label {
+  font-size: 10px;
+  color: #aaddff;
+  margin-bottom: 5px;
+}
+
+.contact-item .value {
+  font-size: 14px;
+  color: #ffffff;
+  word-break: break-all;
+}
+
 /* ===== 滾動條 ===== */
 ::-webkit-scrollbar{
   width:8px;
@@ -494,17 +562,19 @@ body{
     padding: 0 10px;
   }
   .gallery-swiper {
-    height: 180px;
+    height: 200px;
   }
   .gallery-swiper .swiper-slide {
-    height: 180px;
+    height: 200px;
   }
   .placeholder-img {
-    height: 180px;
+    height: 200px;
     font-size: 14px;
   }
-  .swiper-button-next, .swiper-button-prev {
-    display: none;
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 40px;
+    height: 40px;
   }
   .rule-item code {
     font-size: 8px;
@@ -517,16 +587,16 @@ body{
 /* ===== 電腦版優化 ===== */
 @media(min-width:1024px){
   .gallery-container {
-    max-width: 400px;
+    max-width: 500px;
   }
   .gallery-swiper {
-    height: 220px;
+    height: 280px;
   }
   .gallery-swiper .swiper-slide {
-    height: 220px;
+    height: 280px;
   }
   .placeholder-img {
-    height: 220px;
+    height: 280px;
   }
 }
 
@@ -810,24 +880,34 @@ body{
       </div>
     </div>
 
-    <!-- 頁面 4: 聯繫 -->
+    <!-- 頁面 4: 聯繫 (完整版) -->
     <div class="swiper-slide">
       <h2 class="fadeIn">联系我们</h2>
-      <div class="panel fadeIn" style="width:90%; max-width:400px;">
-        <h3 style="margin-bottom:20px;">📱 官方社群</h3>
-        
-        <button class="minecraft-btn" id="discordBtn" style="width:100%; margin-bottom:15px;">
-          ▶ 加入 Discord
-        </button>
-        
-        <div style="background:rgba(255,255,255,0.15); padding:15px; border-radius:10px; margin-top:20px;">
-          <p style="font-size:10px; margin:5px 0;">📧 管理員郵箱</p>
-          <p style="font-size:12px; margin:5px 0;">admin@mcabyss.xyz</p>
+      
+      <div class="contact-card">
+        <div class="contact-item">
+          <div class="label">🎮 Discord 官方社群</div>
+          <div class="value">
+            <button class="minecraft-btn" id="discordBtn" style="width:100%; margin:0;">
+              ▶ 加入 Discord
+            </button>
+          </div>
         </div>
         
-        <div style="background:rgba(255,255,255,0.15); padding:15px; border-radius:10px; margin-top:15px;">
-          <p style="font-size:10px; margin:5px 0;">💬 官方QQ群</p>
-          <p style="font-size:12px; margin:5px 0;">123456789</p>
+        <div class="contact-item">
+          <div class="label">📧 管理員郵箱</div>
+          <div class="value">admin@mcabyss.xyz</div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="label">💬 官方QQ群</div>
+          <div class="value">123456789</div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="label">🌐 伺服器IP</div>
+          <div class="value">Java: winter.mcproxy.net</div>
+          <div class="value" style="font-size:12px; margin-top:5px;">基岩: mcabyss.xyz:10138</div>
         </div>
       </div>
     </div>
