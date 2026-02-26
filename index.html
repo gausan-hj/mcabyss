@@ -3,34 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>滄淵啟示錄</title>
+<title>滄淵啟示錄 - Brewery釀酒教學</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <style>
-/* ===== 全局樣式 - 修正中文字體 ===== */
+/* ===== 全局樣式 ===== */
 body {
   margin: 0;
-  /* 字體順序：像素英文字體 → 等寬中文字體 → 備用字體 */
   font-family: 'Press Start 2P', 'Courier New', '微軟正黑體', 'Microsoft JhengHei', 'KaiTi', 'SimHei', monospace;
   background: linear-gradient(145deg, #a8e6ff 0%, #7fc9ff 40%, #5ab5ff 100%);
   color: #1a3a5a;
   overflow-x: hidden;
   min-height: 100vh;
-  /* 讓文字更銳利，接近像素感 */
   -webkit-font-smoothing: none;
   font-smooth: never;
   text-rendering: geometricPrecision;
   line-height: 1.6;
 }
 
-/* ===== 所有元素繼承字體 ===== */
 * {
   font-family: inherit;
 }
 
-/* ===== 選單 (變小) ===== */
+/* ===== 選單 ===== */
 .menu {
   position: fixed;
   top: 10px;
@@ -106,7 +103,6 @@ h2 {
   letter-spacing: 2px;
   word-break: break-word;
   text-align: center;
-  font-family: inherit;
 }
 
 /* ===== 首頁標語 ===== */
@@ -121,8 +117,6 @@ h2 {
   animation: bounce 2s infinite;
   text-align: center;
   line-height: 1.4;
-  word-break: break-word;
-  font-family: inherit;
 }
 
 @keyframes bounce {
@@ -144,7 +138,6 @@ h2 {
   font-size: 12px;
   line-height: 1.8;
   text-align: center;
-  font-family: inherit;
 }
 
 .server-status .status-online { 
@@ -163,7 +156,7 @@ h2 {
   font-weight: bold;
 }
 
-/* ===== 畫廊容器 ===== */
+/* ===== 畫廊 ===== */
 .gallery-wrapper {
   width: 90%;
   max-width: 500px;
@@ -196,7 +189,6 @@ h2 {
   border-radius: 15px;
 }
 
-/* ===== 照片標籤 ===== */
 .photo-tag {
   text-align: center;
   margin: 12px auto;
@@ -213,7 +205,6 @@ h2 {
   min-width: 140px;
   letter-spacing: 1px;
   animation: glow 1.5s infinite alternate;
-  font-family: inherit;
 }
 
 @keyframes glow {
@@ -221,7 +212,6 @@ h2 {
   to { box-shadow: 0 5px 0 #5ab5ff, 0 0 10px white; }
 }
 
-/* ===== 導航容器 ===== */
 .gallery-nav {
   display: flex;
   justify-content: center;
@@ -230,7 +220,6 @@ h2 {
   margin-top: 10px;
 }
 
-/* ===== 導航按鈕 ===== */
 .gallery-prev,
 .gallery-next {
   position: relative;
@@ -264,13 +253,6 @@ h2 {
 .gallery-next:active {
   transform: translateY(4px);
   box-shadow: none;
-}
-
-/* ===== 分頁點 ===== */
-.gallery-pagination {
-  position: relative;
-  bottom: auto;
-  width: auto;
 }
 
 .gallery-pagination .swiper-pagination-bullet {
@@ -313,7 +295,6 @@ h2 {
   color: #1a3a5a;
   font-weight: bold;
   border-bottom: 2px solid rgba(255,255,255,0.5);
-  font-family: inherit;
 }
 
 .rule-title::after {
@@ -350,7 +331,6 @@ h2 {
   font-size: 13px;
   color: #1a3a5a;
   margin-bottom: 10px;
-  font-family: inherit;
 }
 
 .rule-item code {
@@ -378,14 +358,12 @@ h2 {
   font-size: 12px;
   color: #1a3a5a;
   font-weight: bold;
-  font-family: inherit;
 }
 
 .rule-edit-time {
   font-size: 9px;
   color: #3a5a7a;
   margin-top: 5px;
-  font-family: inherit;
 }
 
 /* ===== 資訊卡片 ===== */
@@ -405,7 +383,6 @@ h2 {
   border-radius: 15px;
   border: 3px solid white;
   box-shadow: 0 6px 0 #3a7bd5;
-  font-family: inherit;
 }
 
 .info-card h3 {
@@ -413,14 +390,12 @@ h2 {
   color: #1a3a5a;
   margin-bottom: 12px;
   font-weight: bold;
-  font-family: inherit;
 }
 
 .info-card p {
   font-size: 11px;
   line-height: 1.6;
   color: #1a3a5a;
-  font-family: inherit;
 }
 
 /* ===== 團隊面板 ===== */
@@ -454,7 +429,6 @@ h2 {
   font-size: 12px;
   color: #1a3a5a;
   font-weight: bold;
-  font-family: inherit;
 }
 
 .team-members {
@@ -481,7 +455,6 @@ h2 {
   font-size: 9px;
   color: #1a3a5a;
   border: 2px solid #3a7bd5;
-  font-family: inherit;
 }
 
 /* ===== 玩法面板 ===== */
@@ -501,7 +474,6 @@ h2 {
   line-height: 2;
   color: #1a3a5a;
   margin: 15px 0;
-  font-family: inherit;
 }
 
 .features-grid div {
@@ -510,7 +482,72 @@ h2 {
   border-radius: 12px;
   text-align: center;
   border: 2px solid white;
-  font-family: inherit;
+}
+
+/* ===== 浮空動畫 ===== */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+    filter: drop-shadow(0 15px 10px rgba(58, 123, 213, 0.3));
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* 视频容器 */
+.video-container {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: 90%;
+  max-width: 700px;
+  margin: 25px auto;
+  animation: float 3s ease-in-out infinite;
+}
+
+.video-container:hover {
+  animation: none;
+  transform: scale(1.02);
+  filter: brightness(1.05);
+}
+
+/* 视频控制栏美化 */
+video::-webkit-media-controls {
+  background-color: rgba(58, 123, 213, 0.3);
+  backdrop-filter: blur(5px);
+  border-radius: 0 0 16px 16px;
+}
+
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-volume-slider {
+  filter: drop-shadow(2px 2px 2px #3a7bd5);
+}
+
+/* 配方备注 */
+.recipe-note {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 40px;
+  padding: 15px 25px;
+  margin-top: 20px;
+  border: 3px solid white;
+  box-shadow: 0 5px 0 #3a7bd5;
+  text-align: center;
+  animation: glow 1.5s infinite alternate;
+}
+
+.recipe-command {
+  background: rgba(58, 123, 213, 0.3);
+  padding: 12px;
+  border-radius: 30px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  border: 2px dashed white;
+  color: #1a3a5a;
+  margin: 12px 0;
 }
 
 /* ===== 聯繫卡片 ===== */
@@ -523,7 +560,6 @@ h2 {
   box-shadow: 0 8px 0 #3a7bd5;
   width: 90%;
   max-width: 500px;
-  font-family: inherit;
 }
 
 .contact-item {
@@ -539,7 +575,6 @@ h2 {
   color: #3a5a7a;
   margin-bottom: 5px;
   font-weight: bold;
-  font-family: inherit;
 }
 
 .contact-item .value {
@@ -547,7 +582,6 @@ h2 {
   word-break: break-all;
   color: #1a3a5a;
   font-weight: bold;
-  font-family: inherit;
 }
 
 .minecraft-btn {
@@ -591,6 +625,7 @@ h2 {
     font-size: 10px;
   }
   .info-grid { grid-template-columns: 1fr; }
+  .recipe-command { font-size: 9px; }
   body { line-height: 1.4; }
 }
 </style>
@@ -620,7 +655,7 @@ h2 {
         <div class="status-loading">⏳ 載入伺服器狀態...</div>
       </div>
 
-      <!-- 畫廊 + 標籤 + 導航 -->
+      <!-- 畫廊 -->
       <div class="gallery-wrapper">
         <div class="gallery-container">
           <div class="swiper gallery-swiper">
@@ -633,10 +668,8 @@ h2 {
           </div>
         </div>
         
-        <!-- 照片標籤 -->
         <div class="photo-tag" id="photoTag">🏰 主城</div>
         
-        <!-- 畫廊導航 -->
         <div class="gallery-nav">
           <div class="gallery-prev swiper-button-prev"></div>
           <div class="gallery-pagination swiper-pagination"></div>
@@ -650,7 +683,6 @@ h2 {
       <h2>❅ 伺服規則 ❅</h2>
       
       <div class="rules-container">
-        <!-- 1. 發言 -->
         <div class="rule-section">
           <div class="rule-title" onclick="toggleRule(this)">__1. 發言__</div>
           <div class="rule-content">
@@ -673,7 +705,6 @@ h2 {
           </div>
         </div>
 
-        <!-- 2. 遊戲 -->
         <div class="rule-section">
           <div class="rule-title" onclick="toggleRule(this)">__2. 遊戲__</div>
           <div class="rule-content">
@@ -692,7 +723,6 @@ h2 {
           </div>
         </div>
 
-        <!-- 3. 交易 -->
         <div class="rule-section">
           <div class="rule-title" onclick="toggleRule(this)">__3. 交易__</div>
           <div class="rule-content">
@@ -703,7 +733,6 @@ h2 {
           </div>
         </div>
 
-        <!-- 4. 領地 -->
         <div class="rule-section">
           <div class="rule-title" onclick="toggleRule(this)">__4. 領地__</div>
           <div class="rule-content">
@@ -722,7 +751,6 @@ h2 {
           </div>
         </div>
 
-        <!-- 5. 鑽漏洞 -->
         <div class="rule-section">
           <div class="rule-title" onclick="toggleRule(this)">__5. 鑽漏洞__</div>
           <div class="rule-content">
@@ -733,7 +761,6 @@ h2 {
           </div>
         </div>
 
-        <!-- 6. 權限 -->
         <div class="rule-section">
           <div class="rule-title" onclick="toggleRule(this)">__6. 權限__</div>
           <div class="rule-content">
@@ -752,7 +779,6 @@ h2 {
           </div>
         </div>
 
-        <!-- 7. 副本規則 -->
         <div class="rule-section">
           <div class="rule-title" onclick="toggleRule(this)">__7. 副本規則__</div>
           <div class="rule-content">
@@ -822,7 +848,7 @@ h2 {
       </div>
     </div>
 
-    <!-- 頁面 3: 玩法 -->
+    <!-- 頁面 3: 玩法 - Brewery教学 -->
     <div class="swiper-slide">
       <h2>🎮 核心玩法</h2>
       
@@ -830,30 +856,46 @@ h2 {
         <div>🏠 RES 领地系统</div>
         <div>⚔ RPG 职业成长</div>
         <div>💰 经济交易体系</div>
-        <div>🐉 BOSS 挑战副本</div>
+        <div>🍺 酿酒工艺 (Brewery)</div>
         <div>🎁 每日任务活动</div>
         <div>🌌 世界观剧情</div>
         <div>🔧 专业生活技能</div>
         <div>🏆 排名奖励系统</div>
       </div>
 
-      <h2 style="margin-top: 25px;">📝 如何游玩</h2>
-      <div class="info-card" style="width: 90%; max-width: 700px; text-align: left;">
-        <p><strong>🎮 Java版：</strong><br>
-        1. 打開 Minecraft Java版<br>
-        2. 點擊「多人遊戲」<br>
-        3. 點擊「新增伺服器」<br>
-        4. 名稱：滄淵啟示錄<br>
-        5. 位址：winter.mcproxy.net<br>
-        6. 點擊「完成」並加入</p>
+      <!-- Brewery教学视频 - 浮空动画 -->
+      <div class="video-container">
+        <h2 style="margin: 10px 0 15px;">🍺 Brewery 酿酒教学</h2>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; border: 4px solid white; box-shadow: 0 10px 0 #3a7bd5, 0 15px 25px rgba(0,0,0,0.2); background: #000;">
+          <!-- 本地视频文件 -->
+          <video 
+            src="brewery-tutorial.mp4"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px; object-fit: cover;"
+            controls
+            preload="metadata"
+            poster="video-poster.jpg"
+          >
+            您的浏览器不支持视频播放
+          </video>
+        </div>
         
-        <p><strong>📱 基岩版：</strong><br>
-        1. 打開 Minecraft 基岩版<br>
-        2. 點擊「伺服器」<br>
-        3. 點擊「新增伺服器」<br>
-        4. 位址：mcabyss.xyz<br>
-        5. 端口：10138<br>
-        6. 點擊「儲存」並加入</p>
+        <!-- 配方查询备注 -->
+        <div class="recipe-note">
+          <div style="font-size: 16px; margin-bottom: 8px;">📖 配方查询</div>
+          <div style="font-size: 14px; margin-bottom: 12px;">在游戏中输入以下指令：</div>
+          <div class="recipe-command">
+            /brew menu
+          </div>
+          <div style="margin-top: 10px; font-size: 10px; opacity: 0.8;">
+            查看所有酒类配方、材料和酿造方法
+          </div>
+        </div>
+      </div>
+
+      <!-- 连接信息 -->
+      <div class="info-card" style="width: 90%; max-width: 700px; text-align: left; margin-top: 10px; opacity: 0.8; font-size: 10px;">
+        <p><strong>🎮 Java版：</strong> winter.mcproxy.net (1.21.4)</p>
+        <p><strong>📱 基岩版：</strong> mcabyss.xyz:10138 (1.21.4)</p>
       </div>
     </div>
 
@@ -870,7 +912,6 @@ h2 {
             </button>
           </div>
         </div>
-      
       </div>
     </div>
 
