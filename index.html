@@ -494,43 +494,43 @@ h2 {
   border: 2px solid white;
 }
 
-/* ===== 浮空動畫 ===== */
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-    filter: drop-shadow(0 15px 10px rgba(58, 123, 213, 0.3));
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-/* 视频容器 */
+/* ===== 影片容器 - 移除藍色高光 ===== */
 .video-container {
   transition: all 0.3s ease;
   cursor: pointer;
-  animation: float 3s ease-in-out infinite;
 }
 
 .video-container:hover {
-  animation: none;
   transform: scale(1.02);
-  filter: brightness(1.05);
 }
 
-/* 视频控制栏美化 */
+/* 影片容器背景設為透明 */
+.video-container div[style*="overflow: hidden"] {
+  background: transparent !important;
+  border-radius: 20px;
+}
+
+/* 影片本身 */
+video {
+  background: transparent !important;
+  border-radius: 16px;
+}
+
+/* 移除 Google 藍色高光 */
+video:focus {
+  outline: none;
+}
+
+/* 影片控制項 - 移除藍色 */
 video::-webkit-media-controls {
-  background-color: rgba(58, 123, 213, 0.3);
+  background-color: rgba(0, 0, 0, 0.5) !important;
   backdrop-filter: blur(5px);
   border-radius: 0 0 16px 16px;
 }
 
 video::-webkit-media-controls-play-button,
 video::-webkit-media-controls-volume-slider {
-  filter: drop-shadow(2px 2px 2px #3a7bd5);
+  filter: none !important;
 }
 
 /* 配方备注 */
@@ -872,17 +872,19 @@ video::-webkit-media-controls-volume-slider {
       <!-- 双视频容器 - 左右并列 -->
       <div style="width: 90%; max-width: 900px; margin: 15px auto; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
         
-        <!-- RES教学视频 - 浮空动画 -->
+        <!-- RES教学视频 - 移除藍色高光 -->
         <div class="video-container" style="flex: 1; min-width: 280px;">
           <h2 style="margin: 10px 0 15px; font-size: 18px;">🏠 RES 领地教学</h2>
-          <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; border: 4px solid white; box-shadow: 0 10px 0 #3a7bd5, 0 15px 25px rgba(0,0,0,0.2); background: #000;">
-            <!-- RES视频文件 -->
+          <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; border: 4px solid white; box-shadow: 0 10px 0 #3a7bd5, 0 15px 25px rgba(0,0,0,0.2); background: transparent;">
+            <!-- RES视频文件 - 移除背景色 -->
             <video 
               src="res-tutorial.mp4"
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px; object-fit: cover;"
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px; object-fit: cover; background: transparent;"
               controls
               preload="metadata"
               poster="res-poster.jpg"
+              playsinline
+              webkit-playsinline
             >
               您的浏览器不支持视频播放
             </video>
@@ -899,17 +901,19 @@ video::-webkit-media-controls-volume-slider {
           </div>
         </div>
 
-        <!-- Brewery教学视频 - 浮空动画 (延迟一点) -->
-        <div class="video-container" style="flex: 1; min-width: 280px; animation-delay: 0.5s;">
+        <!-- Brewery教学视频 - 移除藍色高光 -->
+        <div class="video-container" style="flex: 1; min-width: 280px;">
           <h2 style="margin: 10px 0 15px; font-size: 18px;">🍺 Brewery 酿酒教学</h2>
-          <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; border: 4px solid white; box-shadow: 0 10px 0 #3a7bd5, 0 15px 25px rgba(0,0,0,0.2); background: #000;">
-            <!-- Brewery视频文件 -->
+          <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; border: 4px solid white; box-shadow: 0 10px 0 #3a7bd5, 0 15px 25px rgba(0,0,0,0.2); background: transparent;">
+            <!-- Brewery视频文件 - 移除背景色 -->
             <video 
               src="brewery-tutorial.mp4"
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px; object-fit: cover;"
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px; object-fit: cover; background: transparent;"
               controls
               preload="metadata"
               poster="brewery-poster.jpg"
+              playsinline
+              webkit-playsinline
             >
               您的浏览器不支持视频播放
             </video>
@@ -1076,7 +1080,19 @@ window.addEventListener('load', () => {
     }
   });
 });
+
+// ===== 影片點擊優化 =====
+document.querySelectorAll('video').forEach(video => {
+  video.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (this.paused) {
+      this.play();
+    } else {
+      this.pause();
+    }
+  });
+});
 </script>
 
 </body>
-</html>
+  </html>
