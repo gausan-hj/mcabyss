@@ -9,6 +9,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <style>
+video {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+video:focus {
+  outline: none !important;
+}
+
+video::-webkit-media-controls-panel {
+  background: rgba(0,0,0,0.6) !important;
+}
+
+video::-webkit-media-controls-overlay-play-button {
+  background-color: transparent !important;
+}
+  
+  * {
+  -webkit-tap-highlight-color: transparent;
+  }
 /* ===== 全局樣式 ===== */
 body {
   margin: 0;
